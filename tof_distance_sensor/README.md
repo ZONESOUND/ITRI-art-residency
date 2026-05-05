@@ -7,16 +7,23 @@ Serial 輸出 OSC 風格格式，可直接接入 Max/MSP。
 
 ## 韌體版本
 
-本模組包含三個韌體版本，依開發順序排列：
+### 目前使用版本
 
 | 目錄 | 板子 | 濾波 | 輸出格式 | 說明 |
 |------|------|------|----------|------|
-| `tof_noSmooth/` | ESP32 Dev Module | 無 | `x=N,Y=M` | 最早版本，原始距離直出 |
-| `tof_optimized/` | ESP32 Dev Module | Median + 自適應 EMA | `/tof fX fY rX rY` | 優化版，雙層濾波 |
-| `tof_c3_supermini/` | ESP32-C3 SuperMini | Median + 自適應 EMA + Deadband | `/tof fX fY rX rY` | 三層濾波，僅位置 |
-| **`tof_c3_supermini_vel/`** | **ESP32-C3 SuperMini** | **同上 + 速度 ramp** | **`/tof fX fY rX rY vX vY`** | **位置 + 速度版本** |
+| **`tof_c3_supermini_vel/`** | **ESP32-C3 SuperMini** | **三層濾波 + 速度（停下立刻歸零）** | **`/tof fX fY rX rY vX vY`** | **位置 + 速度版本** |
 
-> `tof_c3_supermini` 和 `tof_c3_supermini_vel` 的前四個值格式相同。
+### 封存版本（`archive/`）
+
+依開發順序：
+
+| 目錄 | 板子 | 濾波 | 輸出格式 | 說明 |
+|------|------|------|----------|------|
+| `archive/tof_noSmooth/` | ESP32 Dev Module | 無 | `x=N,Y=M` | 最早版本，原始距離直出 |
+| `archive/tof_optimized/` | ESP32 Dev Module | Median + 自適應 EMA | `/tof fX fY rX rY` | 優化版，雙層濾波 |
+| `archive/tof_c3_supermini/` | ESP32-C3 SuperMini | Median + 自適應 EMA + Deadband | `/tof fX fY rX rY` | 三層濾波，僅位置 |
+
+> `archive/tof_c3_supermini` 和 `tof_c3_supermini_vel` 的前四個值格式相同。
 > 舊的 Max patch（`[unpack i i i i]`）可以直接用 `_vel` 版本，只是忽略速度。
 > 要接收速度改用 `[unpack i i i i f f]`。
 
@@ -75,7 +82,7 @@ GPIO 26 ────────────────────────
 | USB CDC On Boot | **Enabled**（必須，否則 Serial Monitor 無輸出） |
 | Partition Scheme | Default 4MB with spiffs |
 
-**ESP32 Dev Module（`tof_optimized` / `tof_noSmooth`）：**
+**ESP32 Dev Module（`archive/tof_optimized` / `archive/tof_noSmooth`，封存版）：**
 
 | 設定項目 | 值 |
 |----------|-----|

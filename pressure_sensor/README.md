@@ -106,7 +106,7 @@ Baud rate：**115200**
 | Patch | 用途 | 推薦度 |
 |-------|------|--------|
 | `pressure_2hands_light.maxpat` | 輕量版，已標註 outlet（`hand1_f, hand2_f, hand1_raw, hand2_raw`） | ✅ **建議使用** |
-| `pressure_2hands.maxpat` | 完整版（含視覺化等額外邏輯） | 較複雜，依需求挑選 |
+| `archive/pressure_2hands.maxpat` | 較舊的完整版（已封存） | 參考用 |
 
 ### 接收鏈
 
