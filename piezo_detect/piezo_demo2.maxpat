@@ -4,13 +4,24 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
         "rect": [ 134.0, 92.0, 1061.0, 714.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-84",
+                    "maxclass": "button",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 697.0, 98.0, 24.0, 24.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-130",
@@ -565,7 +576,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -804,7 +815,7 @@
                                         "appversion": {
                                             "major": 9,
                                             "minor": 1,
-                                            "revision": 1,
+                                            "revision": 4,
                                             "architecture": "x64",
                                             "modernui": 1
                                         },
@@ -2898,7 +2909,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 697.0, 21.0, 63.0, 63.0 ]
+                    "patching_rect": [ 697.0, -11.0, 63.0, 63.0 ]
                 }
             },
             {
@@ -2908,7 +2919,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
-                    "patching_rect": [ 697.0, 99.0, 63.0, 22.0 ],
+                    "patching_rect": [ 697.0, 67.0, 63.0, 22.0 ],
                     "text": "metro 100"
                 }
             },
@@ -2939,7 +2950,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -3141,7 +3152,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -3303,7 +3314,7 @@
                     "fontname": "Verdana",
                     "fontsize": 9.0,
                     "id": "obj-23",
-                    "items": [ "select...", ",", "BLTH", ",", "Bluetooth-Incoming-Port", ",", "HookeVerse", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbmodem1432101", ",", "usbmodem1432401", ",", "usbmodem1432301", ",", "usbmodem143101" ],
+                    "items": [ "select...", ",", "BLTH", ",", "Bluetooth-Incoming-Port", ",", "HookeVerse", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbmodem1423101", ",", "usbmodem1423301", ",", "usbmodem1423401" ],
                     "labelclick": 1,
                     "maxclass": "umenu",
                     "numinlets": 1,
@@ -3420,15 +3431,7 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "obj-32", 0 ],
-                    "order": 0,
-                    "source": [ "obj-1", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-34", 0 ],
-                    "order": 1,
+                    "destination": [ "obj-84", 0 ],
                     "source": [ "obj-1", 0 ]
                 }
             },
@@ -4225,6 +4228,20 @@
                     "destination": [ "obj-86", 0 ],
                     "midpoints": [ 78.5, 1075.0, 188.5, 1075.0 ],
                     "source": [ "obj-83", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-32", 0 ],
+                    "order": 0,
+                    "source": [ "obj-84", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-34", 0 ],
+                    "order": 1,
+                    "source": [ "obj-84", 0 ]
                 }
             },
             {
