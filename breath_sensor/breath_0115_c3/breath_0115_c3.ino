@@ -81,9 +81,9 @@ const unsigned long LOOP_INTERVAL_MS = 50;
 // LED animation
 // =======================================================
 const float SMOOTH_FACTOR = 0.15f;   // 0~1，越小越平滑
-const float DOT_SPEED = 0.3f;        // out=1 時每 loop 移動 0.3 格
-const int TAIL_LENGTH = 3;           // 拖尾長度（含白點本身）
-const float TAIL_DECAY[] = {1.0f, 0.5f, 0.2f};
+const float DOT_SPEED = 1.0f;        // out=1 時每 loop 移動 1 格
+const int MAX_TAIL = 8;              // 最大拖尾長度
+const float TAIL_DECAY[] = {1.0f, 0.8f, 0.6f, 0.4f, 0.25f, 0.15f, 0.08f, 0.03f};
 
 float dotPosition = 0.0f;            // 白點位置 0.0~12.0
 float smoothTofR = 0.0f, smoothTofG = 50.0f, smoothTofB = 255.0f;
@@ -307,6 +307,7 @@ void loop() {
       dutyRaw = dutyRawFromPercent(dutyPercent);
     }
 
+
     setMistDuty(dutyRaw);
 
     // ===== TOF 測距 =====
@@ -345,19 +346,25 @@ void loop() {
     }
 
     // 旋轉白點：吹氣正轉、吸氣反轉、靜止消失
+    // 指數曲線：小力慢轉、大力爆轉 (out^2 / 10 保持方向)
     if (fabs(out) > 0.3f) {
-      dotPosition += out * DOT_SPEED;
+      float sign = (out > 0) ? 1.0f : -1.0f;
+      float mag = fabs(out);
+      float speed = sign * (mag * mag / 10.0f) * DOT_SPEED;
+      dotPosition += speed;
       // wrap 0~12
       dotPosition = fmod(dotPosition, (float)NUM_LEDS);
       if (dotPosition < 0) dotPosition += (float)NUM_LEDS;
 
-      // 畫白點 + 拖尾
-      for (int t = 0; t < TAIL_LENGTH; t++) {
+      // 畫白點 + 拖尾（吹越大力拖尾越長，最少2顆最多MAX_TAIL顆）
+      int tailLen = 2 + (int)(fabs(out) / 10.0f * (MAX_TAIL - 2));
+      tailLen = constrain(tailLen, 2, MAX_TAIL);
+      for (int t = 0; t < tailLen; t++) {
         int ledIdx;
         if (out > 0) {
-          ledIdx = ((int)dotPosition - t + NUM_LEDS) % NUM_LEDS; // 拖尾在後方
+          ledIdx = ((int)dotPosition - t + NUM_LEDS) % NUM_LEDS;
         } else {
-          ledIdx = ((int)dotPosition + t) % NUM_LEDS;            // 反轉時拖尾方向反過來
+          ledIdx = ((int)dotPosition + t) % NUM_LEDS;
         }
         float intensity = TAIL_DECAY[t] * smoothTofBri;
         uint8_t white = (uint8_t)constrain(intensity, 0.0f, 255.0f);
