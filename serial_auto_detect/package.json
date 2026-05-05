@@ -1,0 +1,13 @@
+{
+  "name": "serial-auto-detect",
+  "version": "1.0.0",
+  "description": "ESP32 多裝置 Serial Port WHO-handshake 自動辨識（給 Max [node.script] 用）",
+  "main": "auto_detect.js",
+  "private": true,
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "serialport": "^12.0.0"
+  }
+}
