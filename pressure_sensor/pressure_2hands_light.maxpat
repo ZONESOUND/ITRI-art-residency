@@ -4,13 +4,24 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
         "rect": [ 34.0, 93.0, 1276.0, 713.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-18",
+                    "linecount": 2,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 125.0, 295.0, 150.0, 33.0 ],
+                    "text": "hand1_f, hand2_f, hand1_raw, hand2_raw"
+                }
+            },
             {
                 "box": {
                     "id": "obj-1",
@@ -54,8 +65,8 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 120.5, 346.0, 82.0, 22.0 ],
-                    "text": "/status active"
+                    "patching_rect": [ 115.5, 346.0, 82.0, 22.0 ],
+                    "text": "/status idle"
                 }
             },
             {
@@ -409,13 +420,12 @@
             {
                 "box": {
                     "id": "obj-3",
-                    "linecount": 2,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 121.0, 210.0, 166.0, 35.0 ],
-                    "text": "\"/pressure 0.816 0.809 3251 2923\""
+                    "patching_rect": [ 121.0, 210.0, 170.0, 22.0 ],
+                    "text": "\"/pressure 0.000 0.000 265 18\""
                 }
             },
             {
@@ -445,7 +455,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -647,7 +657,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -809,7 +819,7 @@
                     "fontname": "Verdana",
                     "fontsize": 9.0,
                     "id": "obj-23",
-                    "items": [ "select...", ",", "BLTH", ",", "Bluetooth-Incoming-Port", ",", "HookeVerse", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbmodem14101", ",", "usbmodem14401", ",", "usbmodem143301" ],
+                    "items": [ "select...", ",", "BLTH", ",", "Bluetooth-Incoming-Port", ",", "HookeVerse", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbmodem1423101", ",", "usbmodem1423301", ",", "usbmodem1423401" ],
                     "labelclick": 1,
                     "maxclass": "umenu",
                     "numinlets": 1,
@@ -953,7 +963,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-3", 1 ],
-                    "midpoints": [ 41.0, 264.0, 297.0, 264.0, 297.0, 207.0, 277.5, 207.0 ],
+                    "midpoints": [ 41.0, 264.0, 297.0, 264.0, 297.0, 207.0, 281.5, 207.0 ],
                     "order": 0,
                     "source": [ "obj-12", 0 ]
                 }
