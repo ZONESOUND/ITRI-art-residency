@@ -4,8 +4,8 @@
  *
  * 相對於 tof_c3_supermini 的改動：
  *   1. 輸出增加 vX vY 兩個浮點數（mm/s，帶正負方向）
- *   2. 速度從 fX/fY（deadband 後穩定值）計算 → 靜止時速度為 0
- *   3. 速度做重度 EMA 平滑（VEL_SMOOTH = 0.06）→ 連續 ramp，不會跳動
+ *   2. 速度從 fX/fY（deadband 後穩定值）計算 → 位置沒變就直接歸零，沒有慣性尾巴
+ *   3. 移動中才用 EMA 平滑（VEL_SMOOTH = 0.06）→ 連續 ramp，不會跳動
  *   4. 新增 Serial 指令 'v' 可切換速度輸出開關
  *   5. 按鈕（GPIO0）按下 → 重新校正（不中斷 Serial）
  *   6. 狀態 LED（GPIO8）校正中閃爍，運行中常滅
@@ -432,19 +432,25 @@ void loop() {
     lastOutputMs = now;
 
     // ── 速度計算（使用 fX/fY = deadband 後穩定值）──
-    // 靜止時 fX 不變 → rawVel = 0 → smoothVel 漸漸歸零
-    // 移動時 fX 跳變 → rawVel 脈衝 → smoothVel 漸漸爬升
-    // VEL_SMOOTH 很低(0.06) → 形成連續 ramp，不會跳來跳去
+    // 位置沒變 → 直接 0（速度本來就該是這樣，沒有慣性）
+    // 位置有變 → 用 EMA 平滑出 ramp 感
     if (!velInited) {
       prevFX = lastValidX;
       prevFY = lastValidY;
       velInited = true;
     } else {
-      float rawVelX = (float)(lastValidX - prevFX) / DT;
-      float rawVelY = (float)(lastValidY - prevFY) / DT;
-
-      smoothVelX = VEL_SMOOTH * rawVelX + (1.0f - VEL_SMOOTH) * smoothVelX;
-      smoothVelY = VEL_SMOOTH * rawVelY + (1.0f - VEL_SMOOTH) * smoothVelY;
+      if (lastValidX == prevFX) {
+        smoothVelX = 0;
+      } else {
+        float rawVelX = (float)(lastValidX - prevFX) / DT;
+        smoothVelX = VEL_SMOOTH * rawVelX + (1.0f - VEL_SMOOTH) * smoothVelX;
+      }
+      if (lastValidY == prevFY) {
+        smoothVelY = 0;
+      } else {
+        float rawVelY = (float)(lastValidY - prevFY) / DT;
+        smoothVelY = VEL_SMOOTH * rawVelY + (1.0f - VEL_SMOOTH) * smoothVelY;
+      }
 
       prevFX = lastValidX;
       prevFY = lastValidY;
