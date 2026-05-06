@@ -1,0 +1,13 @@
+{
+  "name": "paired-motion",
+  "version": "1.0.0",
+  "description": "Paired Motion 演出 patch — 同動車三組感測器整合（auto-detect + bootstrap）",
+  "main": "bootstrap.js",
+  "private": true,
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "serialport": "^12.0.0"
+  }
+}
