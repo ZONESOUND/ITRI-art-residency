@@ -4,34 +4,34 @@
 	"creationdate" : 0,
 	"modificationdate" : 0,
 	"viewrect" : [ 60.0, 100.0, 320.0, 600.0 ],
-	"autoorganize" : 1,
+	"autoorganize" : 0,
 	"hideprojectwindow" : 0,
 	"showdependencies" : 1,
 	"autolocalize" : 0,
 	"contents" : 	{
 		"patchers" : 		{
-			"main.maxpat" : 			{
+			"patchers/main.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1,
 				"toplevel" : 1
 			}
 ,
-			"abstractions/sub_auto_detect.maxpat" : 			{
+			"patchers/sub_auto_detect.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
 ,
-			"abstractions/sub_tof.maxpat" : 			{
+			"patchers/sub_tof.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
 ,
-			"abstractions/sub_pressure.maxpat" : 			{
+			"patchers/sub_pressure.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
 ,
-			"abstractions/sub_piezo.maxpat" : 			{
+			"patchers/sub_piezo.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
@@ -39,11 +39,6 @@
 		}
 ,
 		"code" : 		{
-			"code/bootstrap.js" : 			{
-				"kind" : "javascript",
-				"local" : 1
-			}
-,
 			"code/auto_detect.js" : 			{
 				"kind" : "javascript",
 				"local" : 1

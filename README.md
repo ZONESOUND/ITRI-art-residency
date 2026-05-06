@@ -1,6 +1,6 @@
 # ITRI Art Residency — Interactive Sensing Modules
 
-工研院藝術進駐「**節奏繞纏**」（*Rhythmic Entanglements: Sonification Experiments on Biofeedback and Embodied Perception*）專案的程式碼倉庫。
+工研院藝術進駐「**節奏繞纏**」（*Rhythmic Entanglements: Sonification Experiments on Biofeedback and Embodied Perception*）專案的程式碼。
 
 核心裝置為 **同動車（Synchronous Movement Vehicle）**——整合 Pressure（壓力）／ ToF（距離）／ Piezo（壓電）三件感測器的雙手互動樂器。資料透過 USB Serial 進到 Max/MSP 即時聲音合成，並結合呼吸、脈搏、影像追蹤等其他模組做互動聲響展演。
 

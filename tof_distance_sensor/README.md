@@ -5,13 +5,28 @@ Serial 輸出 OSC 風格格式，可直接接入 Max/MSP。
 
 ---
 
+## 🔥 目前燒錄在 ESP32 的版本
+
+**`tof_c3_supermini_vel_norm/`**（位置 + 速度 mm/s + normalized 速度 -1.0~1.0）
+
+> 這是同動車 TOF 那顆 ESP32 上面**實際在跑的韌體**。
+> 拆開來複製副本改的時候，記得燒回這版才會跟 Max 端 `paired_motion/` 的 abstraction 設計相符。
+
+---
+
 ## 韌體版本
 
 ### 目前使用版本
 
 | 目錄 | 板子 | 濾波 | 輸出格式 | 說明 |
 |------|------|------|----------|------|
-| **`tof_c3_supermini_vel/`** | **ESP32-C3 SuperMini** | **三層濾波 + 速度（停下立刻歸零）** | **`/tof fX fY rX rY vX vY`** | **位置 + 速度版本** |
+| **`tof_c3_supermini_vel_norm/`** | **ESP32-C3 SuperMini** | **三層濾波 + 速度 EMA + 位置不變 snap-to-0 + post-normalize deadband** | **`/tof fX fY rX rY vX vY vXn vYn`**（8 個值）| **目前燒錄版本**：位置 + mm/s 速度 + normalized -1~1 速度 |
+
+### 前一版（仍可用，差別只是沒做 normalize）
+
+| 目錄 | 板子 | 濾波 | 輸出格式 | 說明 |
+|------|------|------|----------|------|
+| `tof_c3_supermini_vel/` | ESP32-C3 SuperMini | 三層濾波 + 速度 EMA + snap-to-0 | `/tof fX fY rX rY vX vY` | normalize 之前的版本，需要 Max 端自己除 500 |
 
 ### 封存版本（`archive/`）
 
@@ -23,9 +38,8 @@ Serial 輸出 OSC 風格格式，可直接接入 Max/MSP。
 | `archive/tof_optimized/` | ESP32 Dev Module | Median + 自適應 EMA | `/tof fX fY rX rY` | 優化版，雙層濾波 |
 | `archive/tof_c3_supermini/` | ESP32-C3 SuperMini | Median + 自適應 EMA + Deadband | `/tof fX fY rX rY` | 三層濾波，僅位置 |
 
-> `archive/tof_c3_supermini` 和 `tof_c3_supermini_vel` 的前四個值格式相同。
-> 舊的 Max patch（`[unpack i i i i]`）可以直接用 `_vel` 版本，只是忽略速度。
-> 要接收速度改用 `[unpack i i i i f f]`。
+> 各版本前 4 個值（fX fY rX rY）格式都相同，向下相容。
+> Max patch 端：4 值版用 `[unpack i i i i]`、6 值版用 `[unpack i i i i f f]`、8 值版（目前）用 `[unpack i i i i f f f f]`。
 
 ---
 
@@ -154,42 +168,57 @@ Baud rate: **115200**
 
 | 訊息 | 說明 |
 |------|------|
-| `/tof <fX> <fY> <rX> <rY>` | 正常量測—僅位置（50Hz） |
-| `/tof <fX> <fY> <rX> <rY> <vX> <vY>` | 正常量測—位置 + 速度（`_vel` 版，50Hz） |
+| `/tof <fX> <fY> <rX> <rY>` | 4 值版（archive 舊版），僅位置 |
+| `/tof <fX> <fY> <rX> <rY> <vX> <vY>` | 6 值版（`_vel`，前一版），位置 + mm/s 速度 |
+| **`/tof <fX> <fY> <rX> <rY> <vX> <vY> <vXn> <vYn>`** | **8 值版（`_vel_norm`，目前燒錄版）**，位置 + mm/s 速度 + normalized -1~1 |
 | `/status calibrating <seconds_remaining>` | 校正倒數中 |
 | `/cal_done <offsetX> <offsetY> <samplesX> <samplesY>` | 校正完成 |
 | `/status running` | 開始正常運行 |
-| `/status velocity_on` / `velocity_off` | 速度輸出開關切換（`_vel` 版） |
-| `/status button_recalibrate` | 按鈕觸發重新校正（`_vel` 版） |
-| `/status recalibrating` | 重新進入校正流程（`_vel` 版） |
+| `/status velocity_on` / `velocity_off` | 速度輸出開關切換（`_vel` 起的版本） |
+| `/status button_recalibrate` | 按鈕觸發重新校正（`_vel` 起的版本） |
+| `/status recalibrating` | 重新進入校正流程（`_vel` 起的版本） |
 | `/status filters_reset` | 濾波器已重置 |
 | `/error <message>` | 錯誤訊息 |
 
-### `/tof` 數值說明
+### `/tof` 數值說明（目前燒錄的 8 值版）
 
 ```
-/tof <fX> <fY> <rX> <rY> <vX> <vY>
-      ↑         ↑         ↑
-      濾波後     僅歸零     速度（_vel 版才有）
+/tof <fX> <fY> <rX> <rY> <vX> <vY> <vXn> <vYn>
+      ↑         ↑         ↑          ↑
+      濾波後     僅歸零     速度        normalized 速度
+                          (mm/s)      (-1.0 ~ +1.0)
 ```
 
-| | filtered (fX, fY) | raw (rX, rY) | velocity (vX, vY) |
-|---|---|---|---|
-| 型態 | int (mm) | int (mm) | float (mm/s) |
-| 歸零 | 有 | 有 | — |
-| Median + EMA + Deadband | 有 | 無 | — |
-| 速度 ramp 平滑 | — | — | 有 |
-| 用途 | **控制用** | **除錯用** | **動態控制用** |
+| | filtered (fX, fY) | raw (rX, rY) | velocity (vX, vY) | normalized vel (vXn, vYn) |
+|---|---|---|---|---|
+| 型態 | int (mm) | int (mm) | float (mm/s) | float (-1.0 ~ +1.0) |
+| 歸零（offset） | 有 | 有 | — | — |
+| 三層濾波 | 有 | 無 | — | — |
+| 速度 EMA 平滑 | — | — | 有 | 同 vX/vY |
+| Post-normalize deadband | — | — | — | 有（< 0.02 視為 0） |
+| Post-normalize EMA | — | — | — | 預留，預設關閉 |
+| 用途 | **位置控制** | **除錯** | **絕對速度** | **直接接聲音映射** |
 
-#### 速度 (vX, vY) 特性
+#### 速度 (vX, vY, vXn, vYn) 特性
 
-- 單位：**mm/s**，帶正負方向
+**vX, vY (mm/s)**：
+
+- 單位：mm/s，帶正負方向
   - 正值 = 遠離感測器（向中線移動）
   - 負值 = 靠近感測器（向邊緣移動）
 - 從 fX/fY（deadband 後穩定值）計算
 - **位置沒變就直接 = 0**，速度沒有慣性尾巴（不會在停下後緩慢衰減）
 - 移動中才套 EMA 平滑（VEL_SMOOTH = 0.06）→ 加速時連續 ramp，不跳動
 - 典型範圍：慢 ±50, 中 ±200, 快 ±500~1000
+
+**vXn, vYn (-1.0 ~ +1.0)**：
+
+- normalized 浮點，靜止時 = 0.0（exact）
+- 公式：`clip(vX / VEL_MAX, -1.0, 1.0)` 後做 deadband
+- VEL_MAX 預設 500，演出當下覺得太敏感（飽和太快）→ 在韌體 .ino 改大、覺得太鈍 → 改小（要重燒）
+- abs 落在 < 0.02 直接歸 0（壓掉浮點微抖跟極微小速度）
+- 預留 `VEL_NORM_SMOOTH` 參數（預設 0 關閉），要追加平滑改一行常數即可
+- Max 端 `[unpack i i i i f f f f]` 接到後直接接 abstraction 的 outlet，不需再 normalize
 
 ### Serial 指令
 
@@ -223,18 +252,25 @@ Baud rate: **115200**
  fX  fY  rX  rY
 ```
 
-### 分離 filtered、raw、velocity
+### 分離 filtered、raw、velocity、normalized velocity
+
+**目前燒錄版本（`_vel_norm`，8 值）**：
 
 ```
 [route /tof]
      |
-[unpack 0 0 0 0 0. 0.]       ← 最後兩個用 0.（float）接速度
- |  |    |  |    |   |
- fX fY  rX rY   vX  vY
+[unpack i i i i f f f f]
+ |  |   |  |  |   |  |   |
+ fX fY rX rY vX vY vXn vYn
 ```
 
-> 如果用 `tof_c3_supermini`（無速度），`[unpack i i i i]` 就夠了。
-> 用 `tof_c3_supermini_vel` 時改成 `[unpack 0 0 0 0 0. 0.]` 或 `[unpack i i i i f f]`。
+各版本對應：
+
+| 韌體版本 | unpack 物件 |
+|---|---|
+| `archive/tof_c3_supermini`（4 值） | `[unpack i i i i]` |
+| `tof_c3_supermini_vel`（6 值） | `[unpack i i i i f f]` |
+| **`tof_c3_supermini_vel_norm`（8 值，目前燒錄）** | **`[unpack i i i i f f f f]`** |
 
 ### 映射到 GL 座標
 
@@ -278,11 +314,19 @@ filtered_y → [/ 320.] → [* 2.] → [- 1.] → y_gl (-1.0 ~ 1.0)
 | `ADAPTIVE_THRESH` | 10.0 | 靜止/移動切換閾值 (mm) |
 | `DEAD_BAND_MM` | 3 | Deadband 門檻，低於此變化量不更新 |
 
-### 速度參數（`_vel` 版）
+### 速度參數（`_vel` 與 `_vel_norm`）
 
 | 參數 | 預設值 | 說明 |
 |------|--------|------|
 | `VEL_SMOOTH` | 0.06 | 速度 EMA 平滑係數，越小 ramp 越緩（連續漸變），越大越即時 |
+
+### Normalize 參數（`_vel_norm` 版專屬）
+
+| 參數 | 預設值 | 說明 |
+|------|--------|------|
+| `VEL_MAX` | 500.0 | normalize 的分母（mm/s）。typical 快動作上限。改大 → normalized 比較不會飽和；改小 → 動一下就達 ±1.0 |
+| `VEL_NORM_DEADBAND` | 0.02 | normalize 後 abs 小於此值直接歸 0。壓掉浮點微抖、極微小速度殘留 |
+| `VEL_NORM_SMOOTH` | 0.0 | post-normalize EMA。0 = 關閉。> 0 啟用（例如 0.2）會對 normalized 再平滑一層，會犧牲反應力
 
 **VEL_SMOOTH 效果對照**（@ 50Hz）：
 
@@ -309,6 +353,10 @@ filtered_y → [/ 320.] → [* 2.] → [- 1.] → y_gl (-1.0 ~ 1.0)
 | 速度變化太跳 | `VEL_SMOOTH` 降到 0.03 |
 | 速度反應太慢 | `VEL_SMOOTH` 加大到 0.10~0.20 |
 | 停下後速度沒歸零 | 檢查 `DEAD_BAND_MM`，要讓 fX/fY 真的鎖住才會觸發歸零分支 |
+| Normalized 速度動一下就飽和（總是 ±1） | `VEL_MAX` 加大（例：500 → 800） |
+| Normalized 速度太鈍（怎麼動都偏小） | `VEL_MAX` 減小（例：500 → 300） |
+| 靜止時 normalized 偶爾跳出小數 | `VEL_NORM_DEADBAND` 加大（0.02 → 0.05） |
+| Normalized 0→1 爬升太陡，想再柔一點 | `VEL_NORM_SMOOTH` 改成 0.15~0.3 |
 
 ---
 

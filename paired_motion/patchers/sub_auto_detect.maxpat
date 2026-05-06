@@ -9,8 +9,51 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1276.0, 714.0 ],
+        "rect": [ 60.0, 100.0, 800.0, 600.0 ],
+        "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-12",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 484.0, 522.0, 47.0, 22.0 ],
+                    "text": "s piezo"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-10",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 274.0, 522.0, 65.0, 22.0 ],
+                    "text": "s pressure"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 36.5, 522.0, 31.0, 22.0 ],
+                    "text": "s tof"
+                }
+            },
+            {
+                "box": {
+                    "comment": "start receiving data",
+                    "id": "obj-6",
+                    "index": 2,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 489.0, 160.0, 30.0, 30.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-44",
@@ -62,7 +105,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 274.0, 257.0, 100.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ -28.0, 76.0, 74.0, 20.0 ],
+                    "presentation_rect": [ 14.0, 67.0, 74.0, 20.0 ],
                     "text": "close serial",
                     "texton": "close serial"
                 }
@@ -71,11 +114,11 @@
                 "box": {
                     "comment": "",
                     "id": "obj-35",
-                    "index": 0,
+                    "index": 1,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
-                    "outlettype": [ "" ],
+                    "outlettype": [ "bang" ],
                     "patching_rect": [ 30.5, 10.0, 30.0, 30.0 ]
                 }
             },
@@ -89,7 +132,7 @@
                     "patching_rect": [ 892.0, 135.0, 150.0, 33.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 74.0, 100.0, 150.0, 33.0 ],
+                    "presentation_rect": [ 116.0, 91.0, 150.0, 33.0 ],
                     "text": "pressure port: usbmodem1423401"
                 }
             },
@@ -114,7 +157,7 @@
                     "patching_rect": [ 726.0, 135.0, 150.0, 33.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 74.0, 59.0, 150.0, 33.0 ],
+                    "presentation_rect": [ 116.0, 50.0, 150.0, 33.0 ],
                     "text": "pressure port: usbmodem1423101"
                 }
             },
@@ -128,7 +171,7 @@
                     "patching_rect": [ 567.0, 135.0, 150.0, 33.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 74.0, 17.0, 150.0, 33.0 ],
+                    "presentation_rect": [ 116.0, 8.0, 150.0, 33.0 ],
                     "text": "tof port: usbmodem1423301"
                 }
             },
@@ -165,7 +208,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 324.0, 50.0, 100.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ -28.0, 51.0, 74.0, 20.0 ],
+                    "presentation_rect": [ 14.0, 42.0, 74.0, 20.0 ],
                     "text": "npm install",
                     "texton": "npm install"
                 }
@@ -200,7 +243,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 341.0, 609.0, 50.0, 22.0 ],
-                    "text": "0 0 0 5"
+                    "text": "0 0 1 0"
                 }
             },
             {
@@ -221,18 +264,19 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 115.0, 609.0, 71.0, 22.0 ],
-                    "text": "0. 0. 293 5"
+                    "text": "0. 0. 277 11"
                 }
             },
             {
                 "box": {
                     "id": "obj-13",
+                    "linecount": 2,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 8.0, 609.0, 75.0, 22.0 ],
-                    "text": "3 0 0 0 0. 0."
+                    "patching_rect": [ 8.0, 609.0, 75.0, 35.0 ],
+                    "text": "138 45 137 44 0. 0."
                 }
             },
             {
@@ -245,7 +289,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 484.0, 217.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ -28.0, 105.0, 24.0, 24.0 ]
+                    "presentation_rect": [ 14.0, 96.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -290,7 +334,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 64.0, 48.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ -28.0, 21.0, 24.0, 24.0 ]
+                    "presentation_rect": [ 14.0, 12.0, 24.0, 24.0 ]
                 }
             },
             {
@@ -301,7 +345,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 92.0, 50.0, 60.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 0.0, 23.0, 60.0, 20.0 ],
+                    "presentation_rect": [ 42.0, 14.0, 60.0, 20.0 ],
                     "text": "RESCAN"
                 }
             },
@@ -327,6 +371,8 @@
                     "saved_object_attributes": {
                         "autostart": 1,
                         "defer": 0,
+                        "node_bin_path": "",
+                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script auto_detect.js @autostart 1",
@@ -616,7 +662,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 505.0, 543.5, 240.0, 33.0 ],
+                    "patching_rect": [ 498.0, 549.0, 243.0, 33.0 ],
                     "text": "4. Merged content router — three serials → one route, dispatched by message prefix"
                 }
             },
@@ -641,7 +687,7 @@
                     "patching_rect": [ 8.0, 667.0, 627.0, 87.0 ],
                     "presentation": 1,
                     "presentation_linecount": 6,
-                    "presentation_rect": [ 239.0, 17.0, 627.0, 87.0 ],
+                    "presentation_rect": [ 14.0, 134.0, 627.0, 87.0 ],
                     "text": "Test flow:\n  1. Plug in all 3 ESP32s before opening this patch\n  2. Open patch → node.script @autostart triggers auto_detect.js → port names appear in the message boxes above\n  3. Click each \"port $1, open\" message OR wire a [t b s] to auto-trigger them\n  4. Watch the Max console: TOF prints fX/fY/rX/rY/vX/vY, PRESSURE prints norm1 norm2 raw1 raw2,\n     PIEZO_HIT prints on each strike, PIEZO_STREAM prints 50Hz activity for 4 channels"
                 }
             }
@@ -697,6 +743,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-11", 0 ],
+                    "source": [ "obj-6", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-node", 0 ],
                     "source": [ "obj-8", 0 ]
                 }
@@ -724,19 +776,43 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-route-data", 0 ],
+                    "destination": [ "obj-12", 0 ],
+                    "order": 0,
                     "source": [ "obj-fs-piezo", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-route-data", 0 ],
+                    "order": 1,
+                    "source": [ "obj-fs-piezo", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-10", 0 ],
+                    "order": 0,
                     "source": [ "obj-fs-pres", 0 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-route-data", 0 ],
+                    "order": 1,
+                    "source": [ "obj-fs-pres", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-7", 0 ],
+                    "order": 1,
+                    "source": [ "obj-fs-tof", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-route-data", 0 ],
+                    "order": 0,
                     "source": [ "obj-fs-tof", 0 ]
                 }
             },
@@ -971,7 +1047,6 @@
                     "source": [ "obj-zl-tof", 0 ]
                 }
             }
-        ],
-        "autosave": 0
+        ]
     }
 }
