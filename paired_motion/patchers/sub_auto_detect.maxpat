@@ -4,7 +4,7 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 4,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
@@ -18,7 +18,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 63.0, 108.0, 150.0, 20.0 ],
+                    "patching_rect": [ 509.0, 219.0, 47.0, 20.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 42.0, 97.5, 46.0, 20.0 ],
                     "text": "Start"
@@ -379,20 +379,20 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "", "" ],
-                    "patching_rect": [ 64.0, 120.0, 360.0, 22.0 ],
+                    "patching_rect": [ 64.0, 120.0, 145.0, 22.0 ],
                     "saved_object_attributes": {
-                        "autostart": 1,
+                        "autostart": 0,
                         "defer": 0,
                         "node_bin_path": "",
                         "npm_bin_path": "",
                         "watch": 0
                     },
-                    "text": "node.script auto_detect.js @autostart 1",
+                    "text": "node.script auto_detect.js",
                     "textfile": {
                         "filename": "auto_detect.js",
                         "flags": 0,
                         "embed": 0,
-                        "autowatch": 0
+                        "autowatch": 1
                     }
                 }
             },
