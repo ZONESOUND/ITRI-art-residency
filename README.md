@@ -83,6 +83,8 @@ paired_motion 不是一次性演出 patch，是一套**可擴展的互動聲響�
 
 技術擴展面：加新感測器（再寫一支 sub_xxx）、無線版本（WiFi/OSC 取代 USB）、多點同步（多人多台同動車）。
 
+paired_motion is intended as an extensible interaction-and-sound platform, not a one-off performance patch. Planned use: residency finale demo, community workshops with elderly users, theater collaboration, eldercare/rehab piloting, and teaching workshops where participants author their own sub_*.maxpat abstractions. Technical extensibility includes new sensors, wireless transport, and multi-instrument synchronization.
+
 ---
 
 ## WHO 裝置識別協定 | WHO Identification Protocol
@@ -96,11 +98,13 @@ ESP32 → 回覆 "ID:pressure" / "ID:tof" / "ID:piezo"
 
 自動化工具：[`serial_auto_detect/`](serial_auto_detect/) — Node.js script 給 Max [node.script] 用，加上命令列診斷工具 `who_probe.js`。
 
+When the trio shares a USB hub, port enumeration order is unstable across replug. All three firmwares implement WHO so the host can identify each device deterministically. Automated via [`serial_auto_detect/`](serial_auto_detect/).
+
 ---
 
 ## 開發環境 | Development Setup
 
-**Mac 端：**
+**Mac 端 / Mac side:**
 - Max/MSP 9
 - Node.js 16+（給 Max [node.script] 用，含 `serialport`、`ws` 等套件）
 - Python 3（早期影像偵測引擎）
@@ -112,8 +116,9 @@ ESP32 → 回覆 "ID:pressure" / "ID:tof" / "ID:piezo"
 - 必要函式庫：`Adafruit_VL53L0X`、`Adafruit_NeoPixel`
 
 **npm 套件安裝：** 各 Node 模組資料夾分別 `npm install`（`paired_motion/code/`、`serial_auto_detect/` 等）。
+**npm:** Run `npm install` per Node module folder.
 
-**通訊協定：** USB Serial 115200 baud 為主、OSC-style 訊息前綴（`/tof`、`/pressure`、`/piezo`），Max 端用 `[route]` 分流。
+**通訊協定 / Communication:** USB Serial 115200 baud 為主、OSC-style 訊息前綴（`/tof`、`/pressure`、`/piezo`），Max 端用 `[route]` 分流。
 
 ---
 
