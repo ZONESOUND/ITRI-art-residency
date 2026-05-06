@@ -19,7 +19,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 349.0, 100.0, 120.0, 22.0 ],
-                    "text": "0 0 1 1"
+                    "text": "0 0 4 10"
                 }
             },
             {
@@ -42,7 +42,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 69.0, 134.0, 50.0, 35.0 ],
-                    "text": "4 31 939"
+                    "text": "4 127 3752"
                 }
             },
             {
@@ -352,8 +352,20 @@
                     "numinlets": 2,
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 819.5, 687.0, 21.0, 81.0 ]
+                    "parameter_enable": 1,
+                    "patching_rect": [ 819.5, 687.0, 21.0, 81.0 ],
+                    "saved_attribute_attributes": {
+                        "valueof": {
+                            "parameter_initial": [ 100 ],
+                            "parameter_initial_enable": 1,
+                            "parameter_longname": "gain~",
+                            "parameter_mmax": 157.0,
+                            "parameter_modmode": 3,
+                            "parameter_shortname": "gain~",
+                            "parameter_type": 0
+                        }
+                    },
+                    "varname": "gain~"
                 }
             },
             {
@@ -514,7 +526,6 @@
             {
                 "box": {
                     "id": "obj-48",
-                    "linecount": 2,
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 2,
@@ -2026,7 +2037,7 @@
                             }
                         ]
                     },
-                    "patching_rect": [ 179.0, 838.5, 71.0, 35.0 ],
+                    "patching_rect": [ 179.0, 838.5, 82.0, 22.0 ],
                     "text": "p Multi_Delay"
                 }
             },
@@ -2978,7 +2989,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-71", 0 ],
+                    "destination": [ "obj-48", 1 ],
                     "source": [ "obj-129", 0 ]
                 }
             },

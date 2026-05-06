@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 879.0, 714.0 ],
+        "rect": [ 47.0, 92.0, 879.0, 714.0 ],
         "boxes": [
             {
                 "box": {
@@ -184,6 +184,7 @@
             }
         ],
         "parameters": {
+            "obj-7::obj-105": [ "gain~", "gain~", 0 ],
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
@@ -193,6 +194,12 @@
                     "name": "",
                     "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
                     "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
+                }
+            },
+            "parameter_overrides": {
+                "obj-7::obj-105": {
+                    "parameter_initial": 100,
+                    "parameter_initial_enable": 1
                 }
             },
             "inherited_shortname": 1

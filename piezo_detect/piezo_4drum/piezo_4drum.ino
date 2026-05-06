@@ -40,8 +40,8 @@ const int FILTER_SHIFT = 2;
 // LED duration: mapped by hit/touch strength
 const int LED_MIN_MS = 30;       // 輕觸最短
 const int LED_MAX_MS = 1000;     // 重擊最長
-const int LED_ACTIVITY_THRESHOLD = 66; // raw-baseline 超過此值就亮 LED（刮、摸）。從 30 提到 100 抑制環境 spike 引起的誤觸發
-const int LED_HITS_REQUIRED = 2; // 連續 N 幀過 threshold 才點 LED。單發 spike 不會點。改成 3 / 4 更嚴
+const int LED_ACTIVITY_THRESHOLD = 85; // raw-baseline 超過此值就亮 LED（刮、摸）。從 30 提到 100 抑制環境 spike 引起的誤觸發
+const int LED_HITS_REQUIRED = 3; // 連續 N 幀過 threshold 才點 LED。單發 spike 不會點。改成 3 / 4 更嚴
 
 // Stream output interval
 const unsigned long STREAM_INTERVAL_MS = 20;  // 50Hz
