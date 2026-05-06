@@ -392,7 +392,7 @@
                         "filename": "auto_detect.js",
                         "flags": 0,
                         "embed": 0,
-                        "autowatch": 1
+                        "autowatch": 0
                     }
                 }
             },
