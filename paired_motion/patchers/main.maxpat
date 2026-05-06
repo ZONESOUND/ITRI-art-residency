@@ -76,7 +76,6 @@
         "parameters": {
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
-            "obj-9::obj-115::obj-27": [ "live.gain~[5]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
             "parameterbanks": {
                 "0": {
@@ -84,11 +83,6 @@
                     "name": "",
                     "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
                     "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
-            "parameter_overrides": {
-                "obj-9::obj-115::obj-27": {
-                    "parameter_longname": "live.gain~[5]"
                 }
             },
             "inherited_shortname": 1
