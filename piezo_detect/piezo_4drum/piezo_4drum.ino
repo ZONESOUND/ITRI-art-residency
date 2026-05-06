@@ -41,6 +41,7 @@ const int FILTER_SHIFT = 2;
 const int LED_MIN_MS = 30;       // 輕觸最短
 const int LED_MAX_MS = 1000;     // 重擊最長
 const int LED_ACTIVITY_THRESHOLD = 100; // raw-baseline 超過此值就亮 LED（刮、摸）。從 30 提到 100 抑制環境 spike 引起的誤觸發
+const int LED_HITS_REQUIRED = 2; // 連續 N 幀過 threshold 才點 LED。單發 spike 不會點。改成 3 / 4 更嚴
 
 // Stream output interval
 const unsigned long STREAM_INTERVAL_MS = 20;  // 50Hz
@@ -58,6 +59,7 @@ struct PiezoState {
 PiezoState states[NUM_PIEZOS];
 unsigned long lastTriggerTime[NUM_PIEZOS] = {0, 0, 0, 0};
 unsigned long ledOffTime[NUM_PIEZOS]      = {0, 0, 0, 0};
+int ledActHitCount[NUM_PIEZOS]            = {0, 0, 0, 0}; // LED debounce 用：連續過 threshold 的幀數
 unsigned long lastStreamTime = 0;
 
 // =========================
@@ -124,10 +126,19 @@ void checkPiezo(int index) {
   st.filtered += (raw - st.filtered) >> FILTER_SHIFT;
   st.baseline += (st.filtered - st.baseline) >> BASELINE_ALPHA_SHIFT;
 
-  // Activity LED: use filtered (IIR smoothed) instead of raw to reject spikes
+  // Activity LED: use filtered (IIR smoothed) value, plus consecutive-frame
+  // debounce so that single-sample EMI spikes don't fire the LED.
+  // Real touches sustain across multiple frames so they trigger normally.
   int actDiff = st.filtered - st.baseline;
   if (actDiff < 0) actDiff = 0;
+
   if (actDiff > LED_ACTIVITY_THRESHOLD) {
+    ledActHitCount[index]++;
+  } else {
+    ledActHitCount[index] = 0;
+  }
+
+  if (ledActHitCount[index] >= LED_HITS_REQUIRED) {
     int tailMs = map(actDiff, LED_ACTIVITY_THRESHOLD, MAX_READING[index], LED_MIN_MS, LED_MAX_MS);
     tailMs = constrain(tailMs, LED_MIN_MS, LED_MAX_MS);
     digitalWrite(ledPins[index], HIGH);
