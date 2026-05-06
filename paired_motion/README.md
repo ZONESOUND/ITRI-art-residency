@@ -29,15 +29,19 @@
 
 ```
 paired_motion/
-├── paired_motion.maxproj            ← Max Project 檔（autoorganize=0，Max 不會亂搬檔）
+├── paired_motion.maxproj            ← Max Project 檔（autoorganize=0）
 ├── README.md                         ← 你正在看
+├── openactions.txt                   ← Max 自動產生
 │
-├── patchers/                         ← 所有 .maxpat（Max 慣例的 patchers/ 資料夾）
+├── patchers/                         ← 所有 .maxpat（Max 慣例位置）
 │   ├── main.maxpat                   ← 演出主 patch
 │   ├── sub_auto_detect.maxpat        ← auto-detect + 三 [serial] + 解析鏈封裝
 │   ├── sub_tof.maxpat                ← TOF 訊號處理
 │   ├── sub_pressure.maxpat           ← Pressure 訊號處理
-│   └── sub_piezo.maxpat              ← Piezo 訊號處理
+│   ├── sub_piezo.maxpat              ← Piezo 訊號處理
+│   ├── p_resonators~.maxpat          ← Cycling74 abstractions（consolidate 拉進來）
+│   ├── p_resontaps~.maxpat
+│   └── vs.*.maxpat                   ← Cycling74 vs.* 系列工具
 │
 ├── code/                             ← Node.js 自動化
 │   ├── auto_detect.js                ← USB port 自動掃描 + WHO 識別
@@ -45,10 +49,21 @@ paired_motion/
 │   ├── package.json
 │   └── node_modules/                 ← npm install 後產生（git 不追）
 │
-├── media/samples/                    ← 取樣、loops、實地錄音
+├── media/                            ← 取樣（consolidate 拉進來，~19 MB）
+│   ├── Bubbles_ Big_ Fast_ Gurgling Up.aif
+│   ├── EQ-Lp011 Ejects Rhythm 065.wav
+│   ├── EQ-Lp013 Express Rhythm 065.wav
+│   └── Heavy Cold Gusts Howling.aif
+│
+├── externals/                        ← 編譯過的 .mxo（PeRColate physical modeling）
+│   ├── bowedbar~.mxo/
+│   └── bowed~.mxo/
+│
 └── presets/                          ← 演出參數 snapshot
     └── 20yymmdd_場地名.maxsnap
 ```
+
+> 經過 Max Project 的 **Consolidate** 之後，所有引用的取樣、Cycling74 abstractions、PeRColate externals 都被複製進 project 資料夾。整個 paired_motion/ zip 起來給合作者，**對方不需要單獨安裝 Cycling74 vs library 或 PeRColate package**，patch 也照樣跑。
 
 ---
 

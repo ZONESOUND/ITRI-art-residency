@@ -13,6 +13,28 @@
         "boxes": [
             {
                 "box": {
+                    "comment": "",
+                    "id": "obj-5",
+                    "index": 1,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 287.0, 424.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 287.0, 379.0, 34.0, 22.0 ],
+                    "text": "*~ 1."
+                }
+            },
+            {
+                "box": {
                     "id": "obj-3",
                     "maxclass": "newobj",
                     "numinlets": 0,
@@ -31,18 +53,6 @@
                     "numoutlets": 0,
                     "patching_rect": [ 113.0, 59.0, 150.0, 33.0 ],
                     "text": "hand1_f, hand2_f, hand1_raw, hand2_raw"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-1",
-                    "maxclass": "gain~",
-                    "multichannelvariant": 0,
-                    "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [ "signal", "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 287.0, 344.0, 22.0, 140.0 ]
                 }
             },
             {
@@ -100,16 +110,6 @@
                     "outlettype": [ "", "" ],
                     "patching_rect": [ 19.0, 70.0, 89.0, 22.0 ],
                     "text": "route /pressure"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-9",
-                    "maxclass": "newobj",
-                    "numinlets": 2,
-                    "numoutlets": 0,
-                    "patching_rect": [ 287.0, 516.0, 35.0, 22.0 ],
-                    "text": "dac~"
                 }
             },
             {
@@ -223,7 +223,7 @@
                     "data": {
                         "clips": [
                             {
-                                "absolutepath": "Macintosh HD:/Users/chipohao/Documents/Loops 素材/各式人物環境聲/5 Rain, Thunder, Fire, Bubbles/Bubbles_ Big_ Fast_ Gurgling Up.aif",
+                                "absolutepath": "Bubbles_ Big_ Fast_ Gurgling Up.aif",
                                 "filename": "Bubbles_ Big_ Fast_ Gurgling Up.aif",
                                 "filekind": "audiofile",
                                 "id": "u924007847",
@@ -234,7 +234,7 @@
                                 }
                             },
                             {
-                                "absolutepath": "/Users/chipohao/Documents/Loops 素材/SloMot/SloMot_Vol.2 (65bpm)/Slo´motion 065 - Loops (Wav)/09 Rhythm Fragment Loops 065/EQ-Lp011 Ejects Rhythm 065.wav",
+                                "absolutepath": "EQ-Lp011 Ejects Rhythm 065.wav",
                                 "filename": "EQ-Lp011 Ejects Rhythm 065.wav",
                                 "filekind": "audiofile",
                                 "id": "u190003601",
@@ -285,7 +285,7 @@
                     "data": {
                         "clips": [
                             {
-                                "absolutepath": "Macintosh HD:/Users/chipohao/Documents/Loops 素材/各式人物環境聲/3 Wind/Heavy Cold Gusts Howling.aif",
+                                "absolutepath": "Heavy Cold Gusts Howling.aif",
                                 "filename": "Heavy Cold Gusts Howling.aif",
                                 "filekind": "audiofile",
                                 "id": "u911007809",
@@ -296,7 +296,7 @@
                                 }
                             },
                             {
-                                "absolutepath": "/Users/chipohao/Documents/Loops 素材/SloMot/SloMot_Vol.2 (65bpm)/Slo´motion 065 - Loops (Wav)/09 Rhythm Fragment Loops 065/EQ-Lp013 Express Rhythm 065.wav",
+                                "absolutepath": "EQ-Lp013 Express Rhythm 065.wav",
                                 "filename": "EQ-Lp013 Express Rhythm 065.wav",
                                 "filekind": "audiofile",
                                 "id": "u703003697",
@@ -421,20 +421,6 @@
         "lines": [
             {
                 "patchline": {
-                    "destination": [ "obj-9", 1 ],
-                    "order": 0,
-                    "source": [ "obj-1", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-9", 0 ],
-                    "order": 1,
-                    "source": [ "obj-1", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-22", 0 ],
                     "source": [ "obj-10", 0 ]
                 }
@@ -491,6 +477,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "source": [ "obj-4", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-49", 0 ],
                     "source": [ "obj-41", 0 ]
                 }
@@ -521,7 +513,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-1", 0 ],
+                    "destination": [ "obj-4", 0 ],
                     "source": [ "obj-54", 0 ]
                 }
             },
@@ -545,7 +537,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-1", 0 ],
+                    "destination": [ "obj-4", 0 ],
                     "source": [ "obj-58", 0 ]
                 }
             },
@@ -573,20 +565,6 @@
                     "source": [ "obj-8", 0 ]
                 }
             }
-        ],
-        "parameters": {
-            "obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
-            "obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
-            "parameterbanks": {
-                "0": {
-                    "index": 0,
-                    "name": "",
-                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
-                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
-            "inherited_shortname": 1
-        },
-        "autosave": 0
+        ]
     }
 }

@@ -9,15 +9,62 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 315.0, 106.0, 900.0, 700.0 ],
+        "rect": [ 34.0, 92.0, 879.0, 714.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 0,
+                    "patching_rect": [ 20.0, 579.0, 35.0, 22.0 ],
+                    "text": "dac~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-3",
+                    "maxclass": "gain~",
+                    "multichannelvariant": 0,
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "signal", "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 182.0, 339.0, 22.0, 140.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-2",
+                    "maxclass": "gain~",
+                    "multichannelvariant": 0,
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "signal", "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 85.0, 339.0, 22.0, 140.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-1",
+                    "maxclass": "gain~",
+                    "multichannelvariant": 0,
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "signal", "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 20.0, 339.0, 22.0, 140.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-9",
                     "maxclass": "newobj",
                     "numinlets": 0,
-                    "numoutlets": 0,
-                    "patching_rect": [ 200.0, 341.0, 48.0, 22.0 ],
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 20.0, 294.0, 48.0, 22.0 ],
                     "text": "sub_tof"
                 }
             },
@@ -26,8 +73,9 @@
                     "id": "obj-8",
                     "maxclass": "newobj",
                     "numinlets": 0,
-                    "numoutlets": 0,
-                    "patching_rect": [ 103.0, 341.0, 81.0, 22.0 ],
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 85.0, 294.0, 81.0, 22.0 ],
                     "text": "sub_pressure"
                 }
             },
@@ -36,8 +84,9 @@
                     "id": "obj-7",
                     "maxclass": "newobj",
                     "numinlets": 0,
-                    "numoutlets": 0,
-                    "patching_rect": [ 20.0, 341.0, 63.0, 22.0 ],
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 182.0, 294.0, 63.0, 22.0 ],
                     "text": "sub_piezo"
                 }
             },
@@ -72,7 +121,68 @@
                 }
             }
         ],
-        "lines": [],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "order": 0,
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "order": 1,
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "order": 0,
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "order": 1,
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "order": 0,
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "order": 1,
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-7", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-2", 0 ],
+                    "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-1", 0 ],
+                    "source": [ "obj-9", 0 ]
+                }
+            }
+        ],
         "parameters": {
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],

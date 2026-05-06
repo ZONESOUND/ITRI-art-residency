@@ -14,6 +14,18 @@
         "boxes": [
             {
                 "box": {
+                    "id": "obj-18",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 63.0, 108.0, 150.0, 20.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 42.0, 97.5, 46.0, 20.0 ],
+                    "text": "Start"
+                }
+            },
+            {
+                "box": {
                     "id": "obj-12",
                     "maxclass": "newobj",
                     "numinlets": 1,
@@ -46,11 +58,11 @@
                 "box": {
                     "comment": "start receiving data",
                     "id": "obj-6",
-                    "index": 2,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
-                    "outlettype": [ "int" ],
+                    "outlettype": [ "" ],
                     "patching_rect": [ 489.0, 160.0, 30.0, 30.0 ]
                 }
             },
@@ -114,11 +126,11 @@
                 "box": {
                     "comment": "",
                     "id": "obj-35",
-                    "index": 1,
+                    "index": 0,
                     "maxclass": "inlet",
                     "numinlets": 0,
                     "numoutlets": 1,
-                    "outlettype": [ "bang" ],
+                    "outlettype": [ "" ],
                     "patching_rect": [ 30.5, 10.0, 30.0, 30.0 ]
                 }
             },
@@ -133,7 +145,7 @@
                     "presentation": 1,
                     "presentation_linecount": 2,
                     "presentation_rect": [ 116.0, 91.0, 150.0, 33.0 ],
-                    "text": "pressure port: usbmodem1423401"
+                    "text": "piezo port: usbmodem1423401"
                 }
             },
             {
@@ -1047,6 +1059,7 @@
                     "source": [ "obj-zl-tof", 0 ]
                 }
             }
-        ]
+        ],
+        "autosave": 0
     }
 }
