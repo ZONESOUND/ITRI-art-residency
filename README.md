@@ -22,11 +22,17 @@ All three connect to a shared USB Hub, run on ESP32-C3 SuperMini at 115200 baud,
 | [`tof_distance_sensor/`](tof_distance_sensor/) | 雙 VL53L0X ToF 感測器追蹤把手 X/Y 位置與速度 | Dual VL53L0X ToF tracking with X/Y position and velocity | `tof` |
 | [`piezo_detect/`](piezo_detect/) | 4 通道壓電敲擊偵測（4-drum），同時提供敲擊事件與連續活動串流 | 4-channel piezoelectric strike detection with both discrete hits and continuous activity stream | `piezo` |
 
+### 🎭 同動車演出整合 | Performance Integration
+
+| 資料夾 | 用途 | Purpose |
+|---|---|---|
+| **[`paired_motion/`](paired_motion/)** | **演出主 patch**（同動車三組感測器整合）—— Max Project，含主 patch、各感測器處理 abstractions、聲響素材、Cycling74 vs library + PeRColate externals。zip 可整包帶到別台電腦跑 | **Performance master patch** — Max Project bundling main patch, per-sensor abstractions, audio assets, and consolidated dependencies. Zip-portable to other machines |
+
 ### 🔧 同動車的支援工具 | Supporting Tooling for the 同動車
 
 | 資料夾 | 用途 | Purpose |
 |---|---|---|
-| [`serial_auto_detect/`](serial_auto_detect/) | Mac 端自動掃描 USB port + WHO 握手 + 餵 port 名給 Max [serial]，免手動配對 | Auto-scans USB ports, runs WHO handshake, and feeds matched port names into Max [serial] objects |
+| [`serial_auto_detect/`](serial_auto_detect/) | Mac 端自動掃描 USB port + WHO 握手 + 餵 port 名給 Max [serial]，免手動配對。`paired_motion/` 用的就是這套機制（凍結副本在 `paired_motion/code/`） | Auto-scans USB ports, runs WHO handshake, feeds matched port names to Max [serial]. The mechanism `paired_motion/` uses (frozen copy in `paired_motion/code/`) |
 
 ### 🎙️ 獨立模組 | Standalone Modules
 
@@ -34,7 +40,6 @@ All three connect to a shared USB Hub, run on ESP32-C3 SuperMini at 115200 baud,
 |---|---|---|
 | [`breath_sensor/`](breath_sensor/) | 吹氣樂器：HX710B 壓力感測 + 超音波霧化器 PWM + WS2812 燈圈動畫 | Breath instrument: HX710B + ultrasonic mister PWM + animated LED ring |
 | [`duo_pulse_sonification/`](duo_pulse_sonification/) | 雙人脈搏聲音化（Lissajous 視覺化、Web Serial API 網頁端） | Dual-participant pulse sonification with Lissajous visuals and Web Serial API |
-| [`piezo_detect_who/`](piezo_detect_who/) | 單通道 8 kHz 壓電原始波形串流（給 FluCoMa / MuBu 機器學習特徵抽取用） | Single-channel 8 kHz raw piezo waveform stream for FluCoMa / MuBu feature extraction |
 | [`piezo_detect_fft/`](piezo_detect_fft/) | 壓電 FFT 頻譜分析（hit / scrub 事件偵測） | Piezo FFT spectrum analyzer with hit / scrub event detection |
 | [`local_mediapipe/`](local_mediapipe/) | 本地端 MediaPipe 手部追蹤（含網頁與 Max 整合） | Local MediaPipe hand tracking with web and Max integration |
 | [`remote_hand_tracking/`](remote_hand_tracking/) | 透過 WebSocket 從遠端機器接收手部追蹤資料 | WebSocket-based remote hand tracking receiver |
@@ -103,8 +108,6 @@ ESP32 → 回覆 "ID:pressure" / "ID:tof" / "ID:piezo"
 
 **自動化工具**：[`serial_auto_detect/`](serial_auto_detect/) 提供 Node.js 端的 auto-detect 腳本（給 Max [node.script] 用）以及命令列診斷工具。詳見 [serial_auto_detect/README.md](serial_auto_detect/README.md)。
 
-⚠️ `piezo_detect_who/`（單通道 8 kHz ML stream 版本）也回 `ID:piezo`，與 `piezo_4drum/` 衝突。同時使用兩種 piezo 韌體時需在韌體內手動修改 `DEVICE_ID`。
-
 ---
 
 ## 各模組說明 | Module Details
@@ -132,18 +135,26 @@ Dual VL53L0X ToF tracking with three-layer filtering and velocity output that sn
 
 4-channel piezo strike detection with dual output: discrete hit events plus continuous activity stream for scratch / touch detection.
 
+### paired_motion 🎭
+
+工研院藝術進駐「節奏繞纏」專案的**演出主 patch**——同動車三組感測器整合的 Max Project。
+
+整個資料夾自包含（含 main.maxpat、各感測器的處理 abstractions、聲響素材、Cycling74 vs library + PeRColate externals 的 consolidated 副本），zip 起來給合作者就能完整跑、跨電腦移植不需重新設定。詳見 [`paired_motion/README.md`](paired_motion/README.md)。
+
+The performance master patch for the *Rhythmic Entanglements* residency. Self-contained Max Project — zip it and ship it.
+
 ### serial_auto_detect 🔧
 
-同動車三件 Serial Port 自動辨識工具。
+同動車三件 Serial Port 自動辨識工具（debug / 開發環境）。
 
 包含：
 - `auto_detect.js`：Max [node.script] 用的主邏輯，自動掃描 USB port 並透過 WHO 協定配對
 - `who_probe.js`：命令列單 port 診斷工具（不需要 Max）
 - `auto_detect_test.maxpat`：Max 端 wiring 範例
 
-解決的問題：三顆 ESP32 接 USB Hub 時 port 順序不固定，patch 寫死容易在演出前出錯。詳見 [`serial_auto_detect/README.md`](serial_auto_detect/README.md)。
+解決的問題：三顆 ESP32 接 USB Hub 時 port 順序不固定，patch 寫死容易在演出前出錯。`paired_motion/code/` 是這支工具的凍結副本，這邊則是還在迭代的開發版本。詳見 [`serial_auto_detect/README.md`](serial_auto_detect/README.md)。
 
-Auto-detection toolkit for the 同動車 trio: scans USB ports, runs WHO handshake, feeds matched port names back to Max.
+Auto-detection toolkit for the 同動車 trio (dev / debug): scans USB ports, runs WHO handshake, feeds matched port names back to Max.
 
 ### breath_sensor
 
@@ -152,10 +163,6 @@ HX710B 吹氣／吸氣感測 + 超音波霧化器 PWM 控制 + WS2812 LED 動畫
 ### duo_pulse_sonification
 
 雙人脈搏互動系統，同時擷取兩位參與者的心跳。三段式自動校準演算法（v2.4）輸出 BPM、心跳觸發訊號、手指接觸狀態。附 `heartbeats-harmony.html`：以 p5.js 繪製沙畫式 Lissajous 圖形，支援 Web Serial API 直接從 Chrome 讀取 ESP32 資料。
-
-### piezo_detect_who
-
-單通道 8 kHz 壓電原始波形串流（921600 baud），給 FluCoMa / MuBu / SuperCollider / Max-MSP 做即時特徵抽取（MFCC、頻譜、onset 偵測等）。基於早期的 `piezo_detect.ino` 加上 WHO 協定。
 
 ### piezo_detect_fft
 

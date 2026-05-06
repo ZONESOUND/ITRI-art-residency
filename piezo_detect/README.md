@@ -18,7 +18,7 @@ ESP32-C3 SuperMini + 4 顆壓電片（Piezo），用於**同動車（Synchronous
 
 | 檔案／目錄 | 板子 | 通道 | 用途 |
 |---|---|---|---|
-| `archive/piezo_detect.ino` | ESP32 (any) | 1 | 早期單通道 8 kHz 原始波形串流，**用於機器學習特徵抽取**（FluCoMa、MuBu）。後來獨立成根目錄 [`piezo_detect_who/`](../piezo_detect_who/) 模組 |
+| `archive/piezo_detect.ino` | ESP32 (any) | 1 | 早期單通道 8 kHz 原始波形串流，**用於機器學習特徵抽取**（FluCoMa、MuBu）。已封存 |
 | `archive/piezo_paul/` | — | — | Paul 提供的原始可動 code（`piezo_4drum` 的基礎） |
 | `archive/led_test/` | — | — | LED 接線測試用 sketch |
 | `archive/piezo_demo1.maxpat` | — | — | 早期版本 Max patch |
@@ -86,4 +86,4 @@ Baud rate：**115200**
 - 主 repo：[`../README.md`](../README.md)
 - 詳細 4drum 韌體文件：[`piezo_4drum/README.md`](piezo_4drum/README.md)
 - 自動 Port 辨識工具：[`../serial_auto_detect/README.md`](../serial_auto_detect/README.md)
-- 單通道 8 kHz ML 串流版本：[`../piezo_detect_who/`](../piezo_detect_who/)
+- 演出整合 patch：[`../paired_motion/README.md`](../paired_motion/README.md)
