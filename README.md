@@ -8,7 +8,7 @@ This repository contains code for the *Rhythmic Entanglements* art residency pro
 
 ---
 
-## 倉庫結構 | Repository Structure
+## 資料夾結構 | Repository Structure
 
 ### 🚗 同動車三件感測器 | The 同動車 Trio
 
