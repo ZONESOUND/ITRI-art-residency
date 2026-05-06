@@ -35,8 +35,13 @@
 const { SerialPort } = require('serialport');
 const Max = require('max-api');
 
-const SCAN_TIMEOUT_MS = 600;
-const WRITE_DELAY_MS = 80;
+// ESP32-C3 USB CDC 在 port 開啟瞬間會被 DTR 訊號重置，
+// 從 reset 到 Serial 真正能接收指令大約要 1~1.5 秒。
+// 所以開 port 後先等 BOOT_WAIT_MS，再送第一發 WHO，
+// 之後每 RETRY_INTERVAL_MS 重送一次，總共等到 SCAN_TIMEOUT_MS。
+const BOOT_WAIT_MS = 1200;
+const RETRY_INTERVAL_MS = 400;
+const SCAN_TIMEOUT_MS = 3000;
 const POST_CLOSE_DELAY_MS = 250;
 const KNOWN_IDS = ['tof', 'pressure', 'piezo'];
 const PORT_PATTERN = /usbmodem|usbserial|wchusbserial|SLAB_USB|UART/i;
@@ -46,25 +51,27 @@ function probePort(path, baudRate = 115200) {
     let resolved = false;
     let buffer = '';
     let port;
+    let retryTimer = null;
 
     const finish = (result) => {
       if (resolved) return;
       resolved = true;
+      if (retryTimer) clearInterval(retryTimer);
       try {
         if (port && port.isOpen) {
-          port.close(() => resolve(result));
+          port.close(() => resolve({ id: result, buffer }));
         } else {
-          resolve(result);
+          resolve({ id: result, buffer });
         }
       } catch (e) {
-        resolve(result);
+        resolve({ id: result, buffer });
       }
     };
 
     try {
       port = new SerialPort({ path, baudRate, autoOpen: false });
     } catch (e) {
-      return resolve(null);
+      return resolve({ id: null, buffer: '' });
     }
 
     port.on('error', () => finish(null));
@@ -79,10 +86,17 @@ function probePort(path, baudRate = 115200) {
         if (match) finish(match[1].toLowerCase());
       });
 
-      // 等 ESP32 reset 完成（CDC 開啟瞬間 ESP32-C3 會 reset），再送 WHO
-      setTimeout(() => {
+      const sendWho = () => {
         try { port.write('WHO\n'); } catch (e) {}
-      }, WRITE_DELAY_MS);
+      };
+
+      // 等 boot reset 過後送第一發
+      setTimeout(sendWho, BOOT_WAIT_MS);
+
+      // 每 RETRY_INTERVAL_MS 再重送（從 BOOT_WAIT_MS 之後開始）
+      setTimeout(() => {
+        retryTimer = setInterval(sendWho, RETRY_INTERVAL_MS);
+      }, BOOT_WAIT_MS + 100);
 
       setTimeout(() => finish(null), SCAN_TIMEOUT_MS);
     });
@@ -117,15 +131,25 @@ async function scanAll() {
 
   for (const p of candidates) {
     Max.post(`探測 ${p.path}...`);
-    const id = await probePort(p.path);
+    const { id, buffer } = await probePort(p.path);
     if (id && KNOWN_IDS.includes(id)) {
       Max.post(`  ✓ ${p.path} → ID:${id}`);
       results[id] = p.path;
     } else {
-      Max.post(`  ✗ ${p.path} → 無回應或未知裝置`);
+      Max.post(`  ✗ ${p.path} → 無 ID 匹配`);
+      if (buffer && buffer.length > 0) {
+        // 顯示 ESP32 實際吐了什麼，方便 debug
+        const preview = buffer
+          .slice(0, 200)
+          .replace(/\r/g, '\\r')
+          .replace(/\n/g, '\\n');
+        Max.post(`     收到 ${buffer.length} bytes: "${preview}${buffer.length > 200 ? '...' : ''}"`);
+      } else {
+        Max.post(`     buffer 是空的（ESP32 沒在吐資料 — 檢查 baud rate / 線路 / 韌體）`);
+      }
     }
     // 給 OS 一點時間徹底釋放 port
-    await new Promise(r => setTimeout(r, 80));
+    await new Promise(r => setTimeout(r, 200));
   }
 
   // 等 port 完全釋放，給 [serial] 物件 reopen 用

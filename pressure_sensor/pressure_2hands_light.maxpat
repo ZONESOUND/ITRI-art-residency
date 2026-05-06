@@ -13,6 +13,17 @@
         "boxes": [
             {
                 "box": {
+                    "id": "obj-20",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 237.0, 160.0, 38.0, 22.0 ],
+                    "text": "WHO"
+                }
+            },
+            {
+                "box": {
                     "id": "obj-18",
                     "linecount": 2,
                     "maxclass": "comment",
@@ -61,12 +72,13 @@
             {
                 "box": {
                     "id": "obj-29",
+                    "linecount": 2,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 115.5, 346.0, 82.0, 22.0 ],
-                    "text": "/status idle"
+                    "patching_rect": [ 115.5, 346.0, 82.0, 35.0 ],
+                    "text": "/status calibrated"
                 }
             },
             {
@@ -424,8 +436,8 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 121.0, 210.0, 170.0, 22.0 ],
-                    "text": "\"/pressure 0.000 0.000 265 18\""
+                    "patching_rect": [ 99.0, 210.0, 192.0, 22.0 ],
+                    "text": "\"/pressure 0.022 0.000 312 12\""
                 }
             },
             {
