@@ -2,11 +2,11 @@
 
 工研院藝術進駐「**節奏繞纏**」（*Rhythmic Entanglements: Sonification Experiments on Biofeedback and Embodied Perception*）專案的程式碼。
 
-核心裝置為 **同動車（Synchronous Movement Vehicle）**——整合 Pressure（壓力）／ ToF（距離）／ Piezo（壓電）三件感測器的雙手互動樂器，主要面向**長者與身體感知能力較弱的使用者**。資料透過 USB Serial 進到 Max/MSP 即時聲音合成。
+「**同動車**」是工研院實驗室開發的**中風上肢復健輔具**，採用「好手帶壞手」連動機制——患者用健側手帶動機構、讓患側手隨動，協助動作復健。本專案在 ITRI 駐村期間跟該實驗室合作，**在同動車裝置上加裝 Pressure（壓力）／ ToF（距離）／ Piezo（壓電）三組感測器**，把使用者操作裝置時的力道、移動、敲擊轉換成即時聲響合成。
 
 **演出主 patch 在 [`paired_motion/`](paired_motion/)。** 部署細節、系統架構、abstraction 設計都在那邊的 README。
 
-This repository contains code for the *Rhythmic Entanglements* art residency project at ITRI. The flagship device is **同動車 (Synchronous Movement Vehicle)** — a two-hand interactive musical instrument bundling pressure, ToF, and piezoelectric sensors, designed for elderly and embodiment-impaired users. **Performance master patch lives in [`paired_motion/`](paired_motion/).**
+「同動車」(literally "synchronous-motion vehicle") is an existing ITRI-developed stroke rehabilitation device using the well-hand-leads-affected-hand bimanual mechanism. This residency project, in collaboration with the device's developing lab, instruments the device with three sensors (pressure / ToF / piezo) and maps user interaction into real-time sound synthesis. **Performance master patch lives in [`paired_motion/`](paired_motion/).**
 
 ---
 
@@ -57,33 +57,32 @@ This repository contains code for the *Rhythmic Entanglements* art residency pro
 
 ---
 
-## 設計構想 | Design Concept
+## 三組感測器的功能定位
 
-「同動車」名字來自 Paul（合作藝術家）在**淡水義山日照中心**工作坊的觀察：**長者操作雙手互動裝置時，左右手傾向同步用力**，缺乏左右分離控制的能力。這個「同動」現象既是症狀（運動控制功能下降）也是契機（能設計引導左右手分工的互動）。
+每組感測器對應一種互動形式，讓使用者操作同動車時產生不同的聲響面向：
 
-paired_motion 的設計圍繞三個面向：
+| 感測器 | 互動形式 | 訊號型態 |
+|---|---|---|
+| Pressure（FSR x2）| 雙手握力 | 0.0~1.0 浮點，左右獨立 |
+| TOF（VL53L0X x2）| 把手 X/Y 移動位置與速度 | 距離 mm + normalized 速度 -1~1 |
+| Piezo（壓電 x4） | 敲擊事件 + 連續活動串流（刮 / 摸 / 持續按壓）| velocity 1~127 + 0~1 連續強度 |
 
-1. **三種互動形式並行**——握（Pressure）、距離移動（TOF）、敲擊與刮（Piezo），讓使用者一次體驗三種身體感知模式的差異
-2. **左右分離設計**——Pressure 明確分左右獨立訊號鏈，TOF 雙感測器追蹤 X/Y 軸，**鼓勵使用者意識到左右手在做不同的事**
-3. **多重視覺與聽覺回饋**——每組感測器都有對應 LED + 即時聲響映射，從感官回饋學會精細控制
+三組都接 USB Hub 進 Mac，由 Max/MSP 透過 Node.js auto-detect 配對 port，再由各自的 abstraction 處理訊號到聲響映射。
 
-The name "同動車" (literally "same-motion vehicle") came from observing how elderly users tend to move both hands in sync, lacking independent left/right control. This synchronization is both a symptom of declining motor control AND an opportunity — to design interactions that guide users toward bimanual differentiation.
+Each sensor channels a distinct interaction modality — grip force (Pressure), spatial position and velocity (ToF), strike events plus continuous activity (Piezo) — into the sonification layer.
 
 ---
 
-## 未來應用 | Future Applications
+## 預期使用情境 | Use Cases
 
-paired_motion 不是一次性演出 patch，是一套**可擴展的互動聲響平台**。預期使用方向：
+- 駐村期末成果發表（工研院場域 demo、文化部訪視）
+- 社區工作坊（板橋 435、淡水義山日照中心）
+- 莫比斯圓環協作演出（劇場框架）
+- 復健療程聽覺回饋試點
+- 教學工作坊（讓參與者寫自己的 sub_*.maxpat 做聲響設計）
+- 技術擴展面：加新感測器、無線通訊、多人多台同動車同步
 
-- **駐村期末成果發表** — 工研院場域 demo + 文化部訪視
-- **社區工作坊延伸** — 板橋 435、淡水義山日照中心，讓長者親身操作 + 共同創作
-- **跟莫比斯圓環協作演出** — 劇場框架下的敘事 + 互動結合
-- **老人照護 / 復健場域試點** — 從互動裝置變成感官評估工具
-- **教學工作坊** — 讓參與者寫自己的 abstraction（sub_*.maxpat）做聲響設計
-
-技術擴展面：加新感測器（再寫一支 sub_xxx）、無線版本（WiFi/OSC 取代 USB）、多點同步（多人多台同動車）。
-
-paired_motion is intended as an extensible interaction-and-sound platform, not a one-off performance patch. Planned use: residency finale demo, community workshops with elderly users, theater collaboration, eldercare/rehab piloting, and teaching workshops where participants author their own sub_*.maxpat abstractions. Technical extensibility includes new sensors, wireless transport, and multi-instrument synchronization.
+Use cases span residency finale, community workshops, theater collaboration, rehab augmentation, and teaching workshops.
 
 ---
 
