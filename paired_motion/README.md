@@ -2,26 +2,42 @@
 
 工研院藝術進駐「**節奏繞纏**」（Rhythmic Entanglements）專案的演出主 patch。
 
-整合三組感測器（Pressure / TOF / Piezo）成一個雙手互動樂器（同動車），以 Max/MSP 即時聲音合成。本資料夾是**演出版本**——zip 起來給合作者就能完整跑、跨電腦移植不需重新設定。
+整合三組感測器（Pressure / TOF / Piezo）成一個雙手互動樂器（同動車），以 Max/MSP 即時聲音合成。
 
-> 這份是 paired_motion 的單一參考文件。所有跟這支演出 patch 相關的設計資訊都集中在這裡。
-> 韌體層細節在各感測器資料夾的 README（連結在後面）。
+> 本資料夾是**演出版本**——zip 起來給合作者就能完整跑、跨電腦移植不需重新設定。
+> 設計動機、藝術構想、未來應用見 [主 repo README 的「演出整合：paired_motion 詳細介紹」](../README.md#演出整合paired_motion-詳細介紹--performance-integration-paired_motion-in-detail)。
+> 本份文件聚焦在**這個資料夾的內容**：怎麼用、怎麼改、怎麼維護。
 
 ---
 
 ## 目錄
 
+- [快速開始](#快速開始)
 - [資料夾結構](#資料夾結構)
-- [第一次使用](#第一次使用)
-- [跟其他資料夾的關係](#跟其他資料夾的關係)
+- [系統架構](#系統架構)
 - [ESP32 Port 對應](#esp32-port-對應)
 - [Abstraction 設計](#abstraction-設計)
-  - [sub_auto_detect](#sub_auto_detect)
-  - [sub_tof](#sub_tof)
-  - [sub_pressure](#sub_pressure)
-  - [sub_piezo](#sub_piezo)
-- [還原 / 版本控制](#還原--版本控制)
-- [待完成](#待完成)
+- [跟其他資料夾的關係](#跟其他資料夾的關係)
+- [演出版本控制](#演出版本控制)
+- [待完成 / Roadmap](#待完成--roadmap)
+
+---
+
+## 快速開始
+
+第一次拿到這份資料夾的人（包括未來自己）：
+
+1. 確認 Mac 上裝了 Max/MSP 9 跟 Node.js 16+
+2. 三顆 ESP32（Pressure / TOF / Piezo）插到 USB Hub
+3. Max 開啟 `paired_motion.maxproj`
+4. 雙擊 `patchers/main.maxpat`
+5. **第一次跑**（`code/node_modules/` 不存在）：點 patch 上的「npm install」按鈕，console 會印 `npm success dictionary ...`
+6. 裝完後送 `script restart` 給 [node.script]（或重新載入 patch），讓 auto_detect.js 重新載入
+7. console 應顯示「掃描結果」三組 ID 都被找到 → 開始演出
+
+之後每次開只要 1~2 秒（node_modules 已存在，跳過 npm install）。
+
+> 不需要開 Terminal、不需要手動 `npm install`，在 Max patch 裡按按鈕就完成。
 
 ---
 
@@ -31,11 +47,11 @@
 paired_motion/
 ├── paired_motion.maxproj            ← Max Project 檔（autoorganize=0）
 ├── README.md                         ← 你正在看
-├── openactions.txt                   ← Max 自動產生
+├── openactions.txt                   ← Max 自動產生的 project 開啟動作
 │
 ├── patchers/                         ← 所有 .maxpat（Max 慣例位置）
 │   ├── main.maxpat                   ← 演出主 patch
-│   ├── sub_auto_detect.maxpat        ← auto-detect + 三 [serial] + 解析鏈封裝
+│   ├── sub_auto_detect.maxpat        ← auto-detect + 三 [serial] + 解析鏈
 │   ├── sub_tof.maxpat                ← TOF 訊號處理
 │   ├── sub_pressure.maxpat           ← Pressure 訊號處理
 │   ├── sub_piezo.maxpat              ← Piezo 訊號處理
@@ -44,12 +60,13 @@ paired_motion/
 │   └── vs.*.maxpat                   ← Cycling74 vs.* 系列工具
 │
 ├── code/                             ← Node.js 自動化
-│   ├── auto_detect.js                ← USB port 自動掃描 + WHO 識別
-│   ├── who_probe.js                  ← 命令列診斷工具
-│   ├── package.json
+│   ├── auto_detect.js                ← USB port 自動掃描 + WHO 識別（patch 載入時跑）
+│   ├── who_probe.js                  ← 命令列單 port 診斷工具（debug 用，不在 patch 內）
+│   ├── package.json                  ← 依賴宣告（serialport ^12）
+│   ├── package-lock.json
 │   └── node_modules/                 ← npm install 後產生（git 不追）
 │
-├── media/                            ← 取樣（consolidate 拉進來，~19 MB）
+├── media/                            ← 取樣（consolidate 拉進來）
 │   ├── Bubbles_ Big_ Fast_ Gurgling Up.aif
 │   ├── EQ-Lp011 Ejects Rhythm 065.wav
 │   ├── EQ-Lp013 Express Rhythm 065.wav
@@ -63,52 +80,45 @@ paired_motion/
     └── 20yymmdd_場地名.maxsnap
 ```
 
-> 經過 Max Project 的 **Consolidate** 之後，所有引用的取樣、Cycling74 abstractions、PeRColate externals 都被複製進 project 資料夾。整個 paired_motion/ zip 起來給合作者，**對方不需要單獨安裝 Cycling74 vs library 或 PeRColate package**，patch 也照樣跑。
+> Consolidate 過後所有引用的取樣、Cycling74 abstractions、PeRColate externals 都被複製進此資料夾。**對方不需要單獨安裝 vs library 或 PeRColate package**，patch 也照樣跑。
 
 ---
 
-## 第一次使用
+## 系統架構
 
-1. **接好硬體**：三顆 ESP32（Pressure / TOF / Piezo）插到 USB Hub
-2. **Max 開啟** `paired_motion.maxproj`
-3. **打開 patchers/main.maxpat**
-4. **如果是第一次跑（node_modules 不存在）**：點 patch 上的「npm install」按鈕，等 console 印 `npm success dictionary ...`
-5. **裝完後**送 `script restart` 給 [node.script]（或重新載入 patch），讓 auto_detect.js 重新載入
-6. console 應顯示「掃描結果」三組 ID 都被找到
-7. 開始演出
-
-之後每次開只要 1~2 秒（node_modules 已存在，跳過 npm install）。
-
----
-
-## 跟其他資料夾的關係
-
-| 資料夾 | 角色 |
-|---|---|
-| `paired_motion/`（本資料夾） | **演出版本** —— 凍結在已知可用狀態，給合作者用 |
-| [`../serial_auto_detect/`](../serial_auto_detect/) | **實驗室** —— 開發 / debug auto-detect 機制 |
-| [`../pressure_sensor/`](../pressure_sensor/) | Pressure ESP32 韌體（含 README） |
-| [`../tof_distance_sensor/`](../tof_distance_sensor/) | TOF ESP32 韌體（含 README） |
-| [`../piezo_detect/`](../piezo_detect/) | Piezo ESP32 韌體（含 README） |
-
-`code/auto_detect.js` 是從 `serial_auto_detect/` 複製過來的**凍結副本**——`serial_auto_detect/` 之後的更動不會自動同步進來，避免實驗中的改動污染演出版本。需要更新時：
-
-```bash
-cp ../serial_auto_detect/auto_detect.js code/auto_detect.js
-git commit -m "sync(paired_motion): pull latest auto_detect.js"
+```
+硬體層 / Hardware
+  ┌───────────────────────────────────────────┐
+  │  ESP32-C3 #1     ESP32-C3 #2    ESP32-C3 #3
+  │  (Pressure)      (TOF)          (Piezo 4-drum)
+  │   │ FSR x2        │ VL53L0X x2   │ Piezo x4 + LED x4
+  │   │ LED ring x2   │ Button+LED   │
+  │   └────── USB Hub ──────────────┘
+  └────────────┬──────────────────────────────┘
+               │
+               ▼
+Mac 端 / Max + Node.js
+  ┌───────────────────────────────────────────┐
+  │  paired_motion.maxproj
+  │       ↓
+  │  patchers/main.maxpat
+  │       │
+  │       ├── [bpatcher sub_auto_detect.maxpat]
+  │       │     ├── [node.script ../code/auto_detect.js]
+  │       │     │      ↓ (掃描三 port + WHO 握手)
+  │       │     ├── [serial a/b/c 115200 8 1] x 3
+  │       │     │      ↓ (依韌體前綴 route 分流)
+  │       │     └── outlet: /tof  /pressure  /piezo  /piezo/stream
+  │       │
+  │       ├── [bpatcher sub_tof.maxpat]      → 聲響映射
+  │       ├── [bpatcher sub_pressure.maxpat] → 聲響映射
+  │       ├── [bpatcher sub_piezo.maxpat]    → 聲響映射
+  │       │
+  │       └── [混音 + dac~] → 喇叭
+  └───────────────────────────────────────────┘
 ```
 
-### 給合作者的快速啟動
-
-如果你拿到的是 zip / 從 git clone 下來的乾淨副本：
-
-1. 確認 Mac 上裝了 Node.js 16+（[下載](https://nodejs.org/)）
-2. Max/MSP 9 開啟 `paired_motion.maxproj`
-3. 打開 `patchers/main.maxpat`
-4. 接 ESP32（不接也能開 patch，只是 auto_detect 會回報三顆都 missing）
-5. 第一次點 patch 上的「npm install」按鈕等裝好
-
-不需要開 Terminal、不需要手動 `npm install`。
+每個 `sub_*` 負責**一種感測器的訊號處理 + 聲響映射**，主 patch 只做佈線、混音、輸出。
 
 ---
 
@@ -232,7 +242,7 @@ inlet  ──→  [unpack f f i i]
 
 ### sub_piezo
 
-**位置**：`patchers/sub_piezo.maxpat`（待建）
+**位置**：`patchers/sub_piezo.maxpat`
 
 **Inlets**：
 
@@ -284,7 +294,45 @@ inlet 2 ──→ [unpack i i i i] ──→ d1 d2 d3 d4（每通道活動量，
 
 ---
 
-## 還原 / 版本控制
+## 跟其他資料夾的關係
+
+| 資料夾 | 角色 |
+|---|---|
+| `paired_motion/`（本資料夾） | **演出版本** —— 凍結在已知可用狀態，給合作者用 |
+| [`../serial_auto_detect/`](../serial_auto_detect/) | **實驗室** —— 開發 / debug auto-detect 機制 |
+| [`../pressure_sensor/`](../pressure_sensor/) | Pressure ESP32 韌體（含 README） |
+| [`../tof_distance_sensor/`](../tof_distance_sensor/) | TOF ESP32 韌體（含 README） |
+| [`../piezo_detect/`](../piezo_detect/) | Piezo ESP32 韌體（含 README） |
+
+### `code/auto_detect.js` 跟 `serial_auto_detect/auto_detect.js` 的關係
+
+**這兩個是獨立的檔案，內容相同但分開維護。**
+
+Max patch 載入時讀的是**自己資料夾裡** `paired_motion/code/auto_detect.js`，跟 `serial_auto_detect/auto_detect.js` 沒有任何即時連動。它們會「相同」只是因為**最初是用 `cp` 從 serial_auto_detect 複製過來**——之後各自演化，不會自動同步。
+
+| | serial_auto_detect/auto_detect.js | paired_motion/code/auto_detect.js |
+|---|---|---|
+| 角色 | 實驗版（debug、改 timeout、加新功能） | 演出版（已驗證可用，不亂動） |
+| 誰會用 | 開發時用 `auto_detect_test.maxpat` 測 | paired_motion 的 Max patch 載入 |
+| 改動頻率 | 高（一直迭代） | 低（演出前才會改） |
+
+這樣分的目的：**實驗版改壞不會炸到演出版**。在 serial_auto_detect 那邊試新東西、debug 完了，**手動**用一行 `cp` 把成果複製進演出版，commit + tag 為某場演出的還原點：
+
+```bash
+# 從實驗版手動同步到演出版
+cp ../serial_auto_detect/auto_detect.js code/auto_detect.js
+
+# 確認沒問題後 commit + 標 tag
+git commit -m "sync(paired_motion): pull latest auto_detect.js from dev"
+git tag 演出_yymmdd_場地名
+git push origin --tags
+```
+
+**沒手動 `cp` 的話，paired_motion 永遠跑它自己的舊版**——這是設計上的安全網，不是 bug。
+
+---
+
+## 演出版本控制
 
 每場演出前 commit + git tag 標記：
 
@@ -306,16 +354,26 @@ git checkout 演出_20260617_文化部訪視
 | Tag | 內容 |
 |---|---|
 | `paired_motion_skeleton` | 骨架完成（資料夾、Project、依賴複製、placeholder patch） |
+| `tof_normalized_firmware` | TOF 韌體升級到 8 值 normalize 版本 |
 
 ---
 
-## 待完成
+## 待完成 / Roadmap
 
-- [x] sub_auto_detect.maxpat —— auto-detect 邏輯封裝（user 已建）
-- [x] sub_tof.maxpat —— 已建立空檔，**待填**訊號處理（韌體已輸出 normalized 速度，sub_tof 直接 unpack 就好）
-- [x] sub_pressure.maxpat —— 已建立空檔，**待填**訊號處理
-- [ ] sub_piezo.maxpat —— **待建**
-- [ ] main.maxpat —— bpatcher 連接 + 各 abstraction 串到聲音模組 + dac~
-- [ ] 取樣素材整理進 `media/`
+### 已完成
+
+- [x] sub_auto_detect.maxpat —— auto-detect 邏輯封裝
+- [x] sub_tof.maxpat —— 訊號處理（韌體已輸出 normalized 速度，sub_tof 直接 unpack）
+- [x] sub_pressure.maxpat —— 訊號處理
+- [x] sub_piezo.maxpat —— 訊號處理（敲擊事件 + 連續活動兩種輸出）
+- [x] 取樣素材 consolidate 進 `media/`
+- [x] Cycling74 abstractions + PeRColate externals consolidate 進 project
+
+### 待完成
+
+- [ ] `main.maxpat` 內 bpatcher 連接完成
+- [ ] 各 abstraction 串到聲音模組（依現有 `media/` 取樣設計聲響）
+- [ ] 主混音 + dac~ 輸出
 - [ ] `presets/default.maxsnap` 預設參數
 - [ ] 演出實機跑過完整流程，commit + tag 第一個演出版本
+- [ ] 演出前測試文檔（換筆電、換 hub、現場可能突發狀況的處理流程）
