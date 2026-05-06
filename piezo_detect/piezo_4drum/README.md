@@ -92,5 +92,5 @@ ESP32-C3 SuperMini 四通道壓電感測器，輸出**敲擊事件**與**連續�
 | `FILTER_SHIFT` | 2 | IIR 濾波強度（位移運算，越大越平滑） |
 | `LED_MIN_MS` | 30 | LED 最短亮燈時間（輕觸） |
 | `LED_MAX_MS` | 1000 | LED 最長亮燈時間（重擊） |
-| `LED_ACTIVITY_THRESHOLD` | 30 | 活動量超過此值就點 LED |
+| `LED_ACTIVITY_THRESHOLD` | 100 | 活動量超過此值就點 LED。原為 30，因環境 EMI 偶發 spike 到 100+ 造成誤觸發改為 100。**只影響 LED，不影響敲擊偵測** |
 | `STREAM_INTERVAL_MS` | 20 | 連續串流輸出間隔（50Hz） |
