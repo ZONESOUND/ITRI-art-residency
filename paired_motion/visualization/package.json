@@ -1,0 +1,5 @@
+{
+  "name": "paired-motion-visualization",
+  "version": "1.0.0",
+  "description": "Paired Motion ToF trajectory visualization — Node for Max (SSE, zero dependencies)"
+}

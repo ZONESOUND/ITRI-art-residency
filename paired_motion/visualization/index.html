@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToF Trajectory Visualization</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; font-family: 'SF Mono', 'Menlo', monospace; }
+  canvas { display: block; }
+
+  /* ── HUD overlay ── */
+  #hud {
+    position: fixed; top: 16px; left: 16px;
+    color: #aaa; font-size: 12px; line-height: 1.8;
+    pointer-events: none; user-select: none; z-index: 10;
+  }
+  #hud .value { color: #fff; }
+  #hud .label { color: #666; }
+
+  /* ── Connection indicator ── */
+  #status-dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 6px;
+    background: #f44; /* red = disconnected */
+    transition: background 0.3s;
+  }
+  #status-dot.connected { background: #4f4; }
+
+  /* ── Controls ── */
+  #controls {
+    position: fixed; top: 16px; right: 16px; z-index: 10;
+    display: flex; gap: 8px;
+  }
+  .btn {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc; padding: 6px 14px; font-size: 12px; cursor: pointer;
+    border-radius: 4px; font-family: inherit; transition: all 0.15s;
+  }
+  .btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .btn.active { background: rgba(100,180,255,0.2); border-color: #68f; color: #8af; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud">
+  <div><span id="status-dot"></span><span id="status-text">Connecting...</span></div>
+  <div><span class="label">mode </span><span class="value" id="mode-label">Trail</span></div>
+  <div><span class="label">fX </span><span class="value" id="v-fx">—</span>
+       <span class="label"> fY </span><span class="value" id="v-fy">—</span></div>
+  <div><span class="label">vel </span><span class="value" id="v-vel">—</span><span class="label"> mm/s</span></div>
+  <div><span class="label">vX </span><span class="value" id="v-vx">—</span>
+       <span class="label"> vY </span><span class="value" id="v-vy">—</span></div>
+  <div><span class="label">vXn </span><span class="value" id="v-vxn">—</span>
+       <span class="label"> vYn </span><span class="value" id="v-vyn">—</span></div>
+  <div><span class="label">fps </span><span class="value" id="v-fps">—</span></div>
+</div>
+
+<div id="controls">
+  <button class="btn active" id="btn-trail" onclick="setMode('trail')">Trail</button>
+  <button class="btn" id="btn-heat" onclick="setMode('heatmap')">Heatmap</button>
+  <button class="btn" onclick="clearAll()">Clear</button>
+</div>
+
+<script>
+// ── Canvas setup ───────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ── State ──────────────────────────────────────────────────────
+let mode = 'trail'; // 'trail' | 'heatmap'
+const TRAIL_MAX = 300;
+const trail = []; // { fX, fY, vel } ← 存原始 mm 值，畫的時候再算 canvas 座標
+let prevX = null, prevY = null;
+let currentFX = 0, currentFY = 0, currentVel = 0;
+let currentVX = 0, currentVY = 0;     // ESP32 EMA-smoothed velocity (mm/s) — HUD 顯示用
+let currentVXn = 0, currentVYn = 0;   // ESP32 normalized velocity (-1~1) — 視覺映射用
+let currentVelNorm = 0;               // sqrt(vXn² + vYn²) clipped to 1，所有顏色 / 粗細 / 光暈映射的單一來源
+
+// Heatmap grid
+const GRID = 80;
+let heatmap = new Float32Array(GRID * GRID);
+const HEAT_DECAY = 0.998;  // per-frame decay（越接近 1 淡出越慢）
+const HEAT_ADD = 0.15;     // per-sample weight（加大 → 快速移動也看得到）
+const HEAT_RADIUS = 3;     // spread to neighboring cells（擴散半徑加大 → 軌跡更粗）
+
+// FPS counter
+let frameCount = 0, lastFpsTime = performance.now(), fps = 0;
+
+// ── Coordinate mapping（鏡像版）──────────────────────────────
+// Arduino 輸出值：0 ~ N mm（校正後位移，非負）
+// 偵測點從右下角開始：fX=0,fY=0 → 右下角（靠近感測器）
+// X: 右半邊 = 原始，左半邊 = 鏡像（兩隻手對稱）
+// Y: 用滿全螢幕高度
+const RANGE_X = 320;  // mm, X 軸最大位移
+const RANGE_Y = 220;  // mm, Y 軸最大位移
+const PAD = 0.05;     // 邊緣留白比例
+
+function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+
+// X 右半邊（原始）：fX=0 → 右邊緣（靠近X感測器），fX=max → 中線（遠離）
+function toRightX(fX) {
+  const norm = clamp01(fX / RANGE_X);
+  return canvas.width * (1 - PAD) - norm * canvas.width * (0.5 - PAD);
+}
+
+// X 左半邊（鏡像）：fX=0 → 左邊緣，fX=max → 中線
+function toLeftX(fX) {
+  const norm = clamp01(fX / RANGE_X);
+  return canvas.width * PAD + norm * canvas.width * (0.5 - PAD);
+}
+
+// Y 用滿全高：fY=0 → 底部（靠近Y感測器），fY=max → 頂部（遠離）
+function toCanvasY(fY) {
+  const norm = clamp01(fY / RANGE_Y);
+  return canvas.height * (1 - PAD) - norm * canvas.height * (1 - 2 * PAD);
+}
+
+// ── Mode switching ─────────────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-trail').classList.toggle('active', m === 'trail');
+  document.getElementById('btn-heat').classList.toggle('active', m === 'heatmap');
+  document.getElementById('mode-label').textContent = m === 'trail' ? 'Trail' : 'Heatmap';
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function clearAll() {
+  trail.length = 0;
+  heatmap.fill(0);
+  prevX = null; prevY = null;
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// ── Color helpers ──────────────────────────────────────────────
+// 顏色映射用韌體已 normalize 的 vXn/vYn（範圍 -1~1，已 deadband + clip）。
+// velNorm = min(sqrt(vXn² + vYn²), 1)。靜止時 = 0 exact，不需要 fallback。
+const VEL_MAX = 500;  // mm/s，僅 HUD 顯示與舊韌體 fallback 用，視覺映射不再經過它
+
+function velToColor(velNorm, alpha) {
+  const t = Math.min(velNorm, 1);
+  const hue = 200 - t * 200; // slow=blue(200) → fast=red(0)
+  return `hsla(${hue}, 90%, 60%, ${alpha})`;
+}
+
+function heatToRGB(val) {
+  const v = Math.min(val, 1);
+  let r = 0, g = 0, b = 0;
+  if (v < 0.2) {
+    b = v / 0.2;
+  } else if (v < 0.4) {
+    const t = (v - 0.2) / 0.2;
+    b = 1; g = t;
+  } else if (v < 0.6) {
+    const t = (v - 0.4) / 0.2;
+    g = 1; b = 1 - t;
+  } else if (v < 0.8) {
+    const t = (v - 0.6) / 0.2;
+    g = 1; r = t;
+  } else {
+    const t = (v - 0.8) / 0.2;
+    r = 1; g = 1 - t * 0.5;
+  }
+  return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
+}
+
+// ── Data ingestion ─────────────────────────────────────────────
+function onData(data) {
+  const { fX, fY, vX, vY, vXn, vYn } = data;
+  currentFX = fX;
+  currentFY = fY;
+  currentVX = vX || 0;
+  currentVY = vY || 0;
+  currentVXn = vXn || 0;
+  currentVYn = vYn || 0;
+
+  // velNorm（0~1）— 視覺映射的單一來源
+  // 優先用韌體 normalized 速度（vXn/vYn），靜止時 exact 0
+  // fallback：舊韌體沒有 vXn/vYn → 用 vX/vY ÷ VEL_MAX → 用 position delta
+  let velNorm;
+  if (vXn !== undefined || vYn !== undefined) {
+    velNorm = Math.min(Math.sqrt(currentVXn * currentVXn + currentVYn * currentVYn), 1);
+  } else if (vX !== undefined && vY !== undefined && (vX !== 0 || vY !== 0)) {
+    velNorm = Math.min(Math.sqrt(vX * vX + vY * vY) / VEL_MAX, 1);
+  } else if (prevX !== null) {
+    const dx = fX - prevX;
+    const dy = fY - prevY;
+    velNorm = Math.min(Math.sqrt(dx * dx + dy * dy) * 50 / VEL_MAX, 1);
+  } else {
+    velNorm = 0;
+  }
+  currentVelNorm = velNorm;
+  // HUD 顯示用 mm/s：能拿真值就拿，沒有就反推
+  currentVel = (vX !== undefined || vY !== undefined)
+    ? Math.sqrt(currentVX * currentVX + currentVY * currentVY)
+    : velNorm * VEL_MAX;
+  prevX = fX;
+  prevY = fY;
+
+  // Trail: 存 velNorm（0~1，繪圖直接吃）
+  trail.push({ fX, fY, velNorm });
+  if (trail.length > TRAIL_MAX) trail.shift();
+
+  // Heatmap: 在原始 + 鏡像兩個位置累加
+  const normX = clamp01(fX / RANGE_X);
+  const normY = clamp01(fY / RANGE_Y);
+  // 右半邊格子（原始）：fX=0 → GRID-1（右邊緣），fX=max → GRID/2（中線）
+  const gxR = Math.min(Math.floor(GRID - 1 - normX * (GRID / 2 - 1)), GRID - 1);
+  // 左半邊格子（鏡像）：fX=0 → 0（左邊緣），fX=max → GRID/2（中線）
+  const gxL = Math.max(Math.floor(normX * (GRID / 2)), 0);
+  // Y 全高：fY=0 → GRID-1（底部），fY=max → 0（頂部）
+  const gy = Math.min(Math.floor((1 - normY) * (GRID - 1)), GRID - 1);
+
+  // 速度加權：快速移動 → 更多熱力、更大擴散
+  const velWeight = 1 + velNorm * 2;   // 靜止 1x，最快 3x 熱力
+  const velRadius = Math.round(HEAT_RADIUS + velNorm * 2);  // 靜止 3，最快 5 格擴散
+
+  // 同時在兩邊累加熱力
+  addHeat(gxR, gy, velWeight, velRadius);
+  addHeat(gxL, gy, velWeight, velRadius);
+}
+
+function addHeat(gx, gy, weight = 1, radius = HEAT_RADIUS) {
+  for (let dy = -radius; dy <= radius; dy++) {
+    for (let dx = -radius; dx <= radius; dx++) {
+      const ix = gx + dx;
+      const iy = gy + dy;
+      if (ix >= 0 && ix < GRID && iy >= 0 && iy < GRID) {
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const w = HEAT_ADD * weight * Math.max(0, 1 - dist / (radius + 1));
+        heatmap[iy * GRID + ix] = Math.min(heatmap[iy * GRID + ix] + w, 1.2);
+      }
+    }
+  }
+}
+
+// ── Helper: draw a trail segment on one side ──────────────────
+function drawSegment(x0, y0, x1, y1, velNorm, age) {
+  const alpha = age * age * 0.9;
+  ctx.beginPath();
+  ctx.moveTo(x0, y0);
+  ctx.lineTo(x1, y1);
+  ctx.strokeStyle = velToColor(velNorm, alpha);
+  // 速度越快線條越粗：靜止 1px，最快 5px（再乘以 age 淡入）
+  ctx.lineWidth = (1 + velNorm * 4) * age;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+}
+
+// ── Helper: draw a glowing dot ────────────────────────────────
+function drawDot(x, y, velNorm) {
+  // 光暈隨速度變大：靜止 6px，最快 20px
+  const glow = 6 + velNorm * 14;
+  ctx.beginPath();
+  ctx.arc(x, y, glow, 0, Math.PI * 2);
+  ctx.fillStyle = velToColor(velNorm, 0.2 + velNorm * 0.2);
+  ctx.fill();
+
+  // 中心白點也隨速度稍微變大
+  const core = 3 + velNorm * 2;
+  ctx.beginPath();
+  ctx.arc(x, y, core, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+}
+
+// ── Draw center mirror line ───────────────────────────────────
+function drawMirrorLine() {
+  const cx = canvas.width / 2;
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx, 0);
+  ctx.lineTo(cx, canvas.height);
+  ctx.stroke();
+
+  // 標記 R / L（靠近底部中線兩側）
+  ctx.font = '11px monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.textAlign = 'center';
+  ctx.fillText('R →', cx + 30, canvas.height - 12);
+  ctx.fillText('← L', cx - 30, canvas.height - 12);
+}
+
+// ── Render: Trail mode ────────────────────────────────────────
+function drawTrail() {
+  // Fade previous frame
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  drawMirrorLine();
+
+  if (trail.length < 2) return;
+
+  // Draw trail segments (both sides)
+  for (let i = 1; i < trail.length; i++) {
+    const p0 = trail[i - 1];
+    const p1 = trail[i];
+    const age = i / trail.length; // 0=oldest, 1=newest
+
+    const y0 = toCanvasY(p0.fY);
+    const y1 = toCanvasY(p1.fY);
+
+    // Right side (original)
+    drawSegment(toRightX(p0.fX), y0, toRightX(p1.fX), y1, p1.velNorm, age);
+    // Left side (mirror)
+    drawSegment(toLeftX(p0.fX), y0, toLeftX(p1.fX), y1, p1.velNorm, age);
+  }
+
+  // Current position dot (both sides)
+  const last = trail[trail.length - 1];
+  const cy = toCanvasY(last.fY);
+  drawDot(toRightX(last.fX), cy, currentVelNorm);
+  drawDot(toLeftX(last.fX), cy, currentVelNorm);
+}
+
+// ── Render: Heatmap mode ──────────────────────────────────────
+function drawHeatmap() {
+  const cellW = canvas.width / GRID;
+  const cellH = canvas.height / GRID;
+
+  const imgData = ctx.createImageData(canvas.width, canvas.height);
+  const pixels = imgData.data;
+
+  for (let gy = 0; gy < GRID; gy++) {
+    for (let gx = 0; gx < GRID; gx++) {
+      const val = heatmap[gy * GRID + gx];
+      if (val < 0.01) continue;
+
+      const [r, g, b] = heatToRGB(val);
+      const px0 = Math.floor(gx * cellW);
+      const py0 = Math.floor(gy * cellH);
+      const px1 = Math.floor((gx + 1) * cellW);
+      const py1 = Math.floor((gy + 1) * cellH);
+
+      for (let py = py0; py < py1 && py < canvas.height; py++) {
+        for (let px = px0; px < px1 && px < canvas.width; px++) {
+          const idx = (py * canvas.width + px) * 4;
+          pixels[idx] = r;
+          pixels[idx + 1] = g;
+          pixels[idx + 2] = b;
+          pixels[idx + 3] = 255;
+        }
+      }
+    }
+  }
+
+  ctx.putImageData(imgData, 0, 0);
+
+  // Mirror line
+  drawMirrorLine();
+
+  // Current position dots (both sides)
+  if (trail.length > 0) {
+    const last = trail[trail.length - 1];
+    const cy = toCanvasY(last.fY);
+
+    // Right dot
+    const rx = toRightX(last.fX);
+    ctx.beginPath();
+    ctx.arc(rx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(rx, cy, 6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Left dot (mirror)
+    const lx = toLeftX(last.fX);
+    ctx.beginPath();
+    ctx.arc(lx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(lx, cy, 6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Decay
+  for (let i = 0; i < heatmap.length; i++) {
+    heatmap[i] *= HEAT_DECAY;
+  }
+}
+
+// ── Main render loop ──────────────────────────────────────────
+function render() {
+  if (mode === 'trail') {
+    drawTrail();
+  } else {
+    drawHeatmap();
+  }
+
+  // FPS
+  frameCount++;
+  const now = performance.now();
+  if (now - lastFpsTime > 500) {
+    fps = Math.round(frameCount / ((now - lastFpsTime) / 1000));
+    frameCount = 0;
+    lastFpsTime = now;
+  }
+
+  // Update HUD
+  document.getElementById('v-fx').textContent = currentFX;
+  document.getElementById('v-fy').textContent = currentFY;
+  document.getElementById('v-vel').textContent = currentVel.toFixed(0);
+  document.getElementById('v-vx').textContent = currentVX.toFixed(1);
+  document.getElementById('v-vy').textContent = currentVY.toFixed(1);
+  document.getElementById('v-vxn').textContent = currentVXn.toFixed(3);
+  document.getElementById('v-vyn').textContent = currentVYn.toFixed(3);
+  document.getElementById('v-fps').textContent = fps;
+
+  requestAnimationFrame(render);
+}
+
+requestAnimationFrame(render);
+
+// ── SSE connection (Server-Sent Events) ────────────────────────
+const dot = document.getElementById('status-dot');
+const statusText = document.getElementById('status-text');
+
+function connectSSE() {
+  const es = new EventSource(`/events`);
+
+  es.onopen = () => {
+    dot.classList.add('connected');
+    statusText.textContent = 'Connected';
+  };
+
+  es.onmessage = (e) => {
+    try {
+      const data = JSON.parse(e.data);
+      if (data.type === 'tof') {
+        onData(data);
+      }
+    } catch (err) {}
+  };
+
+  es.onerror = () => {
+    dot.classList.remove('connected');
+    statusText.textContent = 'Disconnected — reconnecting...';
+  };
+}
+
+connectSSE();
+
+// ── Keyboard shortcuts ─────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key === '1') setMode('trail');
+  if (e.key === '2') setMode('heatmap');
+  if (e.key === 'c' || e.key === 'C') clearAll();
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+});
+</script>
+</body>
+</html>
