@@ -1,8 +1,8 @@
 {
     "name": "paired_motion",
     "version": 1,
-    "creationdate": -182,
-    "modificationdate": 3860910551,
+    "creationdate": -303,
+    "modificationdate": 3863310877,
     "viewrect": [ 60.0, 100.0, 320.0, 600.0 ],
     "autoorganize": 0,
     "hideprojectwindow": 0,

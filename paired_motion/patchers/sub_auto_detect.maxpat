@@ -14,6 +14,17 @@
         "boxes": [
             {
                 "box": {
+                    "id": "obj-17",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 206.0, 49.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
                     "id": "obj-18",
                     "maxclass": "comment",
                     "numinlets": 1,
@@ -232,7 +243,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 258.0, 80.0, 64.0, 22.0 ],
+                    "patching_rect": [ 206.0, 80.0, 64.0, 22.0 ],
                     "text": "script start"
                 }
             },
@@ -383,8 +394,6 @@
                     "saved_object_attributes": {
                         "autostart": 0,
                         "defer": 0,
-                        "node_bin_path": "",
-                        "npm_bin_path": "",
                         "watch": 0
                     },
                     "text": "node.script auto_detect.js",
@@ -709,6 +718,12 @@
                 "patchline": {
                     "destination": [ "obj-metro", 0 ],
                     "source": [ "obj-11", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8", 0 ],
+                    "source": [ "obj-17", 0 ]
                 }
             },
             {
