@@ -4,7 +4,7 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
@@ -12,6 +12,17 @@
         "rect": [ 60.0, 100.0, 800.0, 600.0 ],
         "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-19",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 274.0, 120.0, 29.5, 22.0 ],
+                    "text": "del"
+                }
+            },
             {
                 "box": {
                     "id": "obj-17",
@@ -304,6 +315,8 @@
             },
             {
                 "box": {
+                    "bgcolor": [ 0.4823529411764706, 0.0, 0.0, 1.0 ],
+                    "checkedcolor": [ 0.9254901960784314, 0.9529411764705882, 0.6196078431372549, 1.0 ],
                     "id": "obj-11",
                     "maxclass": "toggle",
                     "numinlets": 1,
@@ -312,7 +325,8 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 484.0, 217.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 14.0, 96.0, 24.0, 24.0 ]
+                    "presentation_rect": [ 14.0, 96.0, 24.0, 24.0 ],
+                    "uncheckedcolor": [ 1.0, 0.5490196078431373, 0.5490196078431373, 0.49 ]
                 }
             },
             {
@@ -722,8 +736,22 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-8", 0 ],
+                    "destination": [ "obj-19", 0 ],
+                    "order": 0,
                     "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8", 0 ],
+                    "order": 1,
+                    "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-38", 0 ],
+                    "source": [ "obj-19", 0 ]
                 }
             },
             {

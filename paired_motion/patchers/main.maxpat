@@ -4,20 +4,85 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 881.0, 817.0 ],
+        "rect": [ 34.0, 92.0, 1211.0, 847.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-18",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 182.0, 555.0, 72.0, 22.0 ],
+                    "text": "startwindow"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-15",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 182.0, 527.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-13",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 629.0, -27.0, 55.0, 22.0 ],
+                    "text": "del 4000"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-12",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 20.0, -35.0, 55.0, 22.0 ],
+                    "text": "del 3000"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-11",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "bang" ],
+                    "patching_rect": [ 20.0, -67.0, 58.0, 22.0 ],
+                    "text": "loadbang"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-10",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 206.0, 459.0, 150.0, 23.0 ],
+                    "text": "調整音量"
+                }
+            },
             {
                 "box": {
                     "id": "obj-4",
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 579.0, 35.0, 22.0 ],
+                    "patching_rect": [ 20.0, 594.0, 35.0, 22.0 ],
                     "text": "dac~"
                 }
             },
@@ -29,8 +94,20 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 182.0, 339.0, 22.0, 140.0 ]
+                    "parameter_enable": 1,
+                    "patching_rect": [ 182.0, 339.0, 22.0, 140.0 ],
+                    "saved_attribute_attributes": {
+                        "valueof": {
+                            "parameter_initial": [ 88 ],
+                            "parameter_initial_enable": 1,
+                            "parameter_longname": "gain~[1]",
+                            "parameter_mmax": 157.0,
+                            "parameter_modmode": 3,
+                            "parameter_shortname": "gain~[1]",
+                            "parameter_type": 0
+                        }
+                    },
+                    "varname": "gain~"
                 }
             },
             {
@@ -41,8 +118,20 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 85.0, 339.0, 22.0, 140.0 ]
+                    "parameter_enable": 1,
+                    "patching_rect": [ 85.0, 339.0, 22.0, 140.0 ],
+                    "saved_attribute_attributes": {
+                        "valueof": {
+                            "parameter_initial": [ 88 ],
+                            "parameter_initial_enable": 1,
+                            "parameter_longname": "gain~[2]",
+                            "parameter_mmax": 157.0,
+                            "parameter_modmode": 3,
+                            "parameter_shortname": "gain~[2]",
+                            "parameter_type": 0
+                        }
+                    },
+                    "varname": "gain~[1]"
                 }
             },
             {
@@ -53,8 +142,20 @@
                     "numinlets": 1,
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 20.0, 339.0, 22.0, 140.0 ]
+                    "parameter_enable": 1,
+                    "patching_rect": [ 20.0, 339.0, 22.0, 140.0 ],
+                    "saved_attribute_attributes": {
+                        "valueof": {
+                            "parameter_initial": [ 88 ],
+                            "parameter_initial_enable": 1,
+                            "parameter_longname": "gain~[3]",
+                            "parameter_mmax": 157.0,
+                            "parameter_modmode": 3,
+                            "parameter_shortname": "gain~[3]",
+                            "parameter_type": 0
+                        }
+                    },
+                    "varname": "gain~[2]"
                 }
             },
             {
@@ -116,7 +217,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 20.0, 628.0, 25.0 ],
+                    "patching_rect": [ 111.0, 19.0, 537.0, 25.0 ],
                     "text": "PAIRED MOTION: 接收與控制同動車上的三組感測器（距離感測、壓力感測、敲擊感測）"
                 }
             }
@@ -134,6 +235,44 @@
                     "destination": [ "obj-4", 0 ],
                     "order": 1,
                     "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-12", 0 ],
+                    "order": 1,
+                    "source": [ "obj-11", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-13", 0 ],
+                    "order": 0,
+                    "source": [ "obj-11", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 0 ],
+                    "source": [ "obj-12", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 1 ],
+                    "source": [ "obj-13", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-18", 0 ],
+                    "source": [ "obj-15", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-18", 0 ]
                 }
             },
             {
@@ -184,6 +323,9 @@
             }
         ],
         "parameters": {
+            "obj-1": [ "gain~[3]", "gain~[3]", 0 ],
+            "obj-2": [ "gain~[2]", "gain~[2]", 0 ],
+            "obj-3": [ "gain~[1]", "gain~[1]", 0 ],
             "obj-7::obj-105": [ "gain~", "gain~", 0 ],
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
