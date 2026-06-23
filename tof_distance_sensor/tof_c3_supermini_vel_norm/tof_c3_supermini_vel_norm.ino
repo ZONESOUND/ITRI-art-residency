@@ -80,8 +80,9 @@ Adafruit_VL53L0X lox2 = Adafruit_VL53L0X();
 
 // === 參數 ===
 const uint32_t TIMING_BUDGET_US = 33000;  // 33ms timing budget
-const unsigned long WARMUP_MS   = 500;    // 暖機丟棄時間
-const unsigned long CALIB_MS    = 5000;   // 校正收集時間
+const unsigned long WARMUP_MS   = 200;    // 暖機丟棄時間（按一下校正：短暖機）
+const unsigned long CALIB_MS    = 800;    // 校正收集時間（~800ms 收 ~12 筆，取中位數已足夠）
+                                          // WARMUP + CALIB ≈ 1 秒完成，按鈕一按即校正
 const unsigned long OUTPUT_INTERVAL_MS = 20; // 50Hz 輸出
 const int RANGE_MIN = 0;
 const int RANGE_MAX = 2000;
@@ -377,7 +378,8 @@ void loop() {
     if (now - stateStartMs >= WARMUP_MS) {
       currentState = STATE_CALIBRATING;
       stateStartMs = now;
-      Serial.println("/status calibrating 5");
+      Serial.print("/status calibrating ");
+      Serial.println((int)((CALIB_MS + 999) / 1000));
     }
     return;
   }
