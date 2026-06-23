@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 4,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1211.0, 847.0 ],
+        "rect": [ 38.0, 92.0, 1208.0, 594.0 ],
         "boxes": [
             {
                 "box": {
@@ -73,6 +73,8 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 206.0, 459.0, 150.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 181.3333387374878, 272.0000081062317, 106.66666984558105, 23.0 ],
                     "text": "調整音量"
                 }
             },
@@ -96,6 +98,8 @@
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 182.0, 339.0, 22.0, 140.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 149.33333778381348, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -120,6 +124,8 @@
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 85.0, 339.0, 22.0, 140.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 85.33333587646484, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -144,6 +150,8 @@
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
                     "patching_rect": [ 20.0, 339.0, 22.0, 140.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 20.000000596046448, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -166,7 +174,8 @@
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
                     "patching_rect": [ 20.0, 294.0, 48.0, 22.0 ],
-                    "text": "sub_tof"
+                    "text": "sub_tof",
+                    "varname": "sub_tof"
                 }
             },
             {
@@ -207,6 +216,8 @@
                     "numoutlets": 0,
                     "offset": [ 0.0, 0.0 ],
                     "patching_rect": [ 20.0, 48.0, 628.0, 232.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 16.66666716337204, 8.000000238418579, 271.3333414196968, 135.33333736658096 ],
                     "viewvisibility": 1
                 }
             },
@@ -330,14 +341,6 @@
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
-            "parameterbanks": {
-                "0": {
-                    "index": 0,
-                    "name": "",
-                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
-                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
             "parameter_overrides": {
                 "obj-7::obj-105": {
                     "parameter_initial": 100,

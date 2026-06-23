@@ -1,0 +1,512 @@
+{
+    "filetype": "C74Snapshot",
+    "version": 2,
+    "minorversion": 0,
+    "name": "Iota.amxd",
+    "origin": "Iota.amxd",
+    "type": "amxd",
+    "subtype": "Undefined",
+    "embed": 0,
+    "snapshot": {
+        "name": "Iota.amxd",
+        "origname": "~/Music/Ableton/Factory Packs/Iota by Dillon Bastan/Iota.amxd",
+        "valuedictionary": {
+            "parameter_values": {
+                "Auto Select": 1.0,
+                "Envelope Legato": 0.0,
+                "Filter Offset": 0.0,
+                "Gain Attack": 2279.7045620951935,
+                "Gain Decay": 8497.812409839366,
+                "Gain Release": 2279.7045620951935,
+                "Gain Sustain": 1.0,
+                "Master Gain": 0.0,
+                "Pitch Offset": 0.0,
+                "Play Automations": 0.0,
+                "Playback Mode": 0.0,
+                "Position Offset": 0.0,
+                "Snap Note Length": 3.375,
+                "Snap to Grid": 0.0,
+                "Spread": 0.0,
+                "live.text": 0.0,
+                "live.text[2]": 0.0,
+                "live.text[3]": 0.0,
+                "live.text[4]": 0.0,
+                "selEnd": 0.0,
+                "selStart": 0.0,
+                "blob": {
+                    "005loopParams_MP[19]": [
+                        {                        }
+                    ],
+                    "005saveState": [
+                        {
+                            "pattrstorage": {
+                                "name": "---saveState",
+                                "slots": {                                }
+                            }
+                        }
+                    ],
+                    "Lock to Transport": [ 1 ],
+                    "Sample Drop": [ "" ],
+                    "autoDict[0]": [
+                        {                        }
+                    ],
+                    "autoDict[10]": [
+                        {                        }
+                    ],
+                    "autoDict[11]": [
+                        {                        }
+                    ],
+                    "autoDict[12]": [
+                        {                        }
+                    ],
+                    "autoDict[13]": [
+                        {                        }
+                    ],
+                    "autoDict[14]": [
+                        {                        }
+                    ],
+                    "autoDict[15]": [
+                        {                        }
+                    ],
+                    "autoDict[1]": [
+                        {                        }
+                    ],
+                    "autoDict[2]": [
+                        {                        }
+                    ],
+                    "autoDict[3]": [
+                        {                        }
+                    ],
+                    "autoDict[4]": [
+                        {                        }
+                    ],
+                    "autoDict[5]": [
+                        {                        }
+                    ],
+                    "autoDict[6]": [
+                        {                        }
+                    ],
+                    "autoDict[7]": [
+                        {                        }
+                    ],
+                    "autoDict[8]": [
+                        {                        }
+                    ],
+                    "autoDict[9]": [
+                        {                        }
+                    ],
+                    "fftEnergy": [ 1.6 ],
+                    "loopFloat[10]": [
+                        {                        }
+                    ],
+                    "loopFloat[11]": [
+                        {                        }
+                    ],
+                    "loopFloat[12]": [
+                        {                        }
+                    ],
+                    "loopFloat[13]": [
+                        {                        }
+                    ],
+                    "loopFloat[14]": [
+                        {                        }
+                    ],
+                    "loopFloat[15]": [
+                        {                        }
+                    ],
+                    "loopFloat[16]": [
+                        {                        }
+                    ],
+                    "loopFloat[17]": [
+                        {                        }
+                    ],
+                    "loopFloat[18]": [
+                        {                        }
+                    ],
+                    "loopFloat[19]": [
+                        {                        }
+                    ],
+                    "loopFloat[1]": [
+                        {                        }
+                    ],
+                    "loopFloat[20]": [
+                        {                        }
+                    ],
+                    "loopFloat[21]": [
+                        {                        }
+                    ],
+                    "loopFloat[22]": [
+                        {                        }
+                    ],
+                    "loopFloat[23]": [
+                        {                        }
+                    ],
+                    "loopFloat[24]": [
+                        {                        }
+                    ],
+                    "loopFloat[25]": [
+                        {                        }
+                    ],
+                    "loopFloat[26]": [
+                        {                        }
+                    ],
+                    "loopFloat[27]": [
+                        {                        }
+                    ],
+                    "loopFloat[28]": [
+                        {                        }
+                    ],
+                    "loopFloat[29]": [
+                        {                        }
+                    ],
+                    "loopFloat[2]": [
+                        {                        }
+                    ],
+                    "loopFloat[30]": [
+                        {                        }
+                    ],
+                    "loopFloat[31]": [
+                        {                        }
+                    ],
+                    "loopFloat[3]": [
+                        {                        }
+                    ],
+                    "loopFloat[4]": [
+                        {                        }
+                    ],
+                    "loopFloat[54]": [
+                        {                        }
+                    ],
+                    "loopFloat[5]": [
+                        {                        }
+                    ],
+                    "loopFloat[6]": [
+                        {                        }
+                    ],
+                    "loopFloat[7]": [
+                        {                        }
+                    ],
+                    "loopFloat[8]": [
+                        {                        }
+                    ],
+                    "loopFloat[9]": [
+                        {                        }
+                    ],
+                    "loopFloatsMain": [
+                        {                        }
+                    ],
+                    "loopLCD": [
+                        {                        }
+                    ],
+                    "loopMuting": [
+                        {                        }
+                    ],
+                    "loopMuting[1]": [
+                        {                        }
+                    ],
+                    "loopParam[107]": [
+                        {                        }
+                    ],
+                    "loopParam[108]": [
+                        {                        }
+                    ],
+                    "loopParam[10]": [
+                        {                        }
+                    ],
+                    "loopParam[11]": [
+                        {                        }
+                    ],
+                    "loopParam[12]": [
+                        {                        }
+                    ],
+                    "loopParam[13]": [
+                        {                        }
+                    ],
+                    "loopParam[14]": [
+                        {                        }
+                    ],
+                    "loopParam[15]": [
+                        {                        }
+                    ],
+                    "loopParam[16]": [
+                        {                        }
+                    ],
+                    "loopParam[17]": [
+                        {                        }
+                    ],
+                    "loopParam[18]": [
+                        {                        }
+                    ],
+                    "loopParam[19]": [
+                        {                        }
+                    ],
+                    "loopParam[1]": [
+                        {                        }
+                    ],
+                    "loopParam[20]": [
+                        {                        }
+                    ],
+                    "loopParam[21]": [
+                        {                        }
+                    ],
+                    "loopParam[22]": [
+                        {                        }
+                    ],
+                    "loopParam[23]": [
+                        {                        }
+                    ],
+                    "loopParam[24]": [
+                        {                        }
+                    ],
+                    "loopParam[25]": [
+                        {                        }
+                    ],
+                    "loopParam[26]": [
+                        {                        }
+                    ],
+                    "loopParam[27]": [
+                        {                        }
+                    ],
+                    "loopParam[28]": [
+                        {                        }
+                    ],
+                    "loopParam[29]": [
+                        {                        }
+                    ],
+                    "loopParam[2]": [
+                        {                        }
+                    ],
+                    "loopParam[30]": [
+                        {                        }
+                    ],
+                    "loopParam[31]": [
+                        {                        }
+                    ],
+                    "loopParam[32]": [
+                        {                        }
+                    ],
+                    "loopParam[33]": [
+                        {                        }
+                    ],
+                    "loopParam[34]": [
+                        {                        }
+                    ],
+                    "loopParam[35]": [
+                        {                        }
+                    ],
+                    "loopParam[36]": [
+                        {                        }
+                    ],
+                    "loopParam[37]": [
+                        {                        }
+                    ],
+                    "loopParam[38]": [
+                        {                        }
+                    ],
+                    "loopParam[39]": [
+                        {                        }
+                    ],
+                    "loopParam[3]": [
+                        {                        }
+                    ],
+                    "loopParam[40]": [
+                        {                        }
+                    ],
+                    "loopParam[41]": [
+                        {                        }
+                    ],
+                    "loopParam[42]": [
+                        {                        }
+                    ],
+                    "loopParam[43]": [
+                        {                        }
+                    ],
+                    "loopParam[44]": [
+                        {                        }
+                    ],
+                    "loopParam[45]": [
+                        {                        }
+                    ],
+                    "loopParam[46]": [
+                        {                        }
+                    ],
+                    "loopParam[47]": [
+                        {                        }
+                    ],
+                    "loopParam[48]": [
+                        {                        }
+                    ],
+                    "loopParam[49]": [
+                        {                        }
+                    ],
+                    "loopParam[4]": [
+                        {                        }
+                    ],
+                    "loopParam[50]": [
+                        {                        }
+                    ],
+                    "loopParam[51]": [
+                        {                        }
+                    ],
+                    "loopParam[52]": [
+                        {                        }
+                    ],
+                    "loopParam[53]": [
+                        {                        }
+                    ],
+                    "loopParam[54]": [
+                        {                        }
+                    ],
+                    "loopParam[55]": [
+                        {                        }
+                    ],
+                    "loopParam[56]": [
+                        {                        }
+                    ],
+                    "loopParam[57]": [
+                        {                        }
+                    ],
+                    "loopParam[58]": [
+                        {                        }
+                    ],
+                    "loopParam[59]": [
+                        {                        }
+                    ],
+                    "loopParam[5]": [
+                        {                        }
+                    ],
+                    "loopParam[60]": [
+                        {                        }
+                    ],
+                    "loopParam[61]": [
+                        {                        }
+                    ],
+                    "loopParam[62]": [
+                        {                        }
+                    ],
+                    "loopParam[6]": [
+                        {                        }
+                    ],
+                    "loopParam[7]": [
+                        {                        }
+                    ],
+                    "loopParam[8]": [
+                        {                        }
+                    ],
+                    "loopParam[9]": [
+                        {                        }
+                    ],
+                    "loopParams": [
+                        {                        }
+                    ],
+                    "loopStartPhases": [
+                        {                        }
+                    ],
+                    "loopStartPhases[10]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[11]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[12]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[13]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[14]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[15]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[16]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[17]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[18]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[19]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[1]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[20]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[21]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[22]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[23]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[24]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[25]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[26]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[27]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[28]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[29]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[2]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[30]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[31]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[3]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[4]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[54]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[5]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[6]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[7]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[8]": [
+                        {                        }
+                    ],
+                    "loopStartPhases[9]": [
+                        {                        }
+                    ],
+                    "textedit": [ "none" ],
+                    "voiceStates": [
+                        {
+                            "voiceStates": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+                        }
+                    ]
+                }
+            }
+        },
+        "active": 1
+    }
+}
