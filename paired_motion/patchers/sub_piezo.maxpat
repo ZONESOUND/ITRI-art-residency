@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 59.0, 92.0, 941.0, 594.0 ],
+        "rect": [ 59.0, 92.0, 1112.0, 883.0 ],
         "boxes": [
             {
                 "box": {
@@ -30,7 +30,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 349.0, 100.0, 120.0, 22.0 ],
-                    "text": "0 0 2 0"
+                    "text": "4 0 2 5"
                 }
             },
             {
@@ -207,7 +207,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "patching_rect": [ 286.0, 134.0, 53.0, 22.0 ],
-                    "text": "slide 3 3"
+                    "text": "slide 5 5"
                 }
             },
             {
@@ -229,7 +229,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "float" ],
                     "patching_rect": [ 227.0, 134.0, 53.0, 22.0 ],
-                    "text": "slide 3 3"
+                    "text": "slide 5 5"
                 }
             },
             {
