@@ -378,8 +378,7 @@ void loop() {
     if (now - stateStartMs >= WARMUP_MS) {
       currentState = STATE_CALIBRATING;
       stateStartMs = now;
-      Serial.print("/status calibrating ");
-      Serial.println((int)((CALIB_MS + 999) / 1000));
+      Serial.println("/status calibrating");  // ~1s 校準，僅印開始標記，完成靠 /cal_done
     }
     return;
   }
@@ -394,15 +393,6 @@ void loop() {
     }
 
     unsigned long elapsed = now - stateStartMs;
-
-    static unsigned long lastCalPrint = 0;
-    if (now - lastCalPrint >= 1000) {
-      lastCalPrint = now;
-      long remainMs = (long)CALIB_MS - (long)elapsed;
-      int remainSec = (remainMs > 0) ? (int)((remainMs + 999) / 1000) : 0;
-      Serial.print("/status calibrating ");
-      Serial.println(remainSec);
-    }
 
     if (elapsed >= CALIB_MS) {
       offsetX = (calibCountX > 0) ? arrayMedian(calibSamplesX, calibCountX) : 0;
