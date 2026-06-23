@@ -47,7 +47,14 @@ Key structural conventions:
 
 **ToF trajectory visualization:** open `paired_motion/patchers/main_viz.maxpat` (a copy of `main.maxpat` with a viz block) or add `sub_visualization.maxpat`, then `script start` the `[node.script server.js]` (port 8080, SSE → browser at http://localhost:8080). `main.maxpat` itself is never modified for viz. See `paired_motion/visualization/README.md`.
 
-**Arduino firmware:** Board = `ESP32C3 Dev Module`, **USB CDC On Boot = Enabled** (required for all three — otherwise Serial uses the wrong channel). Libraries: `Adafruit_VL53L0X`, `Adafruit_NeoPixel`. The flashed firmware per device and the stable port-suffix→device mapping are tabulated in `paired_motion/README.md` and `serial_auto_detect/README.md`. The WHO handler lives in each `.ino`'s `handleSerialCommand()`.
+**Arduino firmware:** Board = `ESP32C3 Dev Module`, **USB CDC On Boot = Enabled** (required for all three — otherwise Serial uses the wrong channel). Libraries: `Adafruit_VL53L0X`, `Adafruit_NeoPixel`. The flashed firmware per device and the stable port-suffix→device mapping are tabulated in `paired_motion/README.md` and `serial_auto_detect/README.md`. The WHO handler lives in each `.ino`'s `handleSerialCommand()`. Ports enumerate as `…21101`=pressure, `…21301`=tof, `…21401`=piezo — always WHO-probe to confirm before flashing.
+
+`arduino-cli` is installed (esp32 core 3.3.10 + Adafruit VL53L0X). Flash from CLI — quit Max first to free the port:
+```
+arduino-cli compile --fqbn esp32:esp32:esp32c3:CDCOnBoot=cdc <sketch_dir>
+arduino-cli upload  -p /dev/cu.usbmodemXXXX --fqbn esp32:esp32:esp32c3:CDCOnBoot=cdc <sketch_dir>
+```
+`CDCOnBoot=cdc` is how USB CDC On Boot=Enabled maps to the FQBN — omitting it sends Serial out the wrong channel.
 
 ## Performance version control
 

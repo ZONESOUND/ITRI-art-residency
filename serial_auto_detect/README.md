@@ -219,7 +219,7 @@ node who_probe.js /dev/tty.usbmodem1423101
 | 末 4 碼 | 裝置 | 韌體 |
 |---|---|---|
 | `1423101` | Pressure | `pressure_2hands/pressure_2hands.ino` |
-| `1423301` | TOF | `tof_distance_sensor/tof_c3_supermini_vel/tof_c3_supermini_vel.ino` |
+| `1423301` | TOF | `tof_distance_sensor/tof_c3_supermini_vel_norm/tof_c3_supermini_vel_norm.ino`（8 值 normalize 版） |
 | `1423401` | Piezo | `piezo_detect/piezo_4drum/piezo_4drum.ino` |
 
 ---

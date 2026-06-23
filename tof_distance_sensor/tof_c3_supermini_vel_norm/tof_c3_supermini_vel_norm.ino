@@ -32,7 +32,7 @@
  *                = clip(vX / VEL_MAX, -1.0, 1.0) 後做小 deadband
  *                靜止時 = 0.0（exact）
  *
- *   校正中  ："/status calibrating N\n"（倒數秒數）
+ *   校正中  ："/status calibrating\n"（開始標記；~1 秒校準不再倒數）
  *   校正完成："/cal_done offsetX offsetY samplesX samplesY\n"
  *   正常運行："/status running\n"
  *   濾波重置："/status filters_reset\n"

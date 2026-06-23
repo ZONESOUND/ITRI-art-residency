@@ -324,7 +324,7 @@ cp ../serial_auto_detect/auto_detect.js code/auto_detect.js
 
 # 確認沒問題後 commit + 標 tag
 git commit -m "sync(paired_motion): pull latest auto_detect.js from dev"
-git tag 演出_yymmdd_場地名
+git tag 演出-YYYYMMDD
 git push origin --tags
 ```
 
@@ -334,20 +334,22 @@ git push origin --tags
 
 ## 演出版本控制
 
-每場演出前 commit + git tag 標記：
+排練 / 演出 / 展覽各自可以是不同版本。每次前 commit + git tag 標記，用「情境前綴 + 日期」（保持簡單，不加場地名）：
 
 ```bash
-git tag 演出_20260617_文化部訪視
+git tag 排練-YYYYMMDD   # 排練
+git tag 演出-YYYYMMDD   # 上台演出
+git tag 展覽-YYYYMMDD   # 展覽 / booth
 git push origin --tags
 ```
 
-之後想還原任何一場版本：
+之後想還原任何一個版本：
 
 ```bash
-git checkout 演出_20260617_文化部訪視
+git checkout 演出-20261015
 ```
 
-`presets/` 裡的 maxsnap 檔對應每場演出當下調好的參數，跟 git tag 配對使用。
+`presets/` 裡的 maxsnap 檔對應每次調好的參數，跟 git tag 配對使用。
 
 ### 已知還原點
 
