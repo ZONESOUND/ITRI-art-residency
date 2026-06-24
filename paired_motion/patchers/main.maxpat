@@ -9,16 +9,15 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1852.0, 954.0 ],
+        "rect": [ 34.0, 92.0, 1276.0, 714.0 ],
         "boxes": [
             {
                 "box": {
                     "id": "obj-17",
-                    "linecount": 3,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 16.0, -26.0, 150.0, 49.0 ],
+                    "patching_rect": [ 42.0, 15.0, 359.0, 23.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
                     "presentation_rect": [ 16.333337873220444, -30.99999976158142, 272.0, 37.0 ],
@@ -31,7 +30,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 45.0, 215.0, 150.0, 23.0 ],
+                    "patching_rect": [ 14.5, 371.0, 62.0, 23.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 46.0, 213.16667127609253, 63.0, 23.0 ],
                     "text": "移動手把"
@@ -43,7 +42,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 159.0, 211.0, 150.0, 23.0 ],
+                    "patching_rect": [ 112.0, 371.0, 62.0, 23.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 161.0, 213.16667127609253, 63.0, 23.0 ],
                     "text": "握力感測"
@@ -127,7 +126,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 214.0, 561.0, 150.0, 23.0 ],
+                    "patching_rect": [ 214.0, 561.0, 48.0, 23.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 290.0, 213.16667127609253, 46.0, 23.0 ],
                     "text": "敲擊"
@@ -283,7 +282,9 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 111.0, 19.0, 537.0, 25.0 ],
+                    "patching_rect": [ 20.0, 286.0, 537.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 16.333337873220444, -60.0, 537.0, 25.0 ],
                     "text": "PAIRED MOTION: 接收與控制同動車上的三組感測器（距離感測、壓力感測、敲擊感測）"
                 }
             }

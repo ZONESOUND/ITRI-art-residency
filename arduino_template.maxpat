@@ -4,24 +4,13 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
         "rect": [ 59.0, 111.0, 941.0, 648.0 ],
         "boxes": [
-            {
-                "box": {
-                    "id": "obj-19",
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 101.0, 188.0, 50.0, 22.0 ],
-                    "text": "10"
-                }
-            },
             {
                 "box": {
                     "fontname": "Trebuchet MS",
@@ -49,7 +38,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -251,7 +240,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 1,
+                            "revision": 4,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -394,7 +383,7 @@
                             }
                         ]
                     },
-                    "patching_rect": [ 204.5, 172.0, 72.0, 19.0 ],
+                    "patching_rect": [ 115.5, 176.0, 72.0, 19.0 ],
                     "saved_object_attributes": {
                         "fontname": "Verdana"
                     },
@@ -413,7 +402,7 @@
                     "fontname": "Verdana",
                     "fontsize": 9.0,
                     "id": "obj-23",
-                    "items": [ "select...", ",", "BLTH", ",", "HookeVerse", ",", "Bluetooth-Incoming-Port", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbserial-1430" ],
+                    "items": [ "select...", ",", "BLTH", ",", "Bluetooth-Incoming-Port", ",", "HookeVerse", ",", "macMacBookPro", ",", "NS-83", ",", "F4", ",", "BigAirpod", ",", "usbmodem1423101", ",", "usbmodem1423401", ",", "usbmodem1423301" ],
                     "labelclick": 1,
                     "maxclass": "umenu",
                     "numinlets": 1,
@@ -445,7 +434,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "int" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 31.5, 82.0, 19.0, 19.0 ]
+                    "patching_rect": [ 31.5, 63.5, 19.0, 19.0 ]
                 }
             },
             {
@@ -555,7 +544,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-23", 0 ],
-                    "midpoints": [ 214.0, 201.0, 288.0, 201.0, 288.0, 87.0, 130.0, 87.0 ],
+                    "midpoints": [ 125.0, 201.0, 288.0, 201.0, 288.0, 87.0, 130.0, 87.0 ],
                     "source": [ "obj-16", 0 ]
                 }
             },
@@ -587,7 +576,6 @@
             {
                 "patchline": {
                     "destination": [ "obj-14", 0 ],
-                    "order": 1,
                     "source": [ "obj-28", 0 ]
                 }
             },
@@ -595,13 +583,6 @@
                 "patchline": {
                     "destination": [ "obj-16", 0 ],
                     "source": [ "obj-28", 1 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-19", 1 ],
-                    "order": 0,
-                    "source": [ "obj-28", 0 ]
                 }
             },
             {
