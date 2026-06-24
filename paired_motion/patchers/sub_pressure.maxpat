@@ -9,8 +9,46 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 59.0, 111.0, 941.0, 648.0 ],
+        "rect": [ 59.0, 111.0, 1177.0, 773.0 ],
         "boxes": [
+            {
+                "box": {
+                    "comment": "",
+                    "id": "obj-19",
+                    "index": 1,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 675.0, 15.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-17",
+                    "maxclass": "number",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 675.0, 117.0, 50.0, 22.0 ]
+                }
+            },
+            {
+                "box": {
+                    "disabled": [ 0, 0, 0 ],
+                    "id": "obj-15",
+                    "itemtype": 0,
+                    "maxclass": "radiogroup",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 675.0, 56.0, 18.0, 50.0 ],
+                    "size": 3,
+                    "value": 2
+                }
+            },
             {
                 "box": {
                     "comment": "",
@@ -19,7 +57,7 @@
                     "maxclass": "outlet",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 287.0, 424.0, 30.0, 30.0 ]
+                    "patching_rect": [ 305.0, 523.0, 30.0, 30.0 ]
                 }
             },
             {
@@ -29,7 +67,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
-                    "patching_rect": [ 287.0, 379.0, 34.0, 22.0 ],
+                    "patching_rect": [ 305.0, 478.0, 34.0, 22.0 ],
                     "text": "*~ 1."
                 }
             },
@@ -119,7 +157,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 454.0, 15.0, 70.0, 22.0 ],
+                    "patching_rect": [ 472.0, 47.0, 70.0, 22.0 ],
                     "text": "loadmess 1"
                 }
             },
@@ -135,7 +173,7 @@
                     "orientation": 1,
                     "outlettype": [ "signal", "", "float", "list" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 454.0, 281.0, 140.0, 35.0 ],
+                    "patching_rect": [ 472.0, 380.0, 140.0, 35.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ -80 ],
@@ -162,7 +200,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 509.0, 218.0, 50.0, 22.0 ]
+                    "patching_rect": [ 527.0, 317.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -172,7 +210,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 509.0, 151.0, 49.0, 22.0 ],
+                    "patching_rect": [ 527.0, 250.0, 49.0, 22.0 ],
                     "text": "r hand1"
                 }
             },
@@ -183,7 +221,7 @@
                     "numinlets": 6,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 509.0, 187.0, 101.0, 22.0 ],
+                    "patching_rect": [ 527.0, 286.0, 101.0, 22.0 ],
                     "text": "scale 0. 1. -70. 0."
                 }
             },
@@ -199,7 +237,7 @@
                     "orientation": 1,
                     "outlettype": [ "signal", "", "float", "list" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 287.0, 281.0, 140.0, 35.0 ],
+                    "patching_rect": [ 305.0, 380.0, 140.0, 35.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ -80 ],
@@ -219,7 +257,7 @@
             },
             {
                 "box": {
-                    "clipheight": 29.0,
+                    "clipheight": 32.666666666666664,
                     "data": {
                         "clips": [
                             {
@@ -228,6 +266,16 @@
                                 "filekind": "audiofile",
                                 "id": "u924007847",
                                 "selection": [ 0.08421052631578947, 0.7684210526315789 ],
+                                "loop": 1,
+                                "content_state": {
+                                    "loop": 1
+                                }
+                            },
+                            {
+                                "absolutepath": "/Users/zonesound/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_Projects_Operations/Active/ITRI_工研院藝術進駐/互動音樂測試/聲音素材/子翎_孩童嬰兒聲/child_voice_export.aif",
+                                "filename": "child_voice_export.aif",
+                                "filekind": "audiofile",
+                                "id": "u899010198",
                                 "loop": 1,
                                 "content_state": {
                                     "loop": 1
@@ -252,7 +300,7 @@
                     "numoutlets": 5,
                     "outlettype": [ "signal", "signal", "signal", "", "dictionary" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 454.0, 59.0, 150.0, 60.0 ],
+                    "patching_rect": [ 472.0, 117.0, 150.0, 101.0 ],
                     "quality": "basic",
                     "saved_attribute_attributes": {
                         "candicane2": {
@@ -281,7 +329,7 @@
             },
             {
                 "box": {
-                    "clipheight": 29.0,
+                    "clipheight": 32.666666666666664,
                     "data": {
                         "clips": [
                             {
@@ -290,6 +338,16 @@
                                 "filekind": "audiofile",
                                 "id": "u911007809",
                                 "selection": [ 0.09473684210526316, 0.8 ],
+                                "loop": 1,
+                                "content_state": {
+                                    "loop": 1
+                                }
+                            },
+                            {
+                                "absolutepath": "/Users/zonesound/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_Projects_Operations/Active/ITRI_工研院藝術進駐/互動音樂測試/聲音素材/子翎_孩童嬰兒聲/child_voice_export2.aif",
+                                "filename": "child_voice_export2.aif",
+                                "filekind": "audiofile",
+                                "id": "u943010409",
                                 "loop": 1,
                                 "content_state": {
                                     "loop": 1
@@ -314,7 +372,7 @@
                     "numoutlets": 5,
                     "outlettype": [ "signal", "signal", "signal", "", "dictionary" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 287.0, 59.0, 150.0, 60.0 ],
+                    "patching_rect": [ 305.0, 117.0, 151.0, 101.0 ],
                     "quality": "basic",
                     "saved_attribute_attributes": {
                         "candicane2": {
@@ -350,7 +408,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 337.0, 220.0, 50.0, 22.0 ]
+                    "patching_rect": [ 355.0, 319.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -360,7 +418,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 337.0, 151.0, 49.0, 22.0 ],
+                    "patching_rect": [ 355.0, 250.0, 49.0, 22.0 ],
                     "text": "r hand2"
                 }
             },
@@ -371,7 +429,7 @@
                     "numinlets": 6,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 337.0, 187.0, 101.0, 22.0 ],
+                    "patching_rect": [ 355.0, 286.0, 101.0, 22.0 ],
                     "text": "scale 0. 1. -70. 0."
                 }
             },
@@ -429,6 +487,32 @@
                 "patchline": {
                     "destination": [ "obj-29", 1 ],
                     "source": [ "obj-10", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-17", 0 ],
+                    "source": [ "obj-15", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-2", 0 ],
+                    "order": 1,
+                    "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-53", 0 ],
+                    "order": 0,
+                    "source": [ "obj-17", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-15", 0 ],
+                    "source": [ "obj-19", 0 ]
                 }
             },
             {

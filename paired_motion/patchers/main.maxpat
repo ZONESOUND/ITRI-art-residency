@@ -4,13 +4,68 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 38.0, 92.0, 1208.0, 594.0 ],
+        "rect": [ 34.0, 92.0, 1852.0, 954.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-17",
+                    "linecount": 3,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 16.0, -26.0, 150.0, 49.0 ],
+                    "presentation": 1,
+                    "presentation_linecount": 2,
+                    "presentation_rect": [ 16.333337873220444, -30.99999976158142, 272.0, 37.0 ],
+                    "text": "如果無法讀取到裝置，可先點選 close serial 後重新 RESCAN"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-16",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 45.0, 215.0, 150.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 46.0, 213.16667127609253, 63.0, 23.0 ],
+                    "text": "移動手把"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-14",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 159.0, 211.0, 150.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 161.0, 213.16667127609253, 63.0, 23.0 ],
+                    "text": "握力感測"
+                }
+            },
+            {
+                "box": {
+                    "disabled": [ 0, 0, 0 ],
+                    "id": "obj-5",
+                    "itemtype": 0,
+                    "maxclass": "radiogroup",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 93.0, 331.0, 18.0, 50.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 161.0, 154.66667127609253, 18.0, 50.0 ],
+                    "size": 3,
+                    "value": 2
+                }
+            },
             {
                 "box": {
                     "id": "obj-18",
@@ -18,7 +73,7 @@
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 182.0, 555.0, 72.0, 22.0 ],
+                    "patching_rect": [ 190.0, 657.0, 72.0, 22.0 ],
                     "text": "startwindow"
                 }
             },
@@ -29,7 +84,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
-                    "patching_rect": [ 182.0, 527.0, 58.0, 22.0 ],
+                    "patching_rect": [ 190.0, 629.0, 58.0, 22.0 ],
                     "text": "loadbang"
                 }
             },
@@ -72,10 +127,10 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 206.0, 459.0, 150.0, 23.0 ],
+                    "patching_rect": [ 214.0, 561.0, 150.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 181.3333387374878, 272.0000081062317, 106.66666984558105, 23.0 ],
-                    "text": "調整音量"
+                    "presentation_rect": [ 290.0, 213.16667127609253, 46.0, 23.0 ],
+                    "text": "敲擊"
                 }
             },
             {
@@ -84,7 +139,7 @@
                     "maxclass": "newobj",
                     "numinlets": 2,
                     "numoutlets": 0,
-                    "patching_rect": [ 20.0, 594.0, 35.0, 22.0 ],
+                    "patching_rect": [ 28.0, 696.0, 35.0, 22.0 ],
                     "text": "dac~"
                 }
             },
@@ -97,9 +152,9 @@
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 182.0, 339.0, 22.0, 140.0 ],
+                    "patching_rect": [ 190.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 149.33333778381348, 154.66667127609253, 22.0, 140.0 ],
+                    "presentation_rect": [ 266.00000858306885, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -123,9 +178,9 @@
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 85.0, 339.0, 22.0, 140.0 ],
+                    "patching_rect": [ 93.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 85.33333587646484, 154.66667127609253, 22.0, 140.0 ],
+                    "presentation_rect": [ 132.0, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -149,7 +204,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "signal", "" ],
                     "parameter_enable": 1,
-                    "patching_rect": [ 20.0, 339.0, 22.0, 140.0 ],
+                    "patching_rect": [ 28.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 20.000000596046448, 154.66667127609253, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
@@ -173,7 +228,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
-                    "patching_rect": [ 20.0, 294.0, 48.0, 22.0 ],
+                    "patching_rect": [ 28.0, 396.0, 48.0, 22.0 ],
                     "text": "sub_tof",
                     "varname": "sub_tof"
                 }
@@ -182,10 +237,10 @@
                 "box": {
                     "id": "obj-8",
                     "maxclass": "newobj",
-                    "numinlets": 0,
+                    "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
-                    "patching_rect": [ 85.0, 294.0, 81.0, 22.0 ],
+                    "patching_rect": [ 93.0, 396.0, 81.0, 22.0 ],
                     "text": "sub_pressure"
                 }
             },
@@ -196,7 +251,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "signal" ],
-                    "patching_rect": [ 182.0, 294.0, 63.0, 22.0 ],
+                    "patching_rect": [ 190.0, 396.0, 63.0, 22.0 ],
                     "text": "sub_piezo"
                 }
             },
@@ -316,6 +371,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-8", 0 ],
+                    "source": [ "obj-5", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-3", 0 ],
                     "source": [ "obj-7", 0 ]
                 }
@@ -341,6 +402,14 @@
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
+            "parameterbanks": {
+                "0": {
+                    "index": 0,
+                    "name": "",
+                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
+                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
+                }
+            },
             "parameter_overrides": {
                 "obj-7::obj-105": {
                     "parameter_initial": 100,
