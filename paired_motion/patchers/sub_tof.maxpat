@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1212.0, 594.0 ],
+        "rect": [ 38.0, 92.0, 1208.0, 594.0 ],
         "boxes": [
             {
                 "box": {
@@ -3625,14 +3625,28 @@
             {
                 "patchline": {
                     "destination": [ "obj-2", 0 ],
+                    "order": 3,
+                    "source": [ "obj-10", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-30", 0 ],
                     "order": 1,
                     "source": [ "obj-10", 0 ]
                 }
             },
             {
                 "patchline": {
-                    "destination": [ "obj-62", 0 ],
+                    "destination": [ "obj-39", 0 ],
                     "order": 0,
+                    "source": [ "obj-10", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-62", 0 ],
+                    "order": 2,
                     "source": [ "obj-10", 0 ]
                 }
             },
