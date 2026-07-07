@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 4,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1498.0, 941.0 ],
+        "rect": [ 34.0, 92.0, 729.0, 594.0 ],
         "boxes": [
             {
                 "box": {
@@ -17,7 +17,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 526.0, 664.5, 340.0, 23.0 ],
+                    "patching_rect": [ 529.0, 552.0000078678131, 340.0, 23.0 ],
                     "text": "activeVoices: 0=無 1=左 2=右 3=雙手合奏"
                 }
             },
@@ -29,7 +29,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 474.0, 665.0, 50.0, 22.0 ]
+                    "patching_rect": [ 496.60000574588776, 528.0000078678131, 50.0, 22.0 ]
                 }
             },
             {
@@ -39,7 +39,7 @@
                     "numinlets": 0,
                     "numoutlets": 3,
                     "outlettype": [ "", "", "" ],
-                    "patching_rect": [ 339.0, 620.0, 130.0, 22.0 ],
+                    "patching_rect": [ 385.60000574588776, 483.2000072002411, 130.0, 22.0 ],
                     "text": "sub_voice_gate"
                 }
             },
@@ -51,7 +51,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 339.0, 665.0, 50.0, 22.0 ]
+                    "patching_rect": [ 385.60000574588776, 528.0000078678131, 50.0, 22.0 ]
                 }
             },
             {
@@ -62,7 +62,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 409.0, 665.0, 50.0, 22.0 ]
+                    "patching_rect": [ 441.10000574588776, 528.0000078678131, 50.0, 22.0 ]
                 }
             },
             {
@@ -71,7 +71,7 @@
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 339.0, 697.0, 200.0, 20.0 ],
+                    "patching_rect": [ 347.0, 562.5, 139.0, 20.0 ],
                     "text": "voice1 / voice2 (0/1)"
                 }
             },
@@ -217,7 +217,7 @@
             {
                 "box": {
                     "id": "obj-48",
-                    "items": "IPHONE 9B3A (HX Camera)",
+                    "items": "<empty>",
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -884,14 +884,6 @@
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
-            "parameterbanks": {
-                "0": {
-                    "index": 0,
-                    "name": "",
-                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
-                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
             "parameter_overrides": {
                 "obj-7::obj-105": {
                     "parameter_initial": 100,
