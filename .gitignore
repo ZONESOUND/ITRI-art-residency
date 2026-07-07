@@ -17,5 +17,10 @@ node_modules/
 # Max/MSP backup
 *.maxpat.bak
 
+# Ableton auto-backups (git already versions the .als)
+Backup/
+Icon
+Icon?
+
 # Claude Code
 .claude/

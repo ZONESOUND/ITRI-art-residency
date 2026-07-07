@@ -1,0 +1,6 @@
+live_demo/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+live_demo/**/*.flac filter=lfs diff=lfs merge=lfs -text
+live_demo/**/*.m4a filter=lfs diff=lfs merge=lfs -text
+live_demo/**/*.wav filter=lfs diff=lfs merge=lfs -text
+live_demo/**/*.aif filter=lfs diff=lfs merge=lfs -text
+live_demo/**/*.aiff filter=lfs diff=lfs merge=lfs -text
