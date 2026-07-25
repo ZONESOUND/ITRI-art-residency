@@ -116,7 +116,7 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 70.0, 297.0, 76.0, 22.0 ],
+                    "patching_rect": [ 55.0, 339.0, 76.0, 22.0 ],
                     "text": "s voice1gate"
                 }
             },
@@ -128,7 +128,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 70.0, 256.0, 50.0, 22.0 ]
+                    "patching_rect": [ 55.0, 298.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -584,6 +584,7 @@
                     "source": [ "obj-9", 0 ]
                 }
             }
-        ]
+        ],
+        "oscreceiveudpport": 0
     }
 }
