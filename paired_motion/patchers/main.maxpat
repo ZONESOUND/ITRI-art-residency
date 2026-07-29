@@ -9,8 +9,157 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 140.0, 92.0, 1669.0, 881.0 ],
+        "rect": [ 140.0, 92.0, 1283.0, 881.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-19",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 739.0, 578.0, 29.5, 22.0 ],
+                    "text": "+ 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-80",
+                    "maxclass": "preset",
+                    "numinlets": 1,
+                    "numoutlets": 5,
+                    "outlettype": [ "preset", "int", "preset", "int", "" ],
+                    "patching_rect": [ 739.0, 639.0, 100.0, 40.0 ],
+                    "preset_data": [
+                        {
+                            "number": 1,
+                            "data": [ 6, "obj-2", "gain~", "list", 120, 10.0, 5, "obj-5", "radiogroup", "int", 0, 6, "obj-1", "gain~", "list", 88, 10.0 ]
+                        },
+                        {
+                            "number": 2,
+                            "data": [ 6, "obj-2", "gain~", "list", 120, 10.0, 5, "obj-5", "radiogroup", "int", 1, 6, "obj-1", "gain~", "list", 0, 10.0 ]
+                        },
+                        {
+                            "number": 3,
+                            "data": [ 6, "obj-2", "gain~", "list", 120, 10.0, 5, "obj-5", "radiogroup", "int", 1, 6, "obj-1", "gain~", "list", 0, 10.0 ]
+                        },
+                        {
+                            "number": 4,
+                            "data": [ 6, "obj-2", "gain~", "list", 120, 10.0, 5, "obj-5", "radiogroup", "int", 1, 6, "obj-1", "gain~", "list", 0, 10.0 ]
+                        },
+                        {
+                            "number": 5,
+                            "data": [ 6, "obj-2", "gain~", "list", 120, 10.0, 5, "obj-5", "radiogroup", "int", 2, 6, "obj-1", "gain~", "list", 0, 10.0 ]
+                        }
+                    ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-73",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 762.5, 536.0, 87.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 947.0, 274.0, 87.0, 25.0 ],
+                    "text": "第四幕",
+                    "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-74",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 762.0, 503.0, 88.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 947.0, 241.0, 88.0, 25.0 ],
+                    "text": "第三幕",
+                    "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-75",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 762.0, 470.0, 88.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 947.0, 208.0, 88.0, 25.0 ],
+                    "text": "第二幕",
+                    "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-76",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 762.0, 437.0, 87.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 947.0, 175.0, 87.0, 25.0 ],
+                    "text": "第一幕",
+                    "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-77",
+                    "maxclass": "number",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 739.0, 606.0, 53.0, 23.0 ]
+                }
+            },
+            {
+                "box": {
+                    "fontname": "Arial",
+                    "fontsize": 13.0,
+                    "id": "obj-78",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 762.0, 407.0, 87.0, 25.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 947.0, 145.0, 87.0, 25.0 ],
+                    "text": "待機狀態測試",
+                    "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "disabled": [ 0, 0, 0, 0, 0 ],
+                    "id": "obj-79",
+                    "itemtype": 0,
+                    "maxclass": "radiogroup",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "offset": 32,
+                    "outlettype": [ "" ],
+                    "parameter_enable": 0,
+                    "patching_rect": [ 739.0, 407.0, 110.0, 162.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 924.0, 145.0, 110.0, 162.0 ],
+                    "size": 5,
+                    "value": 3
+                }
+            },
             {
                 "box": {
                     "id": "obj-67",
@@ -20,9 +169,9 @@
                     "numoutlets": 3,
                     "outlettype": [ "int", "", "" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 345.0, 522.0, 83.0, 22.0 ],
+                    "patching_rect": [ 345.0, 494.0, 83.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 769.0, -38.0, 83.0, 22.0 ]
+                    "presentation_rect": [ 770.0, -20.0, 83.0, 22.0 ]
                 }
             },
             {
@@ -32,7 +181,7 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 345.0, 481.0, 83.0, 22.0 ],
+                    "patching_rect": [ 345.0, 453.0, 83.0, 22.0 ],
                     "text": "r activeVoices"
                 }
             },
@@ -44,7 +193,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1120.0, 79.0, 56.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 843.0, -9.5, 56.0, 20.0 ],
+                    "presentation_rect": [ 844.0, 9.0, 56.0, 20.0 ],
                     "text": "Hand 2"
                 }
             },
@@ -56,7 +205,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1040.0, 79.0, 56.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 769.0, -9.5, 56.0, 20.0 ],
+                    "presentation_rect": [ 770.0, 9.0, 56.0, 20.0 ],
                     "text": "Hand 1"
                 }
             },
@@ -71,16 +220,16 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1098.0, 261.0, 50.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 843.0, 278.0, 50.0, 22.0 ]
+                    "presentation_rect": [ 844.0, 296.0, 50.0, 22.0 ]
                 }
             },
             {
                 "box": {
-                    "bgcolor": [ 0.57636836783545, 0.576368229540612, 0.576368265679262, 1.0 ],
-                    "elementcolor": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
+                    "bgcolor": [ 0.16470588235294117, 0.16470588235294117, 0.16470588235294117, 1.0 ],
+                    "elementcolor": [ 0.25098039215686274, 0.20392156862745098, 0.9372549019607843, 1.0 ],
                     "floatoutput": 1,
                     "id": "obj-36",
-                    "knobcolor": [ 1.0, 0.4, 0.3, 1.0 ],
+                    "knobcolor": [ 1.0, 0.30196078431372547, 0.2784313725490196, 1.0 ],
                     "maxclass": "slider",
                     "numinlets": 1,
                     "numoutlets": 1,
@@ -88,7 +237,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1098.0, 106.0, 20.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 843.0, 19.0, 50.0, 244.0 ],
+                    "presentation_rect": [ 844.0, 37.0, 50.0, 244.0 ],
                     "saved_attribute_attributes": {
                         "bgcolor": {
                             "expression": "themecolor.live_dial_needle_zombie"
@@ -114,16 +263,16 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1027.0, 261.0, 50.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 772.0, 278.0, 50.0, 22.0 ]
+                    "presentation_rect": [ 773.0, 296.0, 50.0, 22.0 ]
                 }
             },
             {
                 "box": {
-                    "bgcolor": [ 0.57636836783545, 0.576368229540612, 0.576368265679262, 1.0 ],
-                    "elementcolor": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
+                    "bgcolor": [ 0.16470588235294117, 0.16470588235294117, 0.16470588235294117, 1.0 ],
+                    "elementcolor": [ 0.25098039215686274, 0.20392156862745098, 0.9372549019607843, 1.0 ],
                     "floatoutput": 1,
                     "id": "obj-31",
-                    "knobcolor": [ 1.0, 0.4, 0.3, 1.0 ],
+                    "knobcolor": [ 1.0, 0.30196078431372547, 0.2784313725490196, 1.0 ],
                     "maxclass": "slider",
                     "numinlets": 1,
                     "numoutlets": 1,
@@ -131,7 +280,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1027.0, 106.0, 20.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 772.0, 19.0, 50.0, 244.0 ],
+                    "presentation_rect": [ 773.0, 37.0, 50.0, 244.0 ],
                     "saved_attribute_attributes": {
                         "bgcolor": {
                             "expression": "themecolor.live_dial_needle_zombie"
@@ -176,7 +325,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 790.0, 77.5, 150.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 344.0, -11.0, 150.0, 23.0 ],
+                    "presentation_rect": [ 345.0, 7.0, 150.0, 23.0 ],
                     "text": "ToF 距離感測"
                 }
             },
@@ -190,7 +339,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 693.0, 106.0, 251.0, 177.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 344.0, 19.0, 399.0, 282.0 ],
+                    "presentation_rect": [ 345.0, 37.0, 399.0, 282.0 ],
                     "rightvalue": 360,
                     "topvalue": 320
                 }
@@ -536,7 +685,7 @@
                     "patching_rect": [ 42.0, 15.0, 359.0, 23.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 16.333337873220444, -30.99999976158142, 272.0, 37.0 ],
+                    "presentation_rect": [ 17.0, -13.0, 272.0, 37.0 ],
                     "text": "如果無法讀取到裝置，可先點選 close serial 後重新 RESCAN"
                 }
             },
@@ -548,7 +697,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 14.5, 371.0, 62.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 46.0, 213.16667127609253, 63.0, 23.0 ],
+                    "presentation_rect": [ 47.0, 232.0, 63.0, 23.0 ],
                     "text": "移動手把"
                 }
             },
@@ -560,7 +709,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 112.0, 371.0, 62.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 161.0, 213.16667127609253, 63.0, 23.0 ],
+                    "presentation_rect": [ 162.0, 232.0, 63.0, 23.0 ],
                     "text": "握力感測"
                 }
             },
@@ -576,7 +725,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 93.0, 331.0, 18.0, 50.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 161.0, 154.66667127609253, 18.0, 50.0 ],
+                    "presentation_rect": [ 162.0, 173.0, 18.0, 50.0 ],
                     "size": 3,
                     "value": 1
                 }
@@ -644,7 +793,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 214.0, 561.0, 48.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 290.0, 213.16667127609253, 46.0, 23.0 ],
+                    "presentation_rect": [ 291.0, 232.0, 46.0, 23.0 ],
                     "text": "敲擊"
                 }
             },
@@ -669,7 +818,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 190.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 266.00000858306885, 154.66667127609253, 22.0, 140.0 ],
+                    "presentation_rect": [ 267.0, 173.0, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -695,7 +844,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 93.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 132.0, 154.66667127609253, 22.0, 140.0 ],
+                    "presentation_rect": [ 133.0, 173.0, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 120 ],
@@ -721,7 +870,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 28.0, 441.0, 22.0, 140.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 20.000000596046448, 154.66667127609253, 22.0, 140.0 ],
+                    "presentation_rect": [ 21.0, 173.0, 22.0, 140.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 88 ],
@@ -787,7 +936,7 @@
                     "offset": [ 0.0, 0.0 ],
                     "patching_rect": [ 20.0, 48.0, 628.0, 232.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 16.66666716337204, 8.000000238418579, 271.3333414196968, 135.33333736658096 ],
+                    "presentation_rect": [ 18.0, 26.0, 271.3333414196968, 135.33333736658096 ],
                     "viewvisibility": 1
                 }
             },
@@ -800,8 +949,28 @@
                     "numoutlets": 0,
                     "patching_rect": [ 20.0, 286.0, 537.0, 25.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 16.333337873220444, -60.0, 537.0, 25.0 ],
+                    "presentation_rect": [ 17.0, -42.0, 537.0, 25.0 ],
                     "text": "PAIRED MOTION: 接收與控制同動車上的三組感測器（距離感測、壓力感測、敲擊感測）"
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.5184451495529209, 0.7105267975473671, 0.4874907330204233, 1.0 ],
+                    "id": "obj-20",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1080.0, 349.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 915.0, 135.0, 128.0, 181.0 ],
+                    "proportion": 0.39,
+                    "saved_attribute_attributes": {
+                        "bgfillcolor": {
+                            "expression": "themecolor.lesson_inprogress"
+                        }
+                    }
                 }
             },
             {
@@ -896,6 +1065,12 @@
                 "patchline": {
                     "destination": [ "obj-4", 0 ],
                     "source": [ "obj-18", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-77", 0 ],
+                    "source": [ "obj-19", 0 ]
                 }
             },
             {
@@ -1113,8 +1288,48 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-80", 0 ],
+                    "source": [ "obj-77", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-19", 0 ],
+                    "source": [ "obj-79", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-2", 0 ],
                     "source": [ "obj-8", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-1", 0 ],
+                    "order": 2,
+                    "source": [ "obj-80", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-2", 0 ],
+                    "order": 0,
+                    "source": [ "obj-80", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "order": 1,
+                    "source": [ "obj-80", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-79", 0 ],
+                    "midpoints": [ 789.0, 690.0, 726.0, 690.0, 726.0, 402.0, 748.5, 402.0 ],
+                    "source": [ "obj-80", 2 ]
                 }
             },
             {

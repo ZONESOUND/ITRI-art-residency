@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 59.0, 111.0, 1177.0, 773.0 ],
+        "rect": [ 709.0, 264.0, 1177.0, 773.0 ],
         "boxes": [
             {
                 "box": {
@@ -211,7 +211,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 527.0, 250.0, 49.0, 22.0 ],
-                    "text": "r hand1"
+                    "text": "r hand2"
                 }
             },
             {
@@ -272,7 +272,7 @@
                                 }
                             },
                             {
-                                "absolutepath": "/Users/zonesound/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_Projects_Operations/Active/ITRI_工研院藝術進駐/互動音樂測試/聲音素材/子翎_孩童嬰兒聲/child_voice_export.aif",
+                                "absolutepath": "child_voice_export.aif",
                                 "filename": "child_voice_export.aif",
                                 "filekind": "audiofile",
                                 "id": "u899010198",
@@ -344,7 +344,7 @@
                                 }
                             },
                             {
-                                "absolutepath": "/Users/zonesound/Library/Mobile Documents/com~apple~CloudDocs/Documents/03_Projects_Operations/Active/ITRI_工研院藝術進駐/互動音樂測試/聲音素材/子翎_孩童嬰兒聲/child_voice_export2.aif",
+                                "absolutepath": "child_voice_export2.aif",
                                 "filename": "child_voice_export2.aif",
                                 "filekind": "audiofile",
                                 "id": "u943010409",
@@ -419,7 +419,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 355.0, 250.0, 49.0, 22.0 ],
-                    "text": "r hand2"
+                    "text": "r hand1"
                 }
             },
             {
@@ -649,6 +649,7 @@
                     "source": [ "obj-8", 0 ]
                 }
             }
-        ]
+        ],
+        "oscreceiveudpport": 0
     }
 }
