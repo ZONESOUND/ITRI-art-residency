@@ -22,5 +22,11 @@ Backup/
 Icon
 Icon?
 
+# Ableton sample analysis cache — Live rewrites these on every open, so
+# tracking them means guaranteed binary conflicts between machines.
+# Warp data lives in the .als (WarpMarkers/WarpMode per SampleRef), not here;
+# Live re-analyses missing .asd automatically on first load.
+*.asd
+
 # Claude Code
 .claude/
