@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Interactive visual prototype for Rhythmic Entanglements, an artist-residency foldout publication by Po-Hao Chi.">
+<meta property="og:title" content="Rhythmic Entanglements — ZINE Prototype">
+<meta property="og:description" content="Interactive bilingual prototype showing A5 portrait pages, facing spreads, and the unfolded A2 publication.">
+<title>Rhythmic Entanglements — ZINE Prototype v3</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+ <div class="brand"><strong>《節奏繞纏》摺頁視覺原型 v3</strong><span>A5 portrait pages · facing spreads · A2 landscape sheet</span></div>
+ <div class="controls">
+  <button class="mode active" data-view="spreadView">對開閱讀</button>
+  <button class="mode" data-view="singleView">單頁閱讀</button>
+  <button class="mode" data-view="aView">A 面展開</button>
+  <button class="mode" data-view="bView">B 面展開</button>
+  <select id="language"><option value="both">中英並列</option><option value="zh">只看中文</option><option value="en">English only</option></select>
+  <button id="notesToggle" class="active">設計備註</button>
+  <button id="gridToggle" class="active">摺線</button>
+  <button id="calloutToggle" class="active">B 面圖說</button>
+  <button id="imageRotate" class="active">B 面旋轉 90°</button>
+ </div>
+</header>
+<main id="app">
+ <div class="notice">此版改為直式 A5 單頁（148×210 mm）。對開模式依序呈現 2–3、4–5、6–7；A2 展開則為橫式 594×420 mm、4 欄×2 列。A 面格位仍是內容順序示意，不代表正式印刷 imposition。</div>
+
+ <section class="view active" id="spreadView">
+  <div class="spread-layout">
+   <div class="spread-stage" id="spreadStage"><div class="gutter"></div></div>
+   <aside class="side">
+    <div class="progress"><i id="spreadProgress"></i></div>
+    <div class="nav"><button id="prevSpread">上一組</button><button id="nextSpread">下一組</button></div>
+    <div class="spread-tabs" id="spreadTabs"></div>
+    <div class="note note-block"><strong>這組對開的功能</strong><span id="spreadNote"></span></div>
+   </aside>
+  </div>
+ </section>
+
+ <section class="view" id="singleView">
+  <div class="single-layout">
+   <div class="single-stage" id="singleStage"></div>
+   <aside class="side">
+    <div class="progress"><i id="singleProgress"></i></div>
+    <div class="nav"><button id="prevPage">上一面</button><button id="nextPage">下一面</button></div>
+    <div class="note note-block"><strong>單頁功能</strong><span id="singleNote"></span></div>
+   </aside>
+  </div>
+ </section>
+
+ <section class="view" id="aView">
+  <div class="sheet-wrap">
+   <div class="sheet-head"><h2>A 面｜4 × 2 直式 A5 格位</h2><p>A2 橫式 594×420 mm；內容順序示意，不是正式拼版</p></div>
+   <div class="a2-sheet" id="aSheet"></div>
+  </div>
+ </section>
+
+ <section class="view" id="bView">
+  <div class="sheet-wrap">
+   <div class="sheet-head"><h2>B 面｜工作坊完整圖面</h2><p>原圖預設旋轉 90°，比例接近 A2 橫式；可切回原始方向</p></div>
+   <div class="b-sheet" id="bSheet">
+    <img src="https://drive.google.com/uc?export=view&id=17g9wc00BNMFi-AxNzLy3VxcliXcc-NYl" alt="工作坊手部圖像與生命故事拼貼">
+    <div class="fold-grid" id="foldGrid"></div>
+    <div class="b-overlay" id="bOverlay">
+      <div class="callout c1"><strong>手部圖像</strong><i>Hand drawings</i>五指承接不同人生階段、物件或關係。</div>
+      <div class="callout c2"><strong>片段話語</strong><i>Fragments of words</i>保留參與者筆跡，而不是改寫成統一人物傳記。</div>
+      <div class="callout c3"><strong>形狀與感受</strong><i>Shapes and sensations</i>圖形、顏色與身體經驗在同一張圖上交錯。</div>
+      <div class="callout c4"><strong>同一圖面，多重經驗</strong><i>One field, multiple experiences</i>B 面不是八篇文章，而是一張可反覆觀看的圖像場域。</div>
+    </div>
+   </div>
+  </div>
+ </section>
+</main>
+
+<dialog id="dialog">
+ <div class="modal">
+  <div class="modal-top"><div><div class="page-number" id="mNum"></div><h2 id="mZh" class="zh-title"></h2><div id="mEn" class="en-title"></div></div><button class="close" id="close">×</button></div>
+  <div class="modal-grid"><p id="mBodyZh" class="zh-copy"></p><p id="mBodyEn" class="en-copy"></p></div>
+  <div class="modal-note note-block"><strong>圖說</strong><br><span id="mCap"></span></div>
+ </div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
