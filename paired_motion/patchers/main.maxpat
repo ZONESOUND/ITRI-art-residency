@@ -4,13 +4,88 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 4,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 140.0, 92.0, 1283.0, 881.0 ],
+        "rect": [ 34.0, 92.0, 1212.0, 594.0 ],
         "boxes": [
+            {
+                "box": {
+                    "id": "obj-70",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 72.0, 45.0, 359.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 859.0, -63.0, 247.0, 23.0 ],
+                    "text": "確認按壓手把，Slider 有同步移動。"
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "bubble_bgcolor": [ 1.0, 0.996078431372549, 0.996078431372549, 1.0 ],
+                    "bubbleside": 2,
+                    "id": "obj-69",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 630.5, 285.0, 150.0, 39.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 806.0, -67.0, 47.0, 39.0 ],
+                    "text": "Step 3",
+                    "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.6470588235294118, 0.6431372549019608, 0.6431372549019608, 0.0 ],
+                    "bubble_bgcolor": [ 0.8156862745098039, 0.8156862745098039, 0.8156862745098039, 1.0 ],
+                    "id": "obj-37",
+                    "linecount": 2,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 57.0, 30.0, 359.0, 37.0 ],
+                    "presentation": 1,
+                    "presentation_linecount": 2,
+                    "presentation_rect": [ 415.0, 1.5, 247.0, 37.0 ],
+                    "text": "按同動車右下角Reset按鈕，確認移動手把時，畫面中的圓圈同步移動。"
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "bubble_bgcolor": [ 1.0, 0.996078431372549, 0.996078431372549, 1.0 ],
+                    "bubbleside": 2,
+                    "id": "obj-33",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 615.5, 270.0, 150.0, 39.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 360.0, -0.5, 47.0, 39.0 ],
+                    "text": "Step 2",
+                    "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "bubble_bgcolor": [ 1.0, 0.996078431372549, 0.996078431372549, 1.0 ],
+                    "id": "obj-32",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 600.5, 255.0, 150.0, 24.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 278.0, -8.5, 65.0, 24.0 ],
+                    "text": "Step 1",
+                    "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-19",
@@ -157,7 +232,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 924.0, 145.0, 110.0, 162.0 ],
                     "size": 5,
-                    "value": 3
+                    "value": 0
                 }
             },
             {
@@ -225,11 +300,11 @@
             },
             {
                 "box": {
-                    "bgcolor": [ 0.16470588235294117, 0.16470588235294117, 0.16470588235294117, 1.0 ],
-                    "elementcolor": [ 0.25098039215686274, 0.20392156862745098, 0.9372549019607843, 1.0 ],
+                    "bgcolor": [ 0.57636836783545, 0.576368229540612, 0.576368265679262, 1.0 ],
+                    "elementcolor": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
                     "floatoutput": 1,
                     "id": "obj-36",
-                    "knobcolor": [ 1.0, 0.30196078431372547, 0.2784313725490196, 1.0 ],
+                    "knobcolor": [ 1.0, 0.4, 0.3, 1.0 ],
                     "maxclass": "slider",
                     "numinlets": 1,
                     "numoutlets": 1,
@@ -268,11 +343,11 @@
             },
             {
                 "box": {
-                    "bgcolor": [ 0.16470588235294117, 0.16470588235294117, 0.16470588235294117, 1.0 ],
-                    "elementcolor": [ 0.25098039215686274, 0.20392156862745098, 0.9372549019607843, 1.0 ],
+                    "bgcolor": [ 0.57636836783545, 0.576368229540612, 0.576368265679262, 1.0 ],
+                    "elementcolor": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
                     "floatoutput": 1,
                     "id": "obj-31",
-                    "knobcolor": [ 1.0, 0.30196078431372547, 0.2784313725490196, 1.0 ],
+                    "knobcolor": [ 1.0, 0.4, 0.3, 1.0 ],
                     "maxclass": "slider",
                     "numinlets": 1,
                     "numoutlets": 1,
@@ -325,7 +400,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 790.0, 77.5, 150.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 345.0, 7.0, 150.0, 23.0 ],
+                    "presentation_rect": [ 663.0, 15.5, 81.0, 23.0 ],
                     "text": "ToF 距離感測"
                 }
             },
@@ -685,7 +760,7 @@
                     "patching_rect": [ 42.0, 15.0, 359.0, 23.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 17.0, -13.0, 272.0, 37.0 ],
+                    "presentation_rect": [ 17.5, -15.0, 272.0, 37.0 ],
                     "text": "如果無法讀取到裝置，可先點選 close serial 後重新 RESCAN"
                 }
             },
@@ -727,7 +802,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 162.0, 173.0, 18.0, 50.0 ],
                     "size": 3,
-                    "value": 1
+                    "value": 0
                 }
             },
             {
@@ -956,7 +1031,7 @@
             {
                 "box": {
                     "angle": 270.0,
-                    "bgcolor": [ 0.5184451495529209, 0.7105267975473671, 0.4874907330204233, 1.0 ],
+                    "bgcolor": [ 0.609795304305787, 0.805124657532386, 0.576461028292266, 1.0 ],
                     "id": "obj-20",
                     "maxclass": "panel",
                     "mode": 0,
@@ -969,6 +1044,66 @@
                     "saved_attribute_attributes": {
                         "bgfillcolor": {
                             "expression": "themecolor.lesson_inprogress"
+                        }
+                    }
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.599589840206136, 0.599589696824869, 0.599589734292685, 1.0 ],
+                    "id": "obj-68",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1095.0, 364.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 18.0, -13.0, 271.0, 33.0 ],
+                    "proportion": 0.39,
+                    "saved_attribute_attributes": {
+                        "bgfillcolor": {
+                            "expression": "themecolor.lesson_todo"
+                        }
+                    }
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.599589840206136, 0.599589696824869, 0.599589734292685, 1.0 ],
+                    "id": "obj-71",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1110.0, 379.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 415.0, 2.5, 247.0, 33.0 ],
+                    "proportion": 0.39,
+                    "saved_attribute_attributes": {
+                        "bgfillcolor": {
+                            "expression": "themecolor.lesson_todo"
+                        }
+                    }
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.599589840206136, 0.599589696824869, 0.599589734292685, 1.0 ],
+                    "id": "obj-72",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1125.0, 394.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 859.0, -64.0, 197.0, 21.0 ],
+                    "proportion": 0.39,
+                    "saved_attribute_attributes": {
+                        "bgfillcolor": {
+                            "expression": "themecolor.lesson_todo"
                         }
                     }
                 }
@@ -1091,6 +1226,12 @@
                 "patchline": {
                     "destination": [ "obj-22", 0 ],
                     "source": [ "obj-21", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-25", 1 ],
+                    "source": [ "obj-22", 1 ]
                 }
             },
             {
