@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Interactive visual prototype for Rhythmic Entanglements, an artist-residency foldout publication by Po-Hao Chi.">
-<meta property="og:title" content="Rhythmic Entanglements — ZINE Prototype">
-<meta property="og:description" content="Interactive bilingual prototype showing A5 portrait pages, facing spreads, and the unfolded A2 publication.">
-<title>Rhythmic Entanglements — ZINE Prototype v3</title>
+<meta name="description" content="Interactive bilingual visual prototype for Rhythmic Entanglements, an artist-residency foldout publication by Po-Hao Chi.">
+<meta property="og:title" content="Rhythmic Entanglements — Bilingual ZINE Prototype">
+<meta property="og:description" content="A bilingual prototype showing A5 portrait pages, facing spreads, and the unfolded A2 publication.">
+<title>Rhythmic Entanglements — Bilingual ZINE Prototype v4</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
- <div class="brand"><strong>《節奏繞纏》摺頁視覺原型 v3</strong><span>A5 portrait pages · facing spreads · A2 landscape sheet</span></div>
+ <div class="brand"><strong>《節奏繞纏》摺頁視覺原型 v4</strong><span>Bilingual editorial revision · A5 portrait pages · facing spreads</span></div>
  <div class="controls">
   <button class="mode active" data-view="spreadView">對開閱讀</button>
   <button class="mode" data-view="singleView">單頁閱讀</button>
@@ -25,7 +25,7 @@
  </div>
 </header>
 <main id="app">
- <div class="notice">此版改為直式 A5 單頁（148×210 mm）。對開模式依序呈現 2–3、4–5、6–7；A2 展開則為橫式 594×420 mm、4 欄×2 列。A 面格位仍是內容順序示意，不代表正式印刷 imposition。</div>
+ <div class="notice">雙語編輯版：直式 A5 單頁（148×210 mm），對開依序呈現 2–3、4–5、6–7；A2 展開為橫式 594×420 mm、4 欄×2 列。中文與英文各自成段，短圖示與圖說則採中英對照。</div>
 
  <section class="view active" id="spreadView">
   <div class="spread-layout">
@@ -59,7 +59,7 @@
 
  <section class="view" id="bView">
   <div class="sheet-wrap">
-   <div class="sheet-head"><h2>B 面｜工作坊完整圖面</h2><p>原圖預設旋轉 90°，比例接近 A2 橫式；可切回原始方向</p></div>
+   <div class="sheet-head"><h2>B 面｜工作坊完整圖面</h2><p>保留原始中文筆跡，外加選擇性的雙語閱讀入口</p></div>
    <div class="b-sheet" id="bSheet">
     <img src="bside-preview.jpg" alt="工作坊手部圖像與生命故事拼貼">
     <div class="fold-grid" id="foldGrid"></div>
@@ -83,5 +83,6 @@
 </dialog>
 
 <script src="app.js"></script>
+<script src="content-v2.js"></script>
 </body>
 </html>
