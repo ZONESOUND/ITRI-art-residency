@@ -1,0 +1,80 @@
+/* Bilingual editorial layout refinements */
+.hand-card .en-copy,
+.slider-row .en-copy,
+.modalities .en-copy,
+.chip .en-copy,
+.piezo .en-copy,
+.relwords .en-copy,
+.callout .en-copy,
+.mini-cap .en-copy {
+  display: block;
+  margin-top: 2px;
+}
+
+.hand-card .en-copy,
+.slider-row .en-copy,
+.modalities .en-copy,
+.chip .en-copy,
+.piezo .en-copy,
+.relwords .en-copy {
+  color: var(--muted);
+  font-size: .88em;
+  line-height: 1.2;
+}
+
+.callout .en-copy {
+  color: #405c63;
+  line-height: 1.35;
+  margin-top: 4px;
+}
+
+.callout strong .en-copy {
+  color: var(--blue);
+  font-size: .84em;
+  margin-top: 1px;
+}
+
+.a-panel > p.en-copy {
+  color: var(--muted);
+  font-size: 5.7px;
+  margin-top: 3px;
+}
+
+.page-intro .visual {
+  min-height: 105px;
+}
+
+.page-device .visual,
+.page-relation .visual {
+  min-height: 118px;
+}
+
+.page-intro .body-copy p,
+.page-device .body-copy p,
+.page-relation .body-copy p {
+  font-size: 9.9px;
+  line-height: 1.52;
+}
+
+.page-intro .body-copy .en-copy,
+.page-device .body-copy .en-copy,
+.page-relation .body-copy .en-copy {
+  font-size: 8.25px;
+  line-height: 1.45;
+}
+
+.page-interface .body-copy p,
+.page-experience .body-copy p {
+  font-size: 10.1px;
+}
+
+@media(max-width:650px) {
+  .hand-card .en-copy,
+  .slider-row .en-copy,
+  .modalities .en-copy,
+  .chip .en-copy,
+  .piezo .en-copy,
+  .relwords .en-copy {
+    font-size: .72em;
+  }
+}
