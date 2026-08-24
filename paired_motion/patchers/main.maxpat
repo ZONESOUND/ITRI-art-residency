@@ -208,8 +208,134 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 203.33333939313889, 978.0000291466713, 171.0, 22.0 ],
+                    "patching_rect": [ 203.33333939313889, 1060.0, 171.0, 22.0 ],
                     "text": "udpsend 192.168.0.189 10000"
+                }
+            },
+            {
+                "box": {
+                    "bgcolor": [ 0.4, 0.4, 0.4, 0.2 ],
+                    "id": "obj-100",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 415.0, 928.0, 830.0, 110.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 17.0, 330.0, 970.0, 58.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-101",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 430.0, 934.0, 260.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 27.0, 334.0, 260.0, 23.0 ],
+                    "text": "OSC 送出目標 — 表演現場切換 IP"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-102",
+                    "maxclass": "textedit",
+                    "numinlets": 1,
+                    "numoutlets": 4,
+                    "outlettype": [ "", "", "", "" ],
+                    "outputmode": 1,
+                    "parameter_enable": 0,
+                    "patching_rect": [ 430.0, 962.0, 140.0, 24.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 27.0, 358.0, 140.0, 24.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-103",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 578.0, 964.0, 140.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 175.0, 360.0, 130.0, 23.0 ],
+                    "text": "輸入 IP 後按 Enter"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-104",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 430.0, 1004.0, 90.0, 22.0 ],
+                    "text": "prepend host"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-105",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 540.0, 1004.0, 110.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 312.0, 358.0, 110.0, 22.0 ],
+                    "text": "host 127.0.0.1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-106",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 660.0, 1004.0, 130.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 430.0, 358.0, 130.0, 22.0 ],
+                    "text": "host 192.168.0.189"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-107",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 800.0, 1004.0, 130.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 568.0, 358.0, 130.0, 22.0 ],
+                    "text": "host 192.168.1.100"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-109",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 940.0, 1006.0, 190.0, 23.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 706.0, 360.0, 160.0, 23.0 ],
+                    "text": "← 現場改成場地 IP"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-108",
+                    "maxclass": "message",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1140.0, 1004.0, 90.0, 22.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 875.0, 358.0, 90.0, 22.0 ],
+                    "text": "port 10000"
                 }
             },
             {
@@ -1351,6 +1477,42 @@
             }
         ],
         "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-104", 0 ],
+                    "source": [ "obj-102", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-88", 0 ],
+                    "source": [ "obj-104", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-88", 0 ],
+                    "source": [ "obj-105", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-88", 0 ],
+                    "source": [ "obj-106", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-88", 0 ],
+                    "source": [ "obj-107", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-88", 0 ],
+                    "source": [ "obj-108", 0 ]
+                }
+            },
             {
                 "patchline": {
                     "destination": [ "obj-4", 1 ],
