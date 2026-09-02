@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 4,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1852.0, 954.0 ],
+        "rect": [ 140.0, 92.0, 1283.0, 881.0 ],
         "boxes": [
             {
                 "box": {
@@ -340,13 +340,28 @@
             },
             {
                 "box": {
+                    "id": "obj-110",
+                    "linecount": 3,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 917.0, 60.0, 56.0, 50.0 ],
+                    "presentation": 1,
+                    "presentation_linecount": 2,
+                    "presentation_rect": [ 915.0, 60.66666868329048, 90.0, 37.0 ],
+                    "text": "顯示現在哪一隻手把有握力"
+                }
+            },
+            {
+                "box": {
                     "id": "obj-70",
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 72.0, 45.0, 359.0, 23.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 859.0, -63.0, 247.0, 23.0 ],
+                    "presentation_linecount": 2,
+                    "presentation_rect": [ 824.0, -41.0, 132.0, 37.0 ],
                     "text": "確認按壓手把，Slider 有同步移動。"
                 }
             },
@@ -361,7 +376,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 630.5, 285.0, 150.0, 39.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 806.0, -67.0, 47.0, 39.0 ],
+                    "presentation_rect": [ 774.5, -42.0, 47.0, 39.0 ],
                     "text": "Step 3",
                     "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
                 }
@@ -378,8 +393,8 @@
                     "patching_rect": [ 57.0, 30.0, 359.0, 37.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 415.0, 1.5, 247.0, 37.0 ],
-                    "text": "按同動車右下角Reset按鈕，確認移動手把時，畫面中的圓圈同步移動。"
+                    "presentation_rect": [ 396.5, 1.5, 265.5, 37.0 ],
+                    "text": "記得要按下同動車右下角 Reset 按鈕，\n確認移動手把時，畫面中的圓圈有同步移動。"
                 }
             },
             {
@@ -393,7 +408,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 615.5, 270.0, 150.0, 39.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 360.0, -0.5, 47.0, 39.0 ],
+                    "presentation_rect": [ 345.0, -3.5, 47.0, 39.0 ],
                     "text": "Step 2",
                     "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
                 }
@@ -408,7 +423,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 600.5, 255.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 278.0, -8.5, 65.0, 24.0 ],
+                    "presentation_rect": [ 272.0, -8.5, 65.0, 24.0 ],
                     "text": "Step 1",
                     "textcolor": [ 0.07450980392156863, 0.07450980392156863, 0.07450980392156863, 1.0 ]
                 }
@@ -564,6 +579,13 @@
             },
             {
                 "box": {
+                    "bgcolor": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
+                    "bgfillcolor_angle": 270.0,
+                    "bgfillcolor_color": [ 0.250980392156863, 0.203921568627451, 0.937254901960784, 1.0 ],
+                    "bgfillcolor_color1": [ 0.3764705882352941, 0.3843137254901961, 0.4, 1.0 ],
+                    "bgfillcolor_color2": [ 0.2901960784313726, 0.30980392156862746, 0.30196078431372547, 1.0 ],
+                    "bgfillcolor_proportion": 0.39,
+                    "bgfillcolor_type": "color",
                     "id": "obj-67",
                     "items": [ "無", ",", "左手", ",", "右手", ",", "雙手" ],
                     "maxclass": "umenu",
@@ -573,7 +595,16 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 345.0, 494.0, 83.0, 22.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 770.0, -20.0, 83.0, 22.0 ]
+                    "presentation_rect": [ 915.0, 99.66666868329048, 90.0, 22.0 ],
+                    "saved_attribute_attributes": {
+                        "bgfillcolor": {
+                            "expression": "themecolor.live_midi_assignment"
+                        },
+                        "textcolor": {
+                            "expression": "themecolor.live_control_selection"
+                        }
+                    },
+                    "textcolor": [ 0.9, 0.65, 0.05, 1.0 ]
                 }
             },
             {
@@ -1406,7 +1437,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1110.0, 379.0, 128.0, 128.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 415.0, 2.5, 247.0, 33.0 ],
+                    "presentation_rect": [ 395.0, -2.0, 267.0, 38.0 ],
                     "proportion": 0.39,
                     "saved_attribute_attributes": {
                         "bgfillcolor": {
@@ -1426,7 +1457,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1125.0, 394.0, 128.0, 128.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 859.0, -64.0, 197.0, 21.0 ],
+                    "presentation_rect": [ 824.0, -40.0, 132.0, 36.0 ],
                     "proportion": 0.39,
                     "saved_attribute_attributes": {
                         "bgfillcolor": {
