@@ -4,12 +4,12 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 1,
+            "revision": 5,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 844.0, 138.0, 1177.0, 773.0 ],
+        "rect": [ 133.0, 92.0, 1177.0, 714.0 ],
         "boxes": [
             {
                 "box": {
@@ -46,7 +46,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 675.0, 56.0, 18.0, 50.0 ],
                     "size": 3,
-                    "value": 2
+                    "value": 0
                 }
             },
             {
@@ -603,12 +603,6 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-58", 0 ],
-                    "source": [ "obj-55", 0 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-57", 0 ],
                     "source": [ "obj-56", 0 ]
                 }
@@ -623,12 +617,6 @@
                 "patchline": {
                     "destination": [ "obj-4", 0 ],
                     "source": [ "obj-58", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-54", 0 ],
-                    "source": [ "obj-6", 0 ]
                 }
             },
             {
