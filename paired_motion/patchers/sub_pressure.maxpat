@@ -4,7 +4,7 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 5,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
@@ -603,6 +603,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-58", 0 ],
+                    "source": [ "obj-55", 0 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-57", 0 ],
                     "source": [ "obj-56", 0 ]
                 }
@@ -617,6 +623,12 @@
                 "patchline": {
                     "destination": [ "obj-4", 0 ],
                     "source": [ "obj-58", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-54", 0 ],
+                    "source": [ "obj-6", 0 ]
                 }
             },
             {
