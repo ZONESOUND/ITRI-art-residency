@@ -4,7 +4,7 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 5,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
@@ -161,7 +161,7 @@
                     "numoutlets": 2,
                     "outlettype": [ "", "bang" ],
                     "parameter_enable": 0,
-                    "patching_rect": [ 384.0, 1077.0, 50.0, 22.0 ]
+                    "patching_rect": [ 396.0, 1070.0, 50.0, 22.0 ]
                 }
             },
             {
@@ -257,7 +257,7 @@
                     "maxclass": "newobj",
                     "numinlets": 3,
                     "numoutlets": 0,
-                    "patching_rect": [ 796.0, 1118.0, 59.0, 22.0 ],
+                    "patching_rect": [ 788.0, 1126.0, 59.0, 22.0 ],
                     "text": "noteout 3"
                 }
             },
@@ -627,7 +627,7 @@
                     "maxclass": "newobj",
                     "numinlets": 3,
                     "numoutlets": 0,
-                    "patching_rect": [ 709.0, 1118.0, 59.0, 22.0 ],
+                    "patching_rect": [ 685.0, 1145.0, 59.0, 22.0 ],
                     "text": "noteout 1"
                 }
             },
@@ -998,7 +998,7 @@
                         "appversion": {
                             "major": 9,
                             "minor": 1,
-                            "revision": 5,
+                            "revision": 1,
                             "architecture": "x64",
                             "modernui": 1
                         },
@@ -1192,7 +1192,7 @@
                                         "appversion": {
                                             "major": 9,
                                             "minor": 1,
-                                            "revision": 5,
+                                            "revision": 1,
                                             "architecture": "x64",
                                             "modernui": 1
                                         },
