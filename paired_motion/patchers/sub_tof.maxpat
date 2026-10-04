@@ -9,7 +9,7 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 385.0, 145.0, 1208.0, 808.0 ],
+        "rect": [ 34.0, 92.0, 1852.0, 954.0 ],
         "boxes": [
             {
                 "box": {
@@ -238,7 +238,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 320.0, 941.0, 126.0, 22.0 ],
-                    "text": "if $i1 < 6 then 1 else 0"
+                    "text": "if $i1 < 7 then 1 else 0"
                 }
             },
             {

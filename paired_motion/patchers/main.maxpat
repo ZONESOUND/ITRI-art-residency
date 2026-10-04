@@ -4,7 +4,7 @@
         "appversion": {
             "major": 9,
             "minor": 1,
-            "revision": 5,
+            "revision": 1,
             "architecture": "x64",
             "modernui": 1
         },
@@ -48,7 +48,7 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 572.0, 652.0, 52.0, 22.0 ],
+                    "patching_rect": [ 486.0, 652.0, 52.0, 22.0 ],
                     "text": "s Scene"
                 }
             },
@@ -301,7 +301,7 @@
                     "numinlets": 1,
                     "numoutlets": 0,
                     "patching_rect": [ 27.0, 1039.0, 171.0, 22.0 ],
-                    "text": "udpsend 192.168.0.189 10000"
+                    "text": "udpsend 192.168.68.50 10000"
                 }
             },
             {
@@ -684,7 +684,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 924.0, 17.5, 110.0, 290.0 ],
                     "size": 9,
-                    "value": 0
+                    "value": 2
                 }
             },
             {
@@ -1206,7 +1206,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 162.0, 173.0, 18.0, 50.0 ],
                     "size": 3,
-                    "value": 0
+                    "value": 1
                 }
             },
             {
