@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Code for the ITRI art-residency project「節奏繞纏 / Rhythmic Entanglements」. The artwork instruments「同動車」(an ITRI stroke-rehabilitation device using a well-hand-leads-affected-hand bimanual mechanism) with three sensors and maps user interaction into real-time Max/MSP sound synthesis.
+Code for the ITRI art-residency project「節奏繞纏 / Rhythmic Entanglements」. The artwork instruments「同動車」(a stroke-rehabilitation device by Rehabotics 富伯生醫, using a well-hand-leads-affected-hand bimanual mechanism; ITRI's lab added motion tracking and data logging) with three sensors and maps user interaction into real-time Max/MSP sound synthesis.
 
 The three sensors all share one USB hub, all run on **ESP32-C3 SuperMini @ 115200 baud**, and all implement the WHO identification protocol:
 

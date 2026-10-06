@@ -2,11 +2,11 @@
 
 工研院藝術進駐「**節奏繞纏**」（*Rhythmic Entanglements: Sonification Experiments on Biofeedback and Embodied Perception*）專案的程式碼。
 
-「**同動車**」是工研院實驗室開發的**中風上肢復健輔具**，採用「好手帶壞手」連動機制——患者用健側手帶動機構、讓患側手隨動，協助動作復健。本專案在 ITRI 駐村期間跟該實驗室合作，**在同動車裝置上加裝 Pressure（壓力）／ ToF（距離）／ Piezo（壓電）三組感測器**，把使用者操作裝置時的力道、移動、敲擊轉換成即時聲響合成。
+「**同動車**」是富伯生醫（Rehabotics）開發的**中風上肢復健輔具**，採用「好手帶壞手」連動機制——患者用健側手帶動機構、讓患側手隨動，協助動作復健；工研院音樂與動作互動健促實驗室在裝置上加入動作追蹤與數據紀錄。本專案在 ITRI 駐村期間跟該實驗室合作，**在同動車裝置上加裝 Pressure（壓力）／ ToF（距離）／ Piezo（壓電）三組感測器**，把使用者操作裝置時的力道、移動、敲擊轉換成即時聲響合成。
 
 **演出主 patch 在 [`paired_motion/`](paired_motion/)。** 部署細節、系統架構、abstraction 設計都在那邊的 README。
 
-「同動車」(literally "synchronous-motion vehicle") is an existing ITRI-developed stroke rehabilitation device using the well-hand-leads-affected-hand bimanual mechanism. This residency project, in collaboration with the device's developing lab, instruments the device with three sensors (pressure / ToF / piezo) and maps user interaction into real-time sound synthesis. **Performance master patch lives in [`paired_motion/`](paired_motion/).**
+「同動車」(literally "synchronous-motion vehicle") is a stroke rehabilitation device developed by Rehabotics (富伯生醫) using the well-hand-leads-affected-hand bimanual mechanism; ITRI's Music and Motion Interactive Health Promotion Lab added motion tracking and data logging to it. This residency project, in collaboration with that lab, instruments the device with three sensors (pressure / ToF / piezo) and maps user interaction into real-time sound synthesis. **Performance master patch lives in [`paired_motion/`](paired_motion/).**
 
 ---
 
@@ -76,7 +76,7 @@ Each sensor channels a distinct interaction modality — grip force (Pressure), 
 ## 預期使用情境 | Use Cases
 
 - 駐村期末成果發表（工研院場域 demo、文化部訪視）
-- 社區工作坊（板橋 435、淡水義山日照中心）
+- 社區工作坊（板橋 435、新北市淡水義山公共托老中心）
 - 莫比斯圓環協作演出（劇場框架）
 - 復健療程聽覺回饋試點
 - 教學工作坊（讓參與者寫自己的 sub_*.maxpat 做聲響設計）
