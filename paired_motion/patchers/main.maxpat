@@ -9,21 +9,150 @@
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 34.0, 92.0, 1852.0, 954.0 ],
+        "rect": [ 381.0, 273.0, 1323.0, 543.0 ],
         "openinpresentation": 1,
         "boxes": [
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-117",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1090.0000324845314, 707.3333544135094, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 274.6666748523712, 37.0, 26.0 ],
+                    "text": "8",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-116",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1074.6666986942291, 692.666687309742, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 240.66667383909225, 37.0, 26.0 ],
+                    "text": "7",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-72",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1060.0000315904617, 677.3333535194397, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 206.6666728258133, 37.0, 26.0 ],
+                    "text": "6",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-66",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1044.6666978001595, 662.6666864156723, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 172.66667181253433, 37.0, 26.0 ],
+                    "text": "5",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-65",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1030.000030696392, 647.33335262537, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 141.3333375453949, 37.0, 26.0 ],
+                    "text": "4",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-64",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1014.6666969060898, 632.6666855216026, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 105.33333647251129, 37.0, 26.0 ],
+                    "text": "3",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-63",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1000.0000298023224, 617.3333517313004, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 74.00000220537186, 37.0, 26.0 ],
+                    "text": "2",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
+            {
+                "box": {
+                    "bubble": 1,
+                    "fontface": 1,
+                    "fontsize": 14.0,
+                    "id": "obj-62",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 984.6666960120201, 602.666684627533, 159.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 1097.333366036415, 45.33333468437195, 37.0, 26.0 ],
+                    "text": "1",
+                    "textcolor": [ 0.8509803921568627, 0.8509803921568627, 0.8509803921568627, 1.0 ]
+                }
+            },
             {
                 "box": {
                     "fontname": "Arial",
                     "fontsize": 13.0,
                     "id": "obj-115",
+                    "linecount": 2,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 648.0, 455.0, 88.0, 25.0 ],
+                    "patching_rect": [ 648.0, 455.0, 88.0, 37.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 946.5, 173.0, 88.0, 25.0 ],
-                    "text": "3-1-2 講話",
+                    "presentation_rect": [ 946.6666948795319, 173.0, 126.6666704416275, 25.0 ],
+                    "text": "3-1-2 音樂漸收",
                     "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
                 }
             },
@@ -32,13 +161,14 @@
                     "fontname": "Arial",
                     "fontsize": 13.0,
                     "id": "obj-114",
+                    "linecount": 2,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 649.0, 356.0, 87.0, 25.0 ],
+                    "patching_rect": [ 649.0, 356.0, 87.0, 39.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 947.0, 75.0, 87.0, 25.0 ],
-                    "text": "第一幕結尾",
+                    "presentation_rect": [ 947.3333615660667, 75.0, 126.00000375509262, 25.0 ],
+                    "text": "第一幕 音樂漸收",
                     "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
                 }
             },
@@ -601,13 +731,14 @@
                     "fontname": "Arial",
                     "fontsize": 13.0,
                     "id": "obj-74",
+                    "linecount": 3,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 648.0, 423.5, 88.0, 25.0 ],
+                    "patching_rect": [ 648.0, 423.5, 88.0, 52.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 946.5, 142.0, 88.0, 25.0 ],
-                    "text": "3-1 看影片",
+                    "presentation_rect": [ 946.6666948795319, 142.0, 126.6666704416275, 25.0 ],
+                    "text": "3-1 看影片音樂漸進",
                     "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
                 }
             },
@@ -622,7 +753,7 @@
                     "patching_rect": [ 648.5, 389.0, 88.0, 25.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 946.5, 106.0, 88.0, 25.0 ],
-                    "text": "第二幕",
+                    "text": "第二幕無聲",
                     "textcolor": [ 0.803922, 0.898039, 0.909804, 1.0 ]
                 }
             },
@@ -682,9 +813,9 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 626.0, 297.0, 159.0, 290.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 924.0, 17.5, 110.0, 290.0 ],
+                    "presentation_rect": [ 924.0000275373459, 17.5, 160.66667145490646, 290.0 ],
                     "size": 9,
-                    "value": 2
+                    "value": 5
                 }
             },
             {
@@ -1206,7 +1337,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 162.0, 173.0, 18.0, 50.0 ],
                     "size": 3,
-                    "value": 1
+                    "value": 2
                 }
             },
             {
@@ -1443,7 +1574,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1359.0, 478.0, 128.0, 128.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 915.0, 9.0, 128.0, 307.0 ],
+                    "presentation_rect": [ 915.3333606123924, 9.333333611488342, 180.00000536441803, 307.3333424925804 ],
                     "proportion": 0.39,
                     "saved_attribute_attributes": {
                         "bgfillcolor": {
@@ -2043,14 +2174,6 @@
             "obj-8::obj-54": [ "live.gain~[3]", "live.gain~", 0 ],
             "obj-8::obj-58": [ "live.gain~[4]", "live.gain~", 0 ],
             "obj-9::obj-63::obj-27": [ "live.gain~[2]", "live.gain~", 0 ],
-            "parameterbanks": {
-                "0": {
-                    "index": 0,
-                    "name": "",
-                    "parameters": [ "-", "-", "-", "-", "-", "-", "-", "-" ],
-                    "buttons": [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-                }
-            },
             "parameter_overrides": {
                 "obj-7::obj-105": {
                     "parameter_initial": 100,
