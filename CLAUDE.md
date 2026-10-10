@@ -71,4 +71,6 @@ Restore any past version with `git checkout <tag>`.
 
 ## Other modules (not in the performance build)
 
+`sound_tools/` is an offline Python package (`soundtools`, uv-managed: `cd sound_tools && uv sync && uv run soundtools --help`) for the sound-material work: varispeed drift/coupling/resync, tape effects, paulstretch, phrase and syllable analysis, stems matching, plus the single-file `tape_drift.html` and its `gen~` port. Not part of the Max performance build.
+
 `breath_sensor/` (HX710B breath instrument), `duo_pulse_sonification/` (two-person pulse → p5.js Lissajous + Web Serial, plus a `ws_osc_relay/` WS→OSC bridge), `piezo_detect_fft/` (piezo FFT hit/scrub), `local_mediapipe/` (local hand tracking for the LA "Life in Motion" show), `remote_hand_tracking/` (hand data over WebSocket), `legacy_local_cv_engine/` (superseded Python OpenCV motion engine). Each has its own README with details. `arduino_template.maxpat` is a generic sensor-agnostic Arduino-over-Serial receiver to start new patches from.

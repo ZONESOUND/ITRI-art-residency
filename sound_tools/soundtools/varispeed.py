@@ -168,7 +168,7 @@ def drift_ensemble(src, sr, dur, voices=5, sigma=7.0, theta=0.03, max_dev=16.0, 
 def lag_ms(poss, sr, t):
     """各聲部相對聲部 0 在 t 秒的時間差（毫秒），由讀取位置直接計算，不用互相關。"""
     n = min(int(t * sr), len(poss[0]) - 1)
-    return [round((p[n] - poss[0][n]) / sr * 1000, 1) for p in poss[1:]]
+    return [round(float(p[n] - poss[0][n]) / sr * 1000, 1) for p in poss[1:]]
 
 
 def pan_mix(voices, pans, sr, tail_fade=2.0):

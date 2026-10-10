@@ -34,6 +34,12 @@
 |---|---|
 | [`serial_auto_detect/`](serial_auto_detect/) | Mac 端自動掃描 USB port + WHO 握手 + 餵 port 名給 Max [serial]。`paired_motion/code/` 是這支工具的凍結副本 |
 
+### 🎚️ 離線聲音工具 | Offline Sound Tools
+
+| 資料夾 | 說明 |
+|---|---|
+| [`sound_tools/`](sound_tools/) | Python 套件 `soundtools`＋指令列：varispeed 多聲部漂移與重同步、磁帶效果、paulstretch、樂句邊界、音節切分、stems 回對原檔；另附 Tape Drift 網頁版與 `gen~` 版。`uv sync` 後 `uv run soundtools --help` |
+
 ### 📐 模板 | Templates
 
 | 檔案 | 說明 |
