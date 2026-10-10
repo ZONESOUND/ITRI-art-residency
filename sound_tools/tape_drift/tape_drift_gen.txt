@@ -1,0 +1,128 @@
+// ============================================================
+// tape_drift_gen  —  轉速不穩的錄音機（播檔用）
+// 貼進 gen.codebox~。說明見 tape_drift_gen_說明.md
+// 跟 tape_drift.html 的 TapeDriftCore 一行對一行，同一個 seed 出同一條漂移曲線。
+//
+// 音檔放在 [buffer~ tapedrift]（要換名字改下面 Buffer 那行）。
+// 控制：每個值 → [prepend 參數名] → gen.codebox~ 左 inlet
+// 出口：out1 左、out2 右、out3 目前偏移（cent）、out4 播完（非循環時瞬間為 1）
+// ============================================================
+
+Buffer buf("tapedrift");
+
+// ---- 參數（宣告全部放最上面）----
+Param depth(45.);        // cent，漂移峰值，0–300
+Param rateSlow(0.037);   // Hz，慢速正弦（27 秒一圈）
+Param rateFast(0.11);    // Hz，快速正弦（9 秒一圈）
+Param random(0.35);      // 0–1，雜訊佔比
+Param center(0.);        // cent，固定偏移，-200–200；交織版設 -35
+Param converge(0.);      // 秒，>0 時深度在這段時間內滑到 0；0 = 不收斂
+Param dry(0.);           // 0–1，原音層（不漂移的同一段）音量；交織版設 1
+Param gain(1.);          // 輸出音量；兩層疊加時降到 0.55 左右
+Param loop(1.);          // 1 循環、0 播一次
+Param play(0.);          // 0→1 從頭播；設 0 停
+Param seed(7.);          // 亂數種子，換一個就換一條漂移曲線
+
+// ---- 狀態 ----
+History pos(0.);
+History posDry(0.);
+History t(0.);
+History ph1(0.);
+History ph2(0.);
+History rng(7.);
+History nCur(0.);
+History nNext(0.);
+History nPhase(0.);
+History prevPlay(0.);
+History running(0.);
+
+len = dim(buf);
+rch = channels(buf) > 1 ? 1 : 0;
+isr = 1. / samplerate;
+TWO_PI = 6.283185307179586;
+
+// ---- play 由 0 變 1：從頭開始（等同網頁版的 reset）----
+start = (play > 0.5) && (prevPlay <= 0.5);
+prevPlay = play;
+if (start) {
+	pos = 0.; posDry = 0.; t = 0.; ph1 = 0.; ph2 = 0.;
+	rng = seed < 1. ? 1. : seed;
+	// 先抽兩個雜訊目標值（決定性 LCG，數列跟網頁版相同）
+	rng = wrap(rng * 1664525. + 1013904223., 0., 4294967296.);
+	nCur = rng / 4294967296. * 2. - 1.;
+	rng = wrap(rng * 1664525. + 1013904223., 0., 4294967296.);
+	nNext = rng / 4294967296. * 2. - 1.;
+	nPhase = 0.;
+	running = 1.;
+}
+if (play <= 0.5) { running = 0.; }
+
+done = 0.;
+outL = 0.;
+outR = 0.;
+cents = center;
+
+if ((running > 0.5) && (len > 1.)) {
+	// 收斂包絡：cos 緩降，converge 秒後為 0
+	env = 1.;
+	if (converge > 0.) {
+		u = t / converge;
+		env = u >= 1. ? 0. : 0.5 * (1. + cos(3.14159265358979 * u));
+	}
+
+	// 內插雜訊，每秒換 4 個目標值
+	nPhase = nPhase + 4. * isr;
+	if (nPhase >= 1.) {
+		nPhase = nPhase - 1.;
+		nCur = nNext;
+		rng = wrap(rng * 1664525. + 1013904223., 0., 4294967296.);
+		nNext = rng / 4294967296. * 2. - 1.;
+	}
+	nz = nCur + (nNext - nCur) * nPhase;
+
+	// 三個慢速來源疊加 → cent → 播放速率
+	lfo = 0.55 * sin(TWO_PI * ph1) + 0.35 * sin(TWO_PI * ph2) + random * 0.7 * nz;
+	cents = center + depth * env * lfo;
+	rate = exp(cents * 0.0005776226504666211);   // = 2^(cents/1200)
+	ph1 = wrap(ph1 + rateSlow * isr, 0., 1.);
+	ph2 = wrap(ph2 + rateFast * isr, 0., 1.);
+	t = t + isr;
+
+	// ---- 漂移層：peek 取整數索引，內插自己算（跟網頁版同一套）----
+	i0 = floor(pos);
+	frac = pos - i0;
+	i1 = i0 + 1.;
+	if (i1 >= len) { i1 = loop > 0.5 ? 0. : i0; }
+	outL = peek(buf, i0, 0) * (1. - frac) + peek(buf, i1, 0) * frac;
+	outR = peek(buf, i0, rch) * (1. - frac) + peek(buf, i1, rch) * frac;
+
+	// ---- 原音層：正常速度 ----
+	if (dry > 0.) {
+		d0 = floor(posDry);
+		dfrac = posDry - d0;
+		d1 = d0 + 1.;
+		if (d1 >= len) { d1 = 0.; }
+		outL = outL + dry * (peek(buf, d0, 0) * (1. - dfrac) + peek(buf, d1, 0) * dfrac);
+		outR = outR + dry * (peek(buf, d0, rch) * (1. - dfrac) + peek(buf, d1, rch) * dfrac);
+	}
+	outL = outL * gain;
+	outR = outR * gain;
+
+	// ---- 位置前進（pos 就是網頁版的 cumsum）----
+	pos = pos + rate;
+	posDry = posDry + 1.;
+	if (posDry >= len) { posDry = posDry - len; }
+	if (pos >= len) {
+		if (loop > 0.5) {
+			pos = pos - len;
+		} else {
+			running = 0.;
+			done = 1.;
+		}
+	}
+}
+
+out1 = outL;
+out2 = outR;
+out3 = cents;
+out4 = done;

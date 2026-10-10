@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tape Drift</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #14151a; color: #e6e6e6; font: 14px/1.5 -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0 0 4px; letter-spacing: .02em; }
+  .sub { color: #8a8f9a; margin: 0 0 20px; font-size: 13px; }
+  #drop { border: 1px dashed #3a3d46; border-radius: 10px; padding: 22px; text-align: center; color: #9aa0ab; cursor: pointer; transition: border-color .15s, background .15s; }
+  #drop.over { border-color: #e8a0c8; background: #1c1a22; }
+  #drop.loaded { border-style: solid; color: #d6d9e0; }
+  #file { display: none; }
+  #msg { min-height: 1.4em; margin: 8px 2px 0; font-size: 12px; color: #8a8f9a; white-space: pre-wrap; }
+  #msg.err { color: #ff8a8a; }
+  .row { display: flex; gap: 10px; align-items: center; margin: 16px 0; flex-wrap: wrap; }
+  button { background: #262932; color: #e6e6e6; border: 1px solid #3a3d46; border-radius: 8px; padding: 8px 14px; font: inherit; cursor: pointer; }
+  button:hover { background: #2f333d; }
+  button.primary { background: #e8a0c8; color: #1a1216; border-color: #e8a0c8; font-weight: 600; }
+  button.primary:hover { background: #f0b3d5; }
+  button:disabled { opacity: .4; cursor: default; }
+  label.chk { display: inline-flex; gap: 6px; align-items: center; color: #b8bcc6; }
+  .params { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+  .p { display: grid; grid-template-columns: 150px 1fr 74px; gap: 12px; align-items: center; }
+  .p .name { color: #d6d9e0; }
+  .p .name small { display: block; color: #6f7480; font-size: 11px; line-height: 1.3; }
+  .p input[type=range] { width: 100%; accent-color: #e8a0c8; }
+  .p .val { text-align: right; font-variant-numeric: tabular-nums; color: #e8a0c8; }
+  .meter { margin-top: 18px; padding: 12px 14px; background: #1b1d24; border-radius: 10px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+  .meter .bar { position: relative; height: 10px; background: #262932; border-radius: 5px; overflow: hidden; }
+  .meter .bar i { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #3a3d46; }
+  .meter .bar b { position: absolute; top: 0; bottom: 0; width: 3px; background: #e8a0c8; left: 50%; }
+  .meter .cents { font-variant-numeric: tabular-nums; min-width: 84px; text-align: right; }
+  .presets { display: flex; gap: 8px; flex-wrap: wrap; }
+  .presets button { font-size: 13px; }
+  .note { color: #6f7480; font-size: 12px; margin-top: 22px; line-height: 1.6; }
+  .status { color: #8a8f9a; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tape Drift</h1>
+  <p class="sub">轉速不穩的錄音機：讀取速度隨時間慢慢變化。播檔用，離線輸出跟即時播放結果一致。</p>
+
+  <div id="drop">拖一個音檔進來，或點這裡選檔（wav / aiff / mp3 / m4a）</div>
+  <input id="file" type="file" accept="audio/*,.wav,.aif,.aiff,.mp3,.m4a,.flac,.ogg">
+  <div id="msg"></div>
+
+  <div class="row">
+    <button id="play" class="primary" disabled>播放</button>
+    <button id="stop" disabled>停止</button>
+    <label class="chk"><input id="loop" type="checkbox" checked> 循環</label>
+    <span style="flex:1"></span>
+    <button id="export" disabled>輸出 WAV</button>
+  </div>
+
+  <div class="presets">
+    <button data-preset="drift">漂移</button>
+    <button data-preset="weave">交織（原音 + 降 35 cent）</button>
+    <button data-preset="converge">收斂（60 秒走到準）</button>
+    <button data-preset="flat">全部歸零</button>
+  </div>
+
+  <div class="params" id="params"></div>
+
+  <div class="meter">
+    <span class="status">目前偏移</span>
+    <div class="bar"><i></i><b id="needle"></b></div>
+    <span class="cents" id="centsOut">0 cent</span>
+  </div>
+
+  <p class="note">
+    深度是三個慢速來源（兩個正弦加一個內插雜訊）疊加後的峰值。收斂時間大於 0 時，播放開始後深度會在該秒數內滑到 0，之後只剩中心偏移。原音層是同一段不漂移的版本，跟漂移層同時播就是交織。種子固定時每次播放與輸出完全相同。
+  </p>
+</main>
+
+<script>
+'use strict';
+// =====================================================================
+// DSP 核心：純 JS、逐取樣、不依賴任何 Web Audio 物件。
+// 即時播放與離線輸出都呼叫同一個 process()，所以兩者結果一致。
+// 跟 tape_drift_gen.txt（gen~ codebox）一行對一行。
+// =====================================================================
+class TapeDriftCore {
+  constructor(sr) {
+    this.sr = sr;
+    this.ch = null; this.len = 0;
+    this.playing = false; this.loop = true; this.ended = false;
+    this.seed = 7;
+    this.p = { depth: 45, rateSlow: 0.037, rateFast: 0.11, random: 0.35, center: 0, converge: 0, dry: 0, gain: 1 };
+    this.lastCents = 0;
+    this.reset();
+  }
+  load(channels) { this.ch = channels; this.len = channels[0].length; this.reset(); }
+  // 決定性的偽亂數（LCG），讓即時與離線一致
+  rand() { this.rng = (Math.imul(this.rng, 1664525) + 1013904223) >>> 0; return this.rng / 4294967296 * 2 - 1; }
+  reset() {
+    this.pos = 0; this.posDry = 0; this.t = 0; this.ph1 = 0; this.ph2 = 0; this.ended = false;
+    this.rng = (this.seed >>> 0) || 1; this.nCur = this.rand(); this.nNext = this.rand(); this.nPhase = 0;
+  }
+  play() { this.reset(); this.playing = true; }
+  stop() { this.playing = false; }
+  // 把 n 個取樣寫進 outL / outR（從 offset 開始）。回傳實際寫入的取樣數。
+  process(outL, outR, n, offset) {
+    offset = offset || 0;
+    if (!this.ch || !this.playing) { outL.fill(0, offset, offset + n); outR.fill(0, offset, offset + n); return n; }
+    const sr = this.sr, p = this.p, len = this.len;
+    const bL = this.ch[0], bR = this.ch[Math.min(1, this.ch.length - 1)];
+    const TWO_PI = 6.283185307179586;
+    let cents = this.lastCents;
+    for (let k = 0; k < n; k++) {
+      const i = offset + k;
+      // 收斂包絡：cos 緩降，converge 秒後為 0
+      let env = 1;
+      if (p.converge > 0) { const u = this.t / p.converge; env = u >= 1 ? 0 : 0.5 * (1 + Math.cos(Math.PI * u)); }
+      // 內插雜訊，每秒換 4 個目標值
+      this.nPhase += 4 / sr;
+      if (this.nPhase >= 1) { this.nPhase -= 1; this.nCur = this.nNext; this.nNext = this.rand(); }
+      const noise = this.nCur + (this.nNext - this.nCur) * this.nPhase;
+      const lfo = 0.55 * Math.sin(TWO_PI * this.ph1) + 0.35 * Math.sin(TWO_PI * this.ph2) + p.random * 0.7 * noise;
+      cents = p.center + p.depth * env * lfo;
+      const rate = Math.exp(cents * 0.0005776226504666211); // 2^(cents/1200)
+      this.ph1 += p.rateSlow / sr; if (this.ph1 >= 1) this.ph1 -= 1;
+      this.ph2 += p.rateFast / sr; if (this.ph2 >= 1) this.ph2 -= 1;
+      this.t += 1 / sr;
+
+      // 漂移層：線性內插讀取
+      const i0 = Math.floor(this.pos), frac = this.pos - i0;
+      let i1 = i0 + 1; if (i1 >= len) i1 = this.loop ? 0 : i0;
+      let l = bL[i0] * (1 - frac) + bL[i1] * frac;
+      let r = bR[i0] * (1 - frac) + bR[i1] * frac;
+      // 原音層：正常速度
+      if (p.dry > 0) {
+        const d0 = Math.floor(this.posDry), df = this.posDry - d0;
+        let d1 = d0 + 1; if (d1 >= len) d1 = this.loop ? 0 : d0;
+        l += p.dry * (bL[d0] * (1 - df) + bL[d1] * df);
+        r += p.dry * (bR[d0] * (1 - df) + bR[d1] * df);
+      }
+      outL[i] = l * p.gain; outR[i] = r * p.gain;
+
+      this.pos += rate; this.posDry += 1;
+      if (this.posDry >= len) this.posDry -= len;
+      if (this.pos >= len) {
+        if (this.loop) this.pos -= len;
+        else {
+          this.playing = false; this.ended = true; this.lastCents = cents;
+          outL.fill(0, i + 1, offset + n); outR.fill(0, i + 1, offset + n);
+          return k + 1;
+        }
+      }
+    }
+    this.lastCents = cents;
+    return n;
+  }
+}
+
+// ---------- 參數定義 ----------
+const PARAMS = [
+  { id: 'depth',    name: '深度',     hint: 'cent，漂移峰值',        min: 0,     max: 300, step: 1,     def: 45,    fmt: v => v + ' cent' },
+  { id: 'rateSlow', name: '慢速週期', hint: 'Hz',                    min: 0.005, max: 0.5, step: 0.001, def: 0.037, fmt: v => v.toFixed(3) + ' Hz（' + (1 / v).toFixed(0) + ' 秒）' },
+  { id: 'rateFast', name: '快速週期', hint: 'Hz',                    min: 0.01,  max: 3,   step: 0.01,  def: 0.11,  fmt: v => v.toFixed(2) + ' Hz（' + (1 / v).toFixed(1) + ' 秒）' },
+  { id: 'random',   name: '隨機',     hint: '雜訊佔比',              min: 0,     max: 1,   step: 0.01,  def: 0.35,  fmt: v => Math.round(v * 100) + '%' },
+  { id: 'center',   name: '中心偏移', hint: 'cent，固定走音',        min: -200,  max: 200, step: 1,     def: 0,     fmt: v => (v > 0 ? '+' : '') + v + ' cent' },
+  { id: 'converge', name: '收斂時間', hint: '秒，0 = 不收斂',        min: 0,     max: 300, step: 1,     def: 0,     fmt: v => v === 0 ? '關' : v + ' 秒' },
+  { id: 'dry',      name: '原音層',   hint: '不漂移的同一段，音量',  min: 0,     max: 1,   step: 0.01,  def: 0,     fmt: v => Math.round(v * 100) + '%' },
+  { id: 'gain',     name: '輸出音量', hint: '',                      min: 0,     max: 2,   step: 0.01,  def: 1,     fmt: v => v.toFixed(2) },
+];
+const PRESETS = {
+  drift:    { depth: 45,  rateSlow: 0.037, rateFast: 0.11, random: 0.35, center: 0,   converge: 0,  dry: 0, gain: 1 },
+  // 兩層疊加會超過 0 dBFS，先降一半
+  weave:    { depth: 0,   rateSlow: 0.037, rateFast: 0.11, random: 0,    center: -35, converge: 0,  dry: 1, gain: 0.55 },
+  converge: { depth: 60,  rateSlow: 0.037, rateFast: 0.11, random: 0.4,  center: 0,   converge: 60, dry: 0, gain: 1 },
+  flat:     { depth: 0,   rateSlow: 0.037, rateFast: 0.11, random: 0,    center: 0,   converge: 0,  dry: 0, gain: 1 },
+};
+
+// ---------- 狀態 ----------
+let ctx = null, proc = null, keepAlive = null, core = null;
+let audioBuffer = null, fileName = '';
+let seed = 7;
+const values = Object.fromEntries(PARAMS.map(p => [p.id, p.def]));
+
+const $ = s => document.querySelector(s);
+const drop = $('#drop'), fileIn = $('#file'), msg = $('#msg');
+const playBtn = $('#play'), stopBtn = $('#stop'), loopChk = $('#loop'), exportBtn = $('#export');
+const needle = $('#needle'), centsOut = $('#centsOut');
+function say(text, isErr) { msg.textContent = text || ''; msg.className = isErr ? 'err' : ''; }
+window.addEventListener('error', e => say('錯誤：' + e.message, true));
+window.addEventListener('unhandledrejection', e => say('錯誤：' + (e.reason && e.reason.message || e.reason), true));
+
+// ---------- UI：滑桿 ----------
+const paramsEl = $('#params');
+for (const p of PARAMS) {
+  const row = document.createElement('div'); row.className = 'p';
+  row.innerHTML = `<div class="name">${p.name}<small>${p.hint}</small></div>
+    <input type="range" id="r_${p.id}" min="${p.min}" max="${p.max}" step="${p.step}" value="${p.def}">
+    <div class="val" id="v_${p.id}"></div>`;
+  paramsEl.appendChild(row);
+  const r = row.querySelector('input');
+  r.addEventListener('input', () => setParam(p.id, parseFloat(r.value)));
+  setParam(p.id, p.def);
+}
+function setParam(id, v) {
+  values[id] = v;
+  const p = PARAMS.find(x => x.id === id);
+  $('#v_' + id).textContent = p.fmt(v);
+  $('#r_' + id).value = v;
+  if (core) core.p[id] = v;
+}
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => {
+  const ps = PRESETS[b.dataset.preset];
+  for (const k in ps) setParam(k, ps[k]);
+}));
+
+// ---------- 載檔 ----------
+drop.addEventListener('click', () => fileIn.click());
+fileIn.addEventListener('change', () => { if (fileIn.files[0]) loadFile(fileIn.files[0]); fileIn.value = ''; });
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { const f = e.dataTransfer.files && e.dataTransfer.files[0]; if (f) loadFile(f); });
+// 拖到頁面其他地方時，不要讓瀏覽器直接把音檔開成新頁
+window.addEventListener('dragover', e => e.preventDefault());
+window.addEventListener('drop', e => e.preventDefault());
+
+function ensureContext() {
+  if (ctx) return;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) throw new Error('這個瀏覽器沒有 Web Audio');
+  ctx = new AC();
+  core = new TapeDriftCore(ctx.sampleRate);
+  for (const p of PARAMS) core.p[p.id] = values[p.id];
+  core.loop = loopChk.checked; core.seed = seed;
+  // ScriptProcessorNode：舊但到處都能跑（file://、Safari 都行），不用載入 worklet 模組
+  proc = ctx.createScriptProcessor(4096, 1, 2);
+  proc.onaudioprocess = e => {
+    const L = e.outputBuffer.getChannelData(0), R = e.outputBuffer.getChannelData(1);
+    core.process(L, R, L.length, 0);
+    if (core.ended) { core.ended = false; stopBtn.disabled = true; }
+  };
+  // 有些瀏覽器沒有輸入接進來就不跑 onaudioprocess，接一個靜音源保險
+  if (ctx.createConstantSource) { keepAlive = ctx.createConstantSource(); keepAlive.offset.value = 0; keepAlive.connect(proc); keepAlive.start(); }
+  proc.connect(ctx.destination);
+  // 用計時器而不是 requestAnimationFrame：分頁在背景時 rAF 會被暫停，表頭會凍住
+  setInterval(tickMeter, 60);
+}
+function tickMeter() {
+  if (core) {
+    const c = core.lastCents;
+    centsOut.textContent = (c > 0 ? '+' : '') + c.toFixed(1) + ' cent';
+    needle.style.left = (50 + Math.max(-50, Math.min(50, c / 300 * 50))) + '%';
+  }
+}
+function decode(ab) {
+  // Safari 舊版只有 callback 形式
+  return new Promise((res, rej) => {
+    const p = ctx.decodeAudioData(ab, res, rej);
+    if (p && p.then) p.then(res, rej);
+  });
+}
+async function loadFile(f) {
+  try {
+    ensureContext();
+    if (ctx.state !== 'running') { try { await ctx.resume(); } catch (_) {} }
+    say('解碼中…');
+    drop.textContent = f.name;
+    const ab = await f.arrayBuffer();
+    audioBuffer = await decode(ab);
+    fileName = f.name;
+    core.load(channelsOf(audioBuffer));
+    drop.textContent = `${f.name}　${audioBuffer.numberOfChannels} ch　${audioBuffer.duration.toFixed(1)} 秒　${audioBuffer.sampleRate} Hz`;
+    drop.classList.add('loaded');
+    playBtn.disabled = false; exportBtn.disabled = false;
+    say('');
+  } catch (err) {
+    say('讀不進來：' + (err && err.message || err) + '\n（' + navigator.userAgent.replace(/^.*\) /, '') + '）', true);
+    drop.textContent = '拖一個音檔進來，或點這裡選檔（wav / aiff / mp3 / m4a）';
+  }
+}
+function channelsOf(buf) {
+  const chs = [];
+  for (let c = 0; c < buf.numberOfChannels; c++) chs.push(buf.getChannelData(c));
+  return chs;
+}
+
+// ---------- 播放 ----------
+playBtn.addEventListener('click', async () => {
+  ensureContext();
+  if (ctx.state !== 'running') await ctx.resume();
+  core.play();
+  stopBtn.disabled = false;
+});
+stopBtn.addEventListener('click', () => { core.stop(); stopBtn.disabled = true; });
+loopChk.addEventListener('change', () => { if (core) core.loop = loopChk.checked; });
+
+// ---------- 離線輸出：純 JS 迴圈，不經過任何音訊圖 ----------
+exportBtn.addEventListener('click', () => {
+  if (!audioBuffer) return;
+  exportBtn.disabled = true; exportBtn.textContent = '輸出中…';
+  setTimeout(() => {   // 讓按鈕先重繪
+    try {
+      const sr = audioBuffer.sampleRate;
+      const worst = Math.abs(values.center) + values.depth;   // 最慢速率是 2^(-worst/1200)
+      const dur = loopChk.checked ? audioBuffer.duration * 2 : audioBuffer.duration * Math.pow(2, worst / 1200) + 0.5;
+      const N = Math.ceil(dur * sr);
+      const off = new TapeDriftCore(sr);
+      for (const p of PARAMS) off.p[p.id] = values[p.id];
+      off.loop = loopChk.checked; off.seed = seed;
+      off.load(channelsOf(audioBuffer));
+      off.play();
+      const L = new Float32Array(N), R = new Float32Array(N);
+      let written = 0;
+      for (let o = 0; o < N && off.playing; o += 8192) written = o + off.process(L, R, Math.min(8192, N - o), o);
+      const n = loopChk.checked ? N : Math.min(N, written + Math.floor(0.2 * sr));
+      const wav = encodeWav([L.subarray(0, n), R.subarray(0, n)], sr);
+      const base = fileName.replace(/\.[^.]+$/, '');
+      const tag = `drift${values.depth}_c${values.center}${values.converge ? '_conv' + values.converge : ''}${values.dry ? '_dry' + Math.round(values.dry * 100) : ''}`;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([wav], { type: 'audio/wav' }));
+      a.download = `${base}_${tag}.wav`;
+      document.body.appendChild(a); a.click(); a.remove();
+      say(`已輸出 ${a.download}（${(n / sr).toFixed(1)} 秒）`);
+    } catch (err) {
+      say('輸出失敗：' + (err && err.message || err), true);
+    } finally { exportBtn.disabled = false; exportBtn.textContent = '輸出 WAV'; }
+  }, 30);
+});
+// 32-bit float WAV，Ableton / Logic 直接讀
+function encodeWav(chs, sr) {
+  const nch = chs.length, len = chs[0].length;
+  const bytes = 44 + len * nch * 4;
+  const dv = new DataView(new ArrayBuffer(bytes));
+  const str = (o, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(o + i, s.charCodeAt(i)); };
+  str(0, 'RIFF'); dv.setUint32(4, bytes - 8, true); str(8, 'WAVE');
+  str(12, 'fmt '); dv.setUint32(16, 16, true); dv.setUint16(20, 3, true); dv.setUint16(22, nch, true);
+  dv.setUint32(24, sr, true); dv.setUint32(28, sr * nch * 4, true); dv.setUint16(32, nch * 4, true); dv.setUint16(34, 32, true);
+  str(36, 'data'); dv.setUint32(40, len * nch * 4, true);
+  let o = 44;
+  for (let i = 0; i < len; i++) for (let c = 0; c < nch; c++) { dv.setFloat32(o, chs[c][i], true); o += 4; }
+  return dv.buffer;
+}
+</script>
+</body>
+</html>
