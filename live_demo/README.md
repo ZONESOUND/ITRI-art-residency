@@ -7,17 +7,22 @@
 ```
 live_demo/
 └── Live_Demo Project/
-    ├── Live_Demo.als          ← 專案本尊，用 Ableton Live 開這個
+    ├── ITRI_show_MIDI.als     ← 演出 set，10/9 排練後版本（調整 MIDI 對應與參數，聲音檔未變）
+    ├── ITRI_show.als          ← 演出 set，10/7 排練調整後的版本
+    ├── Live_Demo.als          ← 早期 demo set
+    ├── Live_Demo_macstudio.als← demo set 的 Mac Studio 版
+    ├── SceneBridge.amxd       ← M4L：從 UDP 7400 收整數 N，觸發 Live 第 N 個 scene（給外部 Max patch 切段落）
+    ├── autoStart.amxd         ← M4L：載入後讓 Live 開始播放
+    ├── recording_bell.wav、recording_bell_C.wav、recording_melody.wav、Night animals.wav ← 配樂素材（走 Git LFS）
     ├── Ableton Project Info/  ← Ableton 專案 metadata（須含 Project*.cfg，見下）
     ├── Samples/Imported/      ← Collect All and Save 收進來的音檔（走 Git LFS）
     ├── Presets/               ← 專案內的 device presets
-    ├── autoStart.amxd         ← M4L device
     └── Backup/                ← Ableton 自動備份（已被 .gitignore 忽略，不進 repo）
 ```
 
 ## 怎麼開始工作
 
-- **直接開 repo 裡的 `Live_Demo.als`**，不要在別的地方另存分身，否則會兩邊改、對不起來。
+- **直接開 repo 裡的 set**（演出用 `ITRI_show_MIDI.als`），不要在別的地方另存分身，否則會兩邊改、對不起來。排練現場來不及 push 而另存的，回來後放回這個資料夾再 commit。
 - Mac mini 桌面上有一個原生 Finder 捷徑 `Live_Demo.als`（左下角有箭頭圖示），雙擊即可用 Ableton 開啟本尊。
   - 這是 macOS 原生 alias，不是 Unix symlink——後者會每次跳「Verifying…」而且可能開不起來。
   - 換到別台電腦時，這個桌面捷徑不會跟著 git 走，需要各自在該電腦重建（見下）。
