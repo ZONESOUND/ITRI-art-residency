@@ -13,7 +13,7 @@
 | 我要… | 開這個 |
 |---|---|
 | 跑演出的互動聲音（Max） | [`paired_motion/paired_motion.maxproj`](paired_motion/) → `patchers/main.maxpat` |
-| 跑演出的配樂與場景（Ableton Live） | [`live_demo/Live_Demo Project/ITRI_show_MIDI.als`](live_demo/)（10/9 排練後最新版）或 `ITRI_show.als` |
+| 跑演出的配樂與場景（Ableton Live） | [`live_demo/Live_Demo Project/ITRI_show_MIDI.als`](live_demo/)（最新版，10/12 存）或 `ITRI_show.als` |
 | 燒錄或修改感測器韌體 | [`pressure_sensor/`](pressure_sensor/)、[`tof_distance_sensor/`](tof_distance_sensor/)、[`piezo_detect/`](piezo_detect/) |
 | 感測器連不上、port 認錯 | [`serial_auto_detect/`](serial_auto_detect/) 的 `who_probe.js` 與 README 排查流程 |
 | 離線處理聲音素材（varispeed、磁帶效果、stems 回對） | [`sound_tools/`](sound_tools/)：`uv sync` 後 `uv run soundtools --help` |
@@ -51,7 +51,7 @@ ITRI-art-residency/
 │
 ├── live_demo/                     ← ★ Ableton Live 演出專案（與 paired_motion 各自獨立開）
 │   └── Live_Demo Project/
-│       ├── ITRI_show_MIDI.als     ← 演出 set，10/9 排練後版本（調整 MIDI 對應與參數）
+│       ├── ITRI_show_MIDI.als     ← 演出 set 最新版：10/9 排練後調整 MIDI 對應與參數，10/12 第四幕配樂換成 20261007_小星星.aif
 │       ├── ITRI_show.als          ← 演出 set，10/7 排練調整後的版本
 │       ├── Live_Demo.als          ← 早期 demo set
 │       ├── Live_Demo_macstudio.als← demo set 的 Mac Studio 版

@@ -7,7 +7,7 @@
 ```
 live_demo/
 └── Live_Demo Project/
-    ├── ITRI_show_MIDI.als     ← 演出 set，10/9 排練後版本（調整 MIDI 對應與參數，聲音檔未變）
+    ├── ITRI_show_MIDI.als     ← 演出 set 最新版：10/9 排練後調整 MIDI 對應與參數，10/12 第四幕配樂換成 20261007_小星星.aif
     ├── ITRI_show.als          ← 演出 set，10/7 排練調整後的版本
     ├── Live_Demo.als          ← 早期 demo set
     ├── Live_Demo_macstudio.als← demo set 的 Mac Studio 版
